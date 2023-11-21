@@ -8,8 +8,8 @@
 <div class="header-container">
 	<h1 class="header">ZeeHealthy</h1>
 	<nav>
-		<a class="active" href="/">Home</a>
-		<a href="/Shop">Shop</a>
+		<a href="/">Home</a>
+		<a class="active" href="/Shop">Shop</a>
 		<a href="/Chat">Chat</a>
 	</nav>
 </div>
@@ -17,7 +17,7 @@
 <div class="content-container">
     <div class="content">
 		<div class="para para-1">
-            Home
+            Shop
 		</div>
 	</div>
 </div>
