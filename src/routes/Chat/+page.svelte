@@ -15,16 +15,20 @@
 </div>
 
 <div class="content-container">
-    <div class="content">
-		<div class="para para-1">
-            Chat
-		</div>
+	<div class="content">
+		<div class="para para-1">Chat</div>
 	</div>
 </div>
 
 <style>
+	:root {
+		--primary-color: #012d78;
+		--secondary-color: #012d787a;
+		--text-color: #deeade;
+	}
+
 	.header-container {
-		background: blue;
+		background: var(--primary-color);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -34,12 +38,12 @@
 	}
 
 	.header {
-		color: #fff;
+		color: var(--text-color);
 		font-family: Tahoma;
 	}
 
 	a {
-		color: #fff;
+		color: var(--text-color);
 		font-family: Tahoma;
 		text-decoration: none;
 		margin: 20px;
@@ -55,12 +59,12 @@
 	}
 
 	.para {
-        text-align: center;
-        width: 30%;
+		text-align: center;
+		width: 30%;
 		font-size: 2em;
-		background: rgba(127, 157, 252, 0.7);
+		background: var(--secondary-color);
 		padding: 30px;
-		color: #fff;
+		color: var(--text-color);
 		font-family: "Agbalumo";
 		margin-bottom: 30px;
 		border-radius: 50px;
