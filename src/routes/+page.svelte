@@ -19,6 +19,17 @@
 		<div class="para para-1">Home</div>
 	</div>
 </div>
+<!-- svelte-ignore a11y-missing-attribute -->
+<div class="map">
+		<iframe
+			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1044.4005287721525!2d3.6095234738859636!3d51.49455406366892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c490d0a317d04d%3A0xe74a28385302684c!2sHZ%20University%20of%20Applied%20Sciences!5e0!3m2!1sen!2snl!4v1700571979566!5m2!1sen!2snl"
+			width="1260"
+			height="600"
+			style="border:1;"
+			loading="lazy"
+			referrerpolicy="no-referrer-when-downgrade"
+		/>
+</div>
 
 <style>
 	:root {
@@ -66,7 +77,21 @@
 		padding: 30px;
 		color: var(--text-color);
 		font-family: "Agbalumo";
-		margin-bottom: 30px;
+		margin-top: 20px;
+		margin-bottom: 20px;
 		border-radius: 50px;
+	}
+
+	.map {
+		display: flex;
+		justify-content: center;
+		margin-top: 20px;
+	}
+
+	iframe {
+		border-style:solid;
+		border-color: var(--primary-color);
+		border-width: 5px;
+		border-radius: 20px;
 	}
 </style>
