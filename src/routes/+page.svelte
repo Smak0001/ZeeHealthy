@@ -9,8 +9,8 @@
 	<h1 class="logo">ZeeHealthy</h1>
 	<nav>
 		<a class="active" href="/">Home</a>
-		<a href="/shop">Shop</a>
-		<a href="/chat">Chat</a>
+		<a href="/Shop">Shop</a>
+		<a href="/Chat">Chat</a>
 	</nav>
 </div>
 
@@ -21,14 +21,14 @@
 </div>
 <!-- svelte-ignore a11y-missing-attribute -->
 <div class="map">
-		<iframe
-			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1044.4005287721525!2d3.6095234738859636!3d51.49455406366892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c490d0a317d04d%3A0xe74a28385302684c!2sHZ%20University%20of%20Applied%20Sciences!5e0!3m2!1sen!2snl!4v1700571979566!5m2!1sen!2snl"
-			width="1260"
-			height="600"
-			style="border:1;"
-			loading="lazy"
-			referrerpolicy="no-referrer-when-downgrade"
-		/>
+	<iframe
+		src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1044.4005287721525!2d3.6095234738859636!3d51.49455406366892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c490d0a317d04d%3A0xe74a28385302684c!2sHZ%20University%20of%20Applied%20Sciences!5e0!3m2!1sen!2snl!4v1700571979566!5m2!1sen!2snl"
+		width="1260"
+		height="600"
+		style="border:1;"
+		loading="lazy"
+		referrerpolicy="no-referrer-when-downgrade"
+	/>
 </div>
 
 <style>
@@ -89,7 +89,7 @@
 	}
 
 	iframe {
-		border-style:solid;
+		border-style: solid;
 		border-color: var(--primary-color);
 		border-width: 5px;
 		border-radius: 20px;

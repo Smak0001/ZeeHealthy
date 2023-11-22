@@ -9,7 +9,7 @@
 	<h1 class="logo">ZeeHealthy</h1>
 	<nav>
 		<a href="/">Home</a>
-		<a href="/shop">Shop</a>
+		<a href="/Shop">Shop</a>
 		<a class="active" href="/chat">Chat</a>
 	</nav>
 </div>
