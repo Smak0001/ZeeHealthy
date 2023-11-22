@@ -7,6 +7,11 @@
 
 <div class="nav-container">
 	<h1 class="logo">ZeeHealthy</h1>
+	<div class="content-container">
+		<div class="content">
+			<div class="logo">Home</div>
+		</div>
+	</div>
 	<nav>
 		<a class="active" href="/">Home</a>
 		<a href="/Shop">Shop</a>
@@ -14,11 +19,6 @@
 	</nav>
 </div>
 
-<div class="content-container">
-	<div class="content">
-		<div class="para para-1">Home</div>
-	</div>
-</div>
 <!-- svelte-ignore a11y-missing-attribute -->
 <div class="map">
 	<iframe

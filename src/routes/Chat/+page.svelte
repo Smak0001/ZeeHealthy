@@ -7,17 +7,16 @@
 
 <div class="nav-container">
 	<h1 class="logo">ZeeHealthy</h1>
+	<div class="content-container">
+		<div class="content">
+			<div class="logo">Chat</div>
+		</div>
+	</div>
 	<nav>
 		<a href="/">Home</a>
 		<a href="/Shop">Shop</a>
 		<a class="active" href="/chat">Chat</a>
 	</nav>
-</div>
-
-<div class="content-container">
-	<div class="content">
-		<div class="para para-1">Chat</div>
-	</div>
 </div>
 
 <style>

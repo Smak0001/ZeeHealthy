@@ -1,3 +1,37 @@
+<script>
+	// @ts-nocheck
+
+	import { onMount } from "svelte";
+
+	/**
+	 * @type {any[]}
+	 */
+	let productsInRows = [];
+
+	let products = [
+		{ id: 1, name: "Product 1", price: 20 },
+		{ id: 2, name: "Product 2", price: 30 },
+		{ id: 3, name: "Product 3", price: 25 },
+		{ id: 4, name: "Product 4", price: 15 },
+		{ id: 5, name: "Product 5", price: 40 },
+		{ id: 6, name: "Product 6", price: 18 },
+	];
+
+	const organizeProducts = () => {
+		while (products.length > 0) {
+			productsInRows.push(products.splice(0, 2));
+		}
+	};
+
+	onMount(() => {
+		organizeProducts();
+	});
+
+	const goToProductInfo = (/** @type {number} */ productId) => {
+		console.log("Navigating to product info for product ID:", productId);
+	};
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link
@@ -7,6 +41,11 @@
 
 <div class="nav-container">
 	<h1 class="logo">ZeeHealthy</h1>
+	<div class="content-container">
+		<div class="content">
+			<div class="logo">Shop</div>
+		</div>
+	</div>
 	<nav>
 		<a href="/">Home</a>
 		<a class="active" href="/Shop">Shop</a>
@@ -14,11 +53,17 @@
 	</nav>
 </div>
 
-<div class="content-container">
-	<div class="content">
-		<div class="para para-1">Shop</div>
+{#each products as product}
+	<div
+		class="product"
+		on:click={() => goToProductInfo(product.id)}
+		role="button"
+		tabindex="0"
+	>
+		<h3>{product.name}</h3>
+		<p>Price: ${product.price}</p>
 	</div>
-</div>
+{/each}
 
 <style>
 	:root {
@@ -58,16 +103,13 @@
 		justify-content: center;
 	}
 
-	.para {
-		text-align: center;
-		width: 30%;
-		font-size: 2em;
-		background: var(--secondary-color);
-		padding: 30px;
-		color: var(--text-color);
-		font-family: "Agbalumo";
-		margin-top: 20px;
-		margin-bottom: 20px;
-		border-radius: 50px;
+	.product {
+		border: 3px solid #012d78;
+		padding: 20px;
+		margin: 10px;
+		width: 45%;
+		display: inline-block;
+		vertical-align: top;
+		border-radius: 10px;
 	}
 </style>
