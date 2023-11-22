@@ -9,8 +9,8 @@
 	<h1 class="header">ZeeHealthy</h1>
 	<nav>
 		<a href="/">Home</a>
-		<a href="/Shop">Shop</a>
-		<a class="active" href="/Chat">Chat</a>
+		<a href="/shop">Shop</a>
+		<a class="active" href="/chat">Chat</a>
 	</nav>
 </div>
 
