@@ -28,6 +28,7 @@
 	});
 
 	const goToProductInfo = (/** @type {number} */ productId) => {
+		// TODO change this to actual functionality.
 		console.log("Navigating to product info for product ID:", productId);
 	};
 </script>
@@ -48,8 +49,8 @@
 	</div>
 	<nav>
 		<a href="/">Home</a>
-		<a class="active" href="/shop">Shop</a>
-		<a href="/chat">Chat</a>
+		<a class="active" href="/Shop">Shop</a>
+		<a href="/Chat">Chat</a>
 	</nav>
 </div>
 
