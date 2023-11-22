@@ -14,8 +14,8 @@
 	</div>
 	<nav>
 		<a href="/">Home</a>
-		<a href="/shop">Shop</a>
-		<a class="active" href="/chat">Chat</a>
+		<a href="/Shop">Shop</a>
+		<a class="active" href="/Chat">Chat</a>
 	</nav>
 </div>
 
@@ -55,18 +55,5 @@
 	.content {
 		display: flex;
 		justify-content: center;
-	}
-
-	.para {
-		text-align: center;
-		width: 30%;
-		font-size: 2em;
-		background: var(--secondary-color);
-		padding: 30px;
-		color: var(--text-color);
-		font-family: "Agbalumo";
-		margin-top: 20px;
-		margin-bottom: 20px;
-		border-radius: 50px;
 	}
 </style>

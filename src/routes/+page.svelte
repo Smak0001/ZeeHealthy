@@ -1,3 +1,31 @@
+<!-- Potential database handling? -->
+<!-- <script>
+	/**
+	 * @type {any[]}
+	 */
+	let data = [];
+
+	async function fetchData() {
+		const response = await fetch("http://localhost:3001/api/data");
+		data = await response.json();
+	}
+
+	/**
+	 * @param {any} newItem
+	 */
+	async function addData(newItem) {
+		const response = await fetch("http://localhost:3001/api/data", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(newItem),
+		});
+		const addedItem = await response.json();
+		data = [...data, addedItem];
+	}
+</script> -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link
@@ -14,8 +42,8 @@
 	</div>
 	<nav>
 		<a class="active" href="/">Home</a>
-		<a href="/shop">Shop</a>
-		<a href="/chat">Chat</a>
+		<a href="/Shop">Shop</a>
+		<a href="/Chat">Chat</a>
 	</nav>
 </div>
 
@@ -30,6 +58,14 @@
 		referrerpolicy="no-referrer-when-downgrade"
 	/>
 </div>
+
+<!-- Demo database call? -->
+<!-- <button on:click={fetchData}>Fetch Data</button>
+<ul>
+	{#each data as item (item.id)}
+		<li>{item.name}</li>
+	{/each}
+</ul> -->
 
 <style>
 	:root {

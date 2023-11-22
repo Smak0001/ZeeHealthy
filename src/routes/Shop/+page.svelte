@@ -1,6 +1,4 @@
 <script>
-	// @ts-nocheck
-
 	import { onMount } from "svelte";
 
 	/**
@@ -27,9 +25,9 @@
 		organizeProducts();
 	});
 
-	const goToProductInfo = (/** @type {number} */ productId) => {
+	const goToProductInfo = (/** @type {{ id: number; name: string; price: number; }} */ product) => {
 		// TODO change this to actual functionality.
-		console.log("Navigating to product info for product ID:", productId);
+		console.log("Navigating to product info for product ID:", product);
 	};
 </script>
 
@@ -55,9 +53,10 @@
 </div>
 
 {#each products as product}
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div
 		class="product"
-		on:click={() => goToProductInfo(product.id)}
+		on:click={() => goToProductInfo(product)}
 		role="button"
 		tabindex="0"
 	>
