@@ -48,8 +48,8 @@
 	</div>
 	<nav>
 		<a href="/">Home</a>
-		<a class="active" href="/Shop">Shop</a>
-		<a href="/Chat">Chat</a>
+		<a class="active" href="/shop">Shop</a>
+		<a href="/chat">Chat</a>
 	</nav>
 </div>
 

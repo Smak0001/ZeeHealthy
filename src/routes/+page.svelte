@@ -14,8 +14,8 @@
 	</div>
 	<nav>
 		<a class="active" href="/">Home</a>
-		<a href="/Shop">Shop</a>
-		<a href="/Chat">Chat</a>
+		<a href="/shop">Shop</a>
+		<a href="/chat">Chat</a>
 	</nav>
 </div>
 
