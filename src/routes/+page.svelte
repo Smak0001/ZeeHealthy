@@ -5,12 +5,12 @@
 	rel="stylesheet"
 />
 
-<div class="header-container">
-	<h1 class="header">ZeeHealthy</h1>
+<div class="nav-container">
+	<h1 class="logo">ZeeHealthy</h1>
 	<nav>
 		<a class="active" href="/">Home</a>
-		<a href="/Shop">Shop</a>
-		<a href="/Chat">Chat</a>
+		<a href="/shop">Shop</a>
+		<a href="/chat">Chat</a>
 	</nav>
 </div>
 
@@ -38,7 +38,7 @@
 		--text-color: #deeade;
 	}
 
-	.header-container {
+	.nav-container {
 		background: var(--primary-color);
 		display: flex;
 		justify-content: space-between;
@@ -48,7 +48,7 @@
 		padding: 0 20px 0 20px;
 	}
 
-	.header {
+	.logo {
 		color: var(--text-color);
 		font-family: Tahoma;
 	}
