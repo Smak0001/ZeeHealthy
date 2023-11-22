@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,7 +34,7 @@
             />
             <div class="login-register">
                 <button class="login" type="submit">Login</button>
-                <button class="register" type="submit">Register</button>
+                <button type="button" onclick="window.location.href = '/register';">Register</button>
             </div>
             <div class="remember-forgotten">
                 <label>

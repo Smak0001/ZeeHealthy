@@ -12,6 +12,8 @@
     <h1 class="header">ZeeHealthy</h1>
 </div>
 
+<a href="/login">← Back to login</a>
+
 <form class="modal-content" action="/action_page.php">
     <div class="container">
       <h1>Sign Up</h1>
@@ -54,6 +56,10 @@
         color: var(--text-color);
     }
 
+    a {
+        color: #012d78;
+    }
+
     input[type="text"],
     input[type="password"] {
         width: 100%;
@@ -86,7 +92,7 @@
 
     .modal-content {
         background-color: var(--secondary-color);
-        margin: 5% auto 15% auto; 
+        margin: 5% auto;
         border: 2px solid var(--primary-color);
         border-radius: 20px;
         width: 60%;
