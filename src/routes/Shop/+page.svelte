@@ -6,7 +6,7 @@
 	 */
 	let productsInRows = [];
 
-	let products = [
+	export let products = [
 		{ id: 1, name: "Product 1", price: 20 },
 		{ id: 2, name: "Product 2", price: 30 },
 		{ id: 3, name: "Product 3", price: 25 },
@@ -25,9 +25,12 @@
 		organizeProducts();
 	});
 
-	const goToProductInfo = (/** @type {{ id: number; name: string; price: number; }} */ product) => {
+	const goToProductInfo = (
+		/** @type {{ id: number; name: string; price: number; }} */ product,
+	) => {
 		// TODO change this to actual functionality.
 		console.log("Navigating to product info for product ID:", product);
+		// window.location.href = `/Products`;
 	};
 </script>
 
