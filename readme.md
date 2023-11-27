@@ -5,3 +5,5 @@
 3. In the root of your project in the terminal type "node server.js"
 
 4. It should work :) At least I think.
+
+Credentials for database and PHPMyAdmin are in the docker compose file.
