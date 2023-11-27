@@ -1,5 +1,5 @@
-<script>
-	const orders = [
+<script context="module">
+	export const orders = [
 		{
 			name: "Luc",
 			destination: "APV",
