@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: mysql_container
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: V3ryG@@dP@ssw@rd!!
+      MYSQL_DATABASE: ProductDatabase
+      MYSQL_USER: AdminTeam4
+      MYSQL_PASSWORD: V3ryG@@dP@ssw@rd!!
+    ports:
+      - "3306:3306"
+    networks:
+      - db_network
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Mount the init.sql file into the container's initialization directory
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin_container
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: V3ryG@@dP@ssw@rd!!
+    ports:
+      - "8080:80"
+    networks:
+      - db_network
+
+networks:
+  db_network:
+    driver: bridge

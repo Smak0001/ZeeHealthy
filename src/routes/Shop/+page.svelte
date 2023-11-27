@@ -2,35 +2,31 @@
 	import { onMount } from "svelte";
 
 	/**
-	 * @type {any[]}
-	 */
-	let productsInRows = [];
+     * @type {any[]}
+     */
+	let products = [];
 
-	export let products = [
-		{ id: 1, name: "Product 1", price: 20 },
-		{ id: 2, name: "Product 2", price: 30 },
-		{ id: 3, name: "Product 3", price: 25 },
-		{ id: 4, name: "Product 4", price: 15 },
-		{ id: 5, name: "Product 5", price: 40 },
-		{ id: 6, name: "Product 6", price: 18 },
-	];
-
-	const organizeProducts = () => {
-		while (products.length > 0) {
-			productsInRows.push(products.splice(0, 2));
+	const fetchProducts = async () => {
+		try {
+			const response = await fetch("http://localhost:3000/api/products");
+			if (response.ok) {
+				products = await response.json();
+				console.log("Products:", products);
+			} else {
+				console.error("Failed to fetch products");
+			}
+		} catch (error) {
+			console.error("Error fetching products:", error);
 		}
 	};
 
 	onMount(() => {
-		organizeProducts();
+		fetchProducts();
 	});
 
-	const goToProductInfo = (
-		/** @type {{ id: number; name: string; price: number; }} */ product,
-	) => {
-		// TODO change this to actual functionality.
-		console.log("Navigating to product info for product ID:", product);
-		// window.location.href = `/Products`;
+	const goToProductInfo = (product) => {
+    console.log("Navigating to product info for product ID:", product);
+    navigate(`/product/${product.id}`);
 	};
 </script>
 
@@ -55,18 +51,26 @@
 	</nav>
 </div>
 
-{#each products as product}
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div
-		class="product"
-		on:click={() => goToProductInfo(product)}
-		role="button"
-		tabindex="0"
-	>
-		<h3>{product.name}</h3>
-		<p>Price: ${product.price}</p>
-	</div>
-{/each}
+<div class="products-container">
+	{#each products as product}
+		<div
+			class="product"
+			on:click={() => goToProductInfo(product)}
+			on:keydown={(event) => {
+				if (event.key === "Enter") {
+					goToProductInfo(product);
+				}
+			}}
+			role="button"
+			tabindex="0"
+		>
+			<h3>{product.name}</h3>
+			<p>Type: {product.type}</p>
+			<p>Weight: {product.weight} kg</p>
+			<p>Price: €{Number(product.price).toFixed(2)}</p>
+		</div>
+	{/each}
+</div>
 
 <style>
 	:root {
@@ -114,5 +118,11 @@
 		display: inline-block;
 		vertical-align: top;
 		border-radius: 10px;
+	}
+
+	.products-container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
 	}
 </style>
