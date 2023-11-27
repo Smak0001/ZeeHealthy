@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { useParams } from "svelte-routing"; // To extract parameters from the URL
+  //import { useParams } from "svelte-routing"; // To extract parameters from the URL
 
   let product;
 
