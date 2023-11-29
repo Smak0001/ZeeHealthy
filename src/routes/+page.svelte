@@ -1,3 +1,21 @@
+<script>
+	import { goto } from "$app/navigation";
+	import { onDestroy, onMount } from "svelte";
+	import { supabase } from "../supabase.js";
+
+	const hangleLogout = async () => {
+		try {
+			const { error } = await supabase.auth.signOut();
+			if (error) throw error;
+			console.log("Logged out");
+			goto("/login");
+		} catch (error) {
+			// @ts-ignore
+			console.error("Logout error:", error.message);
+		}
+	};
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link
@@ -11,9 +29,9 @@
 		<a class="active" href="/">Home</a>
 		<a href="/shop">Shop</a>
 		<a href="/chat">Chat</a>
+		<button on:click={hangleLogout}>Logout</button>
 	</nav>
 </div>
-
 <div class="content-container">
 	<div class="content">
 		<div class="para para-1">Home</div>
@@ -47,6 +65,14 @@
 		font-family: Tahoma;
 		text-decoration: none;
 		margin: 20px;
+	}
+
+	button {
+		background-color: var(--primary-color);
+		color: var(--text-color);
+		border: solid var(--text-color);
+		border-radius: 20px;
+		cursor: pointer;
 	}
 
 	.active {

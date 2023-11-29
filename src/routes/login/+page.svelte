@@ -1,6 +1,24 @@
 <script>
-// @ts-nocheck
+    import { goto } from "$app/navigation";
+    import { supabase } from "../../supabase.js";
 
+    let email = "";
+    let password = "";
+    let errorMessage = "";
+
+    const handleSignIn = async () => {
+        try {
+            const { user, error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+            if (error) throw error;
+            console.log("Logged in:", user);
+            goto('/');
+        } catch (error) {
+            errorMessage = error.message;
+        }
+    };
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,40 +32,21 @@
     <h1 class="header">ZeeHealthy</h1>
 </div>
 
-<div class="login-form">
-    <form class="modal-content" method="post">
-        <div class="container">
-            <label for="name"><b>Name</b></label>
-            <input
-                type="text"
-                placeholder="Enter your name"
-                name="name"
-                required
-            />
-
-            <label for="psw"><b>Password</b></label>
-            <input
-                type="password"
-                placeholder="Enter Password"
-                name="psw"
-                required
-            />
-            <div class="login-register">
-                <button class="login" type="submit">Login</button>
-                <button type="button" onclick="window.location.href = '/register';">Register</button>
-            </div>
-            <div class="remember-forgotten">
-                <label>
-                    <input type="checkbox" name="remember" /> Remember me
-                </label>
-                <!-- svelte-ignore a11y-invalid-attribute -->
-                <span class="forgotten-password"
-                    ><a href="">Forgot password?</a></span
-                >
-            </div>
+<form class="modal-content" on:submit|preventDefault={handleSignIn}>
+    <div class="container">
+        <label for="email"><b>Email</b></label>
+        <input type="email" bind:value={email} placeholder="Enter your email" />
+        <label for="email"><b>Password</b></label>
+        <input type="password" bind:value={password} placeholder="Enter your password" />
+        <div class="login-register">
+            <button type="submit">Login</button>
+            <button type="button" onclick="window.location.href = '/register';">Register</button>
         </div>
-    </form>
-</div>
+        <a href="">Forgot your password? Click here.</a>
+        <p class="errorMessage">{errorMessage}</p>
+    </div>
+</form>
+
 
 <style>
     :root {
@@ -71,7 +70,7 @@
         color: var(--text-color);
     }
 
-    input[type="text"],
+    input[type="email"],
     input[type="password"] {
         width: 100%;
         padding: 12px 20px;
@@ -87,7 +86,7 @@
         justify-content: space-between;
         gap: 100px;
     }
-    
+
     button {
         background-color: var(--primary-color);
         color: white;
@@ -103,22 +102,22 @@
         opacity: 0.8;
     }
 
-    .remember-forgotten {
-        display: flex;
-        justify-content: space-between;
-        padding-top: 20px;
-    }
-
     .container {
         padding: 16px;
     }
 
     .modal-content {
         background-color: var(--secondary-color);
-        margin: 5% auto 15% auto; 
+        margin: 5% auto 15% auto;
         border: 2px solid var(--primary-color);
         border-radius: 20px;
         width: 60%;
         height: auto;
+    }
+
+    .errorMessage {
+        color: rgb(148, 42, 42);
+        text-decoration: underline;
+        font-size: larger;
     }
 </style>

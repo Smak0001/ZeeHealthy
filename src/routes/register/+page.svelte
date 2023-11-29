@@ -1,12 +1,24 @@
 <script>
-</script>
+    import { goto } from "$app/navigation";
+    import { supabase } from "../../supabase.js";
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-    href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-    rel="stylesheet"
-/>
+    let email = "";
+    let password = "";
+    let errorMessage = "";
+
+    const handleSignUp = async () => {
+        try {
+            const { user, error } = await supabase.auth.signUp({
+                email,
+                password,
+            });
+            if (error) throw error;
+            goto("/");
+        } catch (error) {
+            errorMessage = error.message;
+        }
+    };
+</script>
 
 <div class="header-container">
     <h1 class="header">ZeeHealthy</h1>
@@ -14,25 +26,18 @@
 
 <a href="/login">← Back to login</a>
 
-<form class="modal-content" action="/action_page.php">
+<form class="modal-content" on:submit|preventDefault={handleSignUp}>
     <div class="container">
-      <h1>Sign Up</h1>
-      <p>Please fill in this form to create an account.</p>
-      <hr>
-      <label for="name"><b>Name</b></label>
-      <input type="text" placeholder="Enter name" name="name" required>
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-
-      <label for="psw-repeat"><b>Repeat Password</b></label>
-      <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-
-      <div class="clearfix">
-        <button type="submit" class="signupbtn">Sign Up</button>
-      </div>
+        <h1>Sign up</h1>
+        <p>Please fill in this form to create an account!</p>
+        <label for="email"><b>Email</b></label>
+        <input type="email" bind:value={email} placeholder="Email" />
+        <label for="password"><b>Password</b></label>
+        <input type="password" bind:value={password} placeholder="Password" />
+        <button type="submit">Register</button>
+        <p class="errorMessage">{errorMessage}</p>
     </div>
-  </form>
+</form>
 
 <style>
     :root {
@@ -60,7 +65,7 @@
         color: #012d78;
     }
 
-    input[type="text"],
+    input[type="email"],
     input[type="password"] {
         width: 100%;
         padding: 12px 20px;
@@ -70,10 +75,10 @@
         border-radius: 20px;
         box-sizing: border-box;
     }
-    
+
     button {
         background-color: var(--primary-color);
-        color: white;
+        color: var(--text-color);
         padding: 14px 20px;
         margin: 8px 0;
         border: none;
@@ -97,5 +102,12 @@
         border-radius: 20px;
         width: 60%;
         height: auto;
+    }
+
+    .errorMessage {
+        color: rgb(148, 42, 42);
+        text-decoration: underline;
+        font-weight: bolder;
+        font-size: larger;
     }
 </style>
