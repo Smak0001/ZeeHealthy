@@ -2,8 +2,8 @@
 	import { onMount } from "svelte";
 
 	/**
-     * @type {any[]}
-     */
+	 * @type {any[]}
+	 */
 	let products = [];
 
 	const fetchProducts = async () => {
@@ -25,8 +25,8 @@
 	});
 
 	const goToProductInfo = (product) => {
-    console.log("Navigating to product info for product ID:", product);
-    navigate(`/product/${product.id}`);
+		console.log("Navigating to product info for product ID:", product);
+		navigate(`/product/${product.id}`);
 	};
 </script>
 

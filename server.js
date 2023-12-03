@@ -17,7 +17,7 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-// Route to fetch all products
+// Route to fetch all orders
 app.get('/api/products', async (req, res) => {
   try {
     const connection = await pool.getConnection();
@@ -25,11 +25,12 @@ app.get('/api/products', async (req, res) => {
     connection.release();
     res.json(rows);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-// Route to fetch a single product by ID
+// Route to fetch a single order by ID
 app.get('/api/products/:id', async (req, res) => {
   const productId = req.params.id;
 

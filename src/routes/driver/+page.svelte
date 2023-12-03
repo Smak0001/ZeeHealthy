@@ -1,193 +1,73 @@
 <script>
-	const orders = [
-		{
-			name: "Luc",
-			location: "APV",
-			products: [
-				{ productName: "Potato", quantity: "5kg" },
-				{ productName: "Tomato", quantity: "1kg" },
-				{ productName: "Apple", quantity: "1.5kg" },
-			],
-		},
-		{
-			name: "Tijn",
-			location: "Kanaalweg",
-			products: [
-				{ productName: "Tomato", quantity: "2kg" },
-				{ productName: "Cucumber", quantity: "1kg" },
-				{ productName: "Onion", quantity: "1kg" },
-			],
-		},
-		{
-			name: "Luc",
-			location: "APV",
-			products: [
-				{ productName: "Potato", quantity: "5kg" },
-				{ productName: "Tomato", quantity: "1kg" },
-				{ productName: "Apple", quantity: "1.5kg" },
-			],
-		},
-		{
-			name: "Tijn",
-			location: "Kanaalweg",
-			products: [
-				{ productName: "Tomato", quantity: "2kg" },
-				{ productName: "Cucumber", quantity: "1kg" },
-				{ productName: "Onion", quantity: "1kg" },
-			],
-		},
-		{
-			name: "Luc",
-			location: "APV",
-			products: [
-				{ productName: "Potato", quantity: "5kg" },
-				{ productName: "Tomato", quantity: "1kg" },
-				{ productName: "Apple", quantity: "1.5kg" },
-			],
-		},
-		{
-			name: "Tijn",
-			location: "Kanaalweg",
-			products: [
-				{ productName: "Tomato", quantity: "2kg" },
-				{ productName: "Cucumber", quantity: "1kg" },
-				{ productName: "Onion", quantity: "1kg" },
-			],
-		},
-		{
-			name: "Luc",
-			location: "APV",
-			products: [
-				{ productName: "Potato", quantity: "5kg" },
-				{ productName: "Tomato", quantity: "1kg" },
-				{ productName: "Apple", quantity: "1.5kg" },
-			],
-		},
-		{
-			name: "Tijn",
-			location: "Kanaalweg",
-			products: [
-				{ productName: "Tomato", quantity: "2kg" },
-				{ productName: "Cucumber", quantity: "1kg" },
-				{ productName: "Onion", quantity: "1kg" },
-			],
-		},
-	];
+  /** @type {import('./$types').PageData} */
+  export let data;
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-	rel="stylesheet"
-/>
-
-<div class="header-container">
-	<h1 class="header">ZeeHealthy</h1>
-	<nav>
-		<a class="" href="/">Home</a>
-		<a href="/shop">Shop</a>
-		<a href="/chat">Chat</a>
-	</nav>
-</div>
-<div class="content-container">
-	<h1 class="content-header">Orders</h1>
-	<div class="content">
-		{#each orders as { name, location, products }, i}
-			<!-- {Object.keys(order).map((key) => `${key}: ${order[key]}`)} -->
-			<div class="order">
-				<p>Name: {name}</p>
-				<p>Location: {location}</p>
-				<p>Products:</p>
-				<ul>
-					{#each products as { productName, quantity }}
-						<li>{`${productName} -- ${quantity}`}</li>
-					{/each}
-				</ul>
-				<div class="order-button-container">
-					<a href="driver/{i}"
-						><button class="order-button">Read more...</button></a
-					>
-				</div>
-			</div>
-		{/each}
-	</div>
+<div class="content">
+  <h1 class="content-header">Choose driver (test)</h1>
+  {#each data.drivers as { id }}
+    <div class="driver" {id}>
+      <div class="driver-button-container">
+        <a href="driver/{id}/orders"
+          ><button class="driver-button">{id}</button></a
+        >
+      </div>
+    </div>
+  {/each}
 </div>
 
 <style>
-	:root {
-		--primary-color: #012d78;
-		--secondary-color: #012d787a;
-		--text-color: #deeade;
-	}
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 
-	.header-container {
-		background: var(--primary-color);
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		border-radius: 15px;
-		margin-bottom: 20px;
-		padding: 0 20px 0 20px;
-	}
+  .content-header {
+    color: var(--primary-color);
+    font-size: 2.5em;
+  }
 
-	.header {
-		color: var(--text-color);
-		font-family: Tahoma;
-	}
+  .driver {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 30%;
+    max-width: 50%;
+    background: var(--secondary-color);
+    color: var(--text-color);
+    font-family: Tahoma;
+    border: 5px groove var(--primary-color);
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+  }
 
-	a {
-		color: var(--text-color);
-		font-family: Tahoma;
-		text-decoration: none;
-		margin: 20px;
-	}
+  .driver-button-container {
+    width: 100%;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+  }
 
-	.content-container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-	}
+  .driver-button {
+    width: 80px;
+    cursor: pointer;
+    background: var(--secondary-color);
+    color: var(--text-color);
+    font-family: Tahoma;
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    transition: 0.2s ease-in-out;
+    align-self: center;
+  }
 
-	.content {
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
-	}
-
-	.content-header {
-		color: var(--primary-color);
-		font-size: 2.5em;
-	}
-
-	.order {
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		min-width: 30%;
-		max-width: 50%;
-		background: var(--secondary-color);
-		color: var(--text-color);
-		font-family: Tahoma;
-		border: 5px groove var(--primary-color);
-		margin: 10px;
-		padding: 10px;
-		border-radius: 15px;
-	}
-
-	.order-button-container {
-		align-self: center;
-	}
-
-	.order-button {
-		cursor: pointer;
-		background: var(--secondary-color);
-		color: var(--text-color);
-		font-family: Tahoma;
-		padding: 10px;
-		border: none;
-		border-radius: 15px;
-	}
+  .driver-button:hover {
+    background: var(--primary-color);
+    transform: scale(1.1);
+  }
 </style>
