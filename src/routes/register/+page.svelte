@@ -6,47 +6,38 @@
     let password = "";
     let errorMessage = "";
 
-    const handleSignIn = async () => {
+    const handleSignUp = async () => {
         try {
-            const { user, error } = await supabase.auth.signInWithPassword({
+            const { user, error } = await supabase.auth.signUp({
                 email,
                 password,
             });
             if (error) throw error;
-            console.log("Logged in:", user);
-            goto('/');
+            goto("/");
         } catch (error) {
             errorMessage = error.message;
         }
     };
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-    href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-    rel="stylesheet"
-/>
-
 <div class="header-container">
     <h1 class="header">ZeeHealthy</h1>
 </div>
 
-<form class="modal-content" on:submit|preventDefault={handleSignIn}>
+<a href="/login">← Back to login</a>
+
+<form class="modal-content" on:submit|preventDefault={handleSignUp}>
     <div class="container">
+        <h1>Sign up</h1>
+        <p>Please fill in this form to create an account!</p>
         <label for="email"><b>Email</b></label>
-        <input type="email" bind:value={email} placeholder="Enter your email" />
-        <label for="email"><b>Password</b></label>
-        <input type="password" bind:value={password} placeholder="Enter your password" />
-        <div class="login-register">
-            <button type="submit">Login</button>
-            <button type="button" onclick="window.location.href = '/register';">Register</button>
-        </div>
-        <a href="">Forgot your password? Click here.</a>
+        <input type="email" bind:value={email} placeholder="Email" />
+        <label for="password"><b>Password</b></label>
+        <input type="password" bind:value={password} placeholder="Password" />
+        <button type="submit">Register</button>
         <p class="errorMessage">{errorMessage}</p>
     </div>
 </form>
-
 
 <style>
     :root {
@@ -70,6 +61,10 @@
         color: var(--text-color);
     }
 
+    a {
+        color: #012d78;
+    }
+
     input[type="email"],
     input[type="password"] {
         width: 100%;
@@ -81,15 +76,9 @@
         box-sizing: border-box;
     }
 
-    .login-register {
-        display: flex;
-        justify-content: space-between;
-        gap: 100px;
-    }
-
     button {
         background-color: var(--primary-color);
-        color: white;
+        color: var(--text-color);
         padding: 14px 20px;
         margin: 8px 0;
         border: none;
@@ -108,7 +97,7 @@
 
     .modal-content {
         background-color: var(--secondary-color);
-        margin: 5% auto 15% auto;
+        margin: 5% auto;
         border: 2px solid var(--primary-color);
         border-radius: 20px;
         width: 60%;
@@ -118,6 +107,7 @@
     .errorMessage {
         color: rgb(148, 42, 42);
         text-decoration: underline;
+        font-weight: bolder;
         font-size: larger;
     }
 </style>
