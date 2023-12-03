@@ -1,3 +1,35 @@
+<script>
+	import { onMount } from "svelte";
+
+	/**
+	 * @type {any[]}
+	 */
+	let products = [];
+
+	const fetchProducts = async () => {
+		try {
+			const response = await fetch("http://localhost:3000/api/products");
+			if (response.ok) {
+				products = await response.json();
+				console.log("Products:", products);
+			} else {
+				console.error("Failed to fetch products");
+			}
+		} catch (error) {
+			console.error("Error fetching products:", error);
+		}
+	};
+
+	onMount(() => {
+		fetchProducts();
+	});
+
+	const goToProductInfo = (product) => {
+		console.log("Navigating to product info for product ID:", product);
+		navigate(`/product/${product.id}`);
+	};
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link
@@ -5,8 +37,13 @@
 	rel="stylesheet"
 />
 
-<div class="header-container">
-	<h1 class="header">ZeeHealthy</h1>
+<div class="nav-container">
+	<h1 class="logo">ZeeHealthy</h1>
+	<div class="content-container">
+		<div class="content">
+			<div class="logo">Shop</div>
+		</div>
+	</div>
 	<nav>
 		<a href="/">Home</a>
 		<a class="active" href="/shop">Shop</a>
@@ -14,10 +51,25 @@
 	</nav>
 </div>
 
-<div class="content-container">
-	<div class="content">
-		<div class="para para-1">Shop</div>
-	</div>
+<div class="products-container">
+	{#each products as product}
+		<div
+			class="product"
+			on:click={() => goToProductInfo(product)}
+			on:keydown={(event) => {
+				if (event.key === "Enter") {
+					goToProductInfo(product);
+				}
+			}}
+			role="button"
+			tabindex="0"
+		>
+			<h3>{product.name}</h3>
+			<p>Type: {product.type}</p>
+			<p>Weight: {product.weight} kg</p>
+			<p>Price: €{Number(product.price).toFixed(2)}</p>
+		</div>
+	{/each}
 </div>
 
 <style>
@@ -27,7 +79,7 @@
 		--text-color: #deeade;
 	}
 
-	.header-container {
+	.nav-container {
 		background: var(--primary-color);
 		display: flex;
 		justify-content: space-between;
@@ -37,7 +89,7 @@
 		padding: 0 20px 0 20px;
 	}
 
-	.header {
+	.logo {
 		color: var(--text-color);
 		font-family: Tahoma;
 	}
@@ -58,15 +110,19 @@
 		justify-content: center;
 	}
 
-	.para {
-		text-align: center;
-		width: 30%;
-		font-size: 2em;
-		background: var(--secondary-color);
-		padding: 30px;
-		color: var(--text-color);
-		font-family: "Agbalumo";
-		margin-bottom: 30px;
-		border-radius: 50px;
+	.product {
+		border: 3px solid #012d78;
+		padding: 20px;
+		margin: 10px;
+		width: 45%;
+		display: inline-block;
+		vertical-align: top;
+		border-radius: 10px;
+	}
+
+	.products-container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
 	}
 </style>

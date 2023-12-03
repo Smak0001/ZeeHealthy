@@ -5,19 +5,18 @@
 	rel="stylesheet"
 />
 
-<div class="header-container">
-	<h1 class="header">ZeeHealthy</h1>
+<div class="nav-container">
+	<h1 class="logo">ZeeHealthy</h1>
+	<div class="content-container">
+		<div class="content">
+			<div class="logo">Chat</div>
+		</div>
+	</div>
 	<nav>
 		<a href="/">Home</a>
 		<a href="/shop">Shop</a>
 		<a class="active" href="/chat">Chat</a>
 	</nav>
-</div>
-
-<div class="content-container">
-	<div class="content">
-		<div class="para para-1">Chat</div>
-	</div>
 </div>
 
 <style>
@@ -27,7 +26,7 @@
 		--text-color: #deeade;
 	}
 
-	.header-container {
+	.nav-container {
 		background: var(--primary-color);
 		display: flex;
 		justify-content: space-between;
@@ -37,7 +36,7 @@
 		padding: 0 20px 0 20px;
 	}
 
-	.header {
+	.logo {
 		color: var(--text-color);
 		font-family: Tahoma;
 	}
@@ -56,17 +55,5 @@
 	.content {
 		display: flex;
 		justify-content: center;
-	}
-
-	.para {
-		text-align: center;
-		width: 30%;
-		font-size: 2em;
-		background: var(--secondary-color);
-		padding: 30px;
-		color: var(--text-color);
-		font-family: "Agbalumo";
-		margin-bottom: 30px;
-		border-radius: 50px;
 	}
 </style>
