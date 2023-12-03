@@ -2,7 +2,7 @@
   import { page } from "$app/stores";
 </script>
 
-<div class="back"><a href="/driver/1/">←Back to drivers</a></div>
+<div class="back"><a href="/driver/">←Back to drivers</a></div>
 
 <h1 class="error">Error {$page.status}</h1>
 
