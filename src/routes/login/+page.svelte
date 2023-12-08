@@ -1,6 +1,7 @@
 <script>
     import { goto } from "$app/navigation";
-    import { supabase } from "../../supabase.js";
+    import { supabase } from "../../lib/supabase.js";
+    import "../../app.css"
 
     let email = "";
     let password = "";
@@ -13,7 +14,7 @@
                 password,
             });
             if (error) throw error;
-            console.log("Logged in:", user);
+            console.log("Logged in:", email);
             goto('/');
         } catch (error) {
             errorMessage = error.message;
@@ -28,96 +29,23 @@
     rel="stylesheet"
 />
 
-<div class="header-container">
-    <h1 class="header">ZeeHealthy</h1>
+<div class="flex justify-center items-center m-1 bg-primary rounded-2xl p-6">
+    <h1 class="text-text font-bold text-4xl">ZeeHealthy</h1>
 </div>
-
-<form class="modal-content" on:submit|preventDefault={handleSignIn}>
-    <div class="container">
+<div class="flex items-center justify-center p-5">
+    <form class="w-3/5 h-auto bg-secondary mt-11 border-4 border-primary rounded-3xl" on:submit|preventDefault={handleSignIn}>
+    <div class="p-16 mt-4">
+        <h3 class="mb-5 font-bold text-lg">Please fill in this form to sign in!</h3>
         <label for="email"><b>Email</b></label>
-        <input type="email" bind:value={email} placeholder="Enter your email" />
+        <input class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4" type="email" bind:value={email} placeholder="Enter your email" />
         <label for="email"><b>Password</b></label>
-        <input type="password" bind:value={password} placeholder="Enter your password" />
-        <div class="login-register">
-            <button type="submit">Login</button>
-            <button type="button" onclick="window.location.href = '/register';">Register</button>
+        <input class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4" type="password" bind:value={password} placeholder="Enter your password" />
+        <div class="flex justify-between gap-2.5">
+            <button class="bg-primary text-text cursor-pointer w-full py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80" type="submit">Login</button>
+            <button class="bg-primary text-text cursor-pointer w-full py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80" type="button" onclick="window.location.href = '/register';">Register</button>
         </div>
-        <a href="">Forgot your password? Click here.</a>
-        <p class="errorMessage">{errorMessage}</p>
+        <a class="text-primary underline text-base" href="">Forgot your password? Click here.</a>
+        <p class="text-error underline text-lg mt-4">{errorMessage}</p>
     </div>
-</form>
-
-
-<style>
-    :root {
-        --primary-color: #012d78;
-        --secondary-color: #012d787a;
-        --text-color: #deeade;
-        font-family: Tahoma;
-    }
-
-    .header-container {
-        background: var(--primary-color);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 15px;
-        margin-bottom: 20px;
-        padding: 0 20px 0 20px;
-    }
-
-    .header {
-        color: var(--text-color);
-    }
-
-    input[type="email"],
-    input[type="password"] {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 20px 0;
-        display: inline-block;
-        border: 2px solid var(--primary-color);
-        border-radius: 20px;
-        box-sizing: border-box;
-    }
-
-    .login-register {
-        display: flex;
-        justify-content: space-between;
-        gap: 100px;
-    }
-
-    button {
-        background-color: var(--primary-color);
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 20px;
-        cursor: pointer;
-        width: 100%;
-    }
-
-    button:hover {
-        opacity: 0.8;
-    }
-
-    .container {
-        padding: 16px;
-    }
-
-    .modal-content {
-        background-color: var(--secondary-color);
-        margin: 5% auto 15% auto;
-        border: 2px solid var(--primary-color);
-        border-radius: 20px;
-        width: 60%;
-        height: auto;
-    }
-
-    .errorMessage {
-        color: rgb(148, 42, 42);
-        text-decoration: underline;
-        font-size: larger;
-    }
-</style>
+    </form>
+</div>

@@ -1,10 +1,6 @@
 <script>
+    import { supabase } from "../lib/supabase";
 	import { goto } from "$app/navigation";
-	import { supabase } from "../supabase.js";
-	import { onMount } from "svelte";
-	import { fetchUser } from "../utils/auth";
-
-	let isLoggedIn = false;
 
 	const hangleLogout = async () => {
 		try {
@@ -17,37 +13,35 @@
 			console.error("Logout error:", error.message);
 		}
 	};
-
-	onMount(async () => {
-		const user = await fetchUser();
-		if (user) {
-			console.log(user);
-			isLoggedIn = true;
-		}
-	});
 </script>
 
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" />
-	<link
-		href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-		rel="stylesheet"
-	/>
+<!-- {#if !user}
+	goto('/login')
+{:else}
 
-	<div class="header-container">
-		<h1 class="header">ZeeHealthy</h1>
-		<nav>
-			<a class="active" href="/">Home</a>
-			<a href="/shop">Shop</a>
-			<a href="/chat">Chat</a>
-			<button on:click={hangleLogout}>Logout</button>
-		</nav>
+{/if} -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
+	rel="stylesheet"
+/>
+
+<div class="header-container">
+	<h1 class="header">ZeeHealthy</h1>
+	<nav>
+		<a class="active" href="/">Home</a>
+		<a href="/shop">Shop</a>
+		<a href="/chat">Chat</a>
+		<button on:click={hangleLogout}>Logout</button>
+	</nav>
+</div>
+<div class="content-container">
+	<div class="content">
+		<div class="para para-1">Home</div>
 	</div>
-	<div class="content-container">
-		<div class="content">
-			<div class="para para-1">Home</div>
-		</div>
-	</div>
+</div>
 
 <style>
 	:root {
