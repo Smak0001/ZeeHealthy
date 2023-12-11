@@ -1,6 +1,6 @@
 <script>
     import { goto } from "$app/navigation";
-    import { supabase } from "../../lib/supabase.js";
+    import { supabase } from "$lib/supabase.js";
 
     let email = "";
     let password = "";

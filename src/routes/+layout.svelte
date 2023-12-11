@@ -24,5 +24,3 @@
 </svelte:head>
 
 <slot />
-
-<!-- <slot /> -->
