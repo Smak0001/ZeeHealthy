@@ -33,7 +33,7 @@
 
 <div class="flex justify-center items-center m-1 bg-primary rounded-2xl p-6">
     <h1 class="text-text font-bold text-4xl">
-        Hello, {profile?.full_name}. If you want to update your profile plese
+        Hello, <span class="underline">{fullName}</span>. If you want to update your profile plese
         feel free to do that.
     </h1>
 </div>

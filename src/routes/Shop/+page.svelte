@@ -45,7 +45,7 @@
 		</div>
 	</div>
 	<nav>
-		<a href="/">Home</a>
+		<a href="/home">Home</a>
 		<a class="active" href="/shop">Shop</a>
 		<a href="/chat">Chat</a>
 	</nav>

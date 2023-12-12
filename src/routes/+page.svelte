@@ -10,14 +10,13 @@
     <title>ZeeHealthy</title>
 </svelte:head>
 
-<div class="row flex-center flex">
-    <div class="col-6 form-widget">
+<div class="h-screen flex items-center justify-center">
+    <div class="w-3/5 h-auto p-10 mt-11">
         <Auth
             supabaseClient={data.supabase}
             view="sign_in"
             redirectTo={`${data.url}/auth/callback`}
             showLinks={true}
-            appearance={{ theme: ThemeSupa, style: { button: "background-color: blue", input: "color: black" } }}
-        />
+            appearance={{ theme: ThemeSupa, style: { button: "background-color: #012d78;", input: "color: black; border-radius: 16px" } }}        />
     </div>
 </div>

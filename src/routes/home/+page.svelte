@@ -1,5 +1,8 @@
 <script lang="ts">
-	export let data;
+export let data;
+
+    let { supabase, session } = data;
+    $: ({ supabase, session } = data);
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,9 +15,10 @@
 <div class="header-container">
 	<h1 class="header">ZeeHealthy</h1>
 	<nav>
-		<a class="active" href="/">Home</a>
+		<a class="active" href="/home">Home</a>
 		<a href="/shop">Shop</a>
 		<a href="/chat">Chat</a>
+		<a href="/profile">{session?.user.email}</a>
 		<!-- <a href="/chat">{profile?.full_name}</a> -->
 	</nav>
 </div>
@@ -51,14 +55,6 @@
 		font-family: Tahoma;
 		text-decoration: none;
 		margin: 20px;
-	}
-
-	button {
-		background-color: var(--primary-color);
-		color: var(--text-color);
-		border: solid var(--text-color);
-		border-radius: 20px;
-		cursor: pointer;
 	}
 
 	.active {
