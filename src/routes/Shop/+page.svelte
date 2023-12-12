@@ -1,77 +1,90 @@
+<!-- Import data to file -->
 <script>
-	import { onMount } from "svelte";
+  import { onMount } from "svelte";
+	import { fetchUser } from "../../utils/auth";
+	import { goto } from "$app/navigation";
+	import { supabase } from "../../supabase.js";
+  
+	let isLoggedIn = false;
 
-	/**
-	 * @type {any[]}
-	 */
-	let products = [];
-
-	const fetchProducts = async () => {
+	const hangleLogout = async () => {
 		try {
-			const response = await fetch("http://localhost:3000/api/products");
-			if (response.ok) {
-				products = await response.json();
-				console.log("Products:", products);
-			} else {
-				console.error("Failed to fetch products");
-			}
+			const { error } = await supabase.auth.signOut();
+			if (error) throw error;
+			console.log("Logged out");
+			goto("/login");
 		} catch (error) {
-			console.error("Error fetching products:", error);
+			// @ts-ignore
+			console.error("Logout error:", error.message);
 		}
 	};
 
-	onMount(() => {
-		fetchProducts();
+	onMount(async () => {
+		const user = await fetchUser();
+		if (user) {
+			console.log(user);
+			isLoggedIn = true;
+		}
 	});
 
-	const goToProductInfo = (product) => {
-		console.log("Navigating to product info for product ID:", product);
-		navigate(`/product/${product.id}`);
-	};
+  /**
+   * @type {any[]}
+   */
+  let products = [];
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/products");
+      if (response.ok) {
+        products = await response.json();
+        console.log("Products:", products);
+      } else {
+        console.error("Failed to fetch products");
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  onMount(() => {
+    fetchProducts();
+  });
 </script>
+
+<div class="header-container">
+	<h1 class="header">ZeeHealthy</h1>
+	<nav>
+		<a class="active" href="/">Home</a>
+		<a href="/shop">Shop</a>
+		<a href="/chat">Chat</a>
+		<button on:click={hangleLogout}>Logout</button>
+	</nav>
+</div>
+<div class="content-container">
+	<div class="content">
+		<div class="para para-1">Shop</div>
+	</div>
+</div>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-	rel="stylesheet"
-/>
-
-<div class="nav-container">
-	<h1 class="logo">ZeeHealthy</h1>
-	<div class="content-container">
-		<div class="content">
-			<div class="logo">Shop</div>
-		</div>
-	</div>
-	<nav>
-		<a href="/">Home</a>
-		<a class="active" href="/shop">Shop</a>
-		<a href="/chat">Chat</a>
-	</nav>
-</div>
+<link href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap" rel="stylesheet" />
 
 <div class="products-container">
-	{#each products as product}
-		<div
-			class="product"
-			on:click={() => goToProductInfo(product)}
-			on:keydown={(event) => {
-				if (event.key === "Enter") {
-					goToProductInfo(product);
-				}
-			}}
-			role="button"
-			tabindex="0"
-		>
-			<h3>{product.name}</h3>
-			<p>Type: {product.type}</p>
-			<p>Weight: {product.weight} kg</p>
-			<p>Price: €{Number(product.price).toFixed(2)}</p>
-		</div>
-	{/each}
+  {#each products as product (product.id)}
+    <div class="product">
+      <a href={`/shop/${product.id}`}>
+        <h3>{product.name}</h3>
+      </a>
+
+      <p>Type: {product.type}</p>
+      <p>Weight: {product.weight} kg</p>
+      <p>Price: €{Number(product.price).toFixed(2)}</p>
+    </div>
+  {/each}
 </div>
 
+<!-- Style sheet -->
 <style>
 	:root {
 		--primary-color: #012d78;
@@ -79,7 +92,7 @@
 		--text-color: #deeade;
 	}
 
-	.nav-container {
+	.header-container {
 		background: var(--primary-color);
 		display: flex;
 		justify-content: space-between;
@@ -87,27 +100,6 @@
 		border-radius: 15px;
 		margin-bottom: 20px;
 		padding: 0 20px 0 20px;
-	}
-
-	.logo {
-		color: var(--text-color);
-		font-family: Tahoma;
-	}
-
-	a {
-		color: var(--text-color);
-		font-family: Tahoma;
-		text-decoration: none;
-		margin: 20px;
-	}
-
-	.active {
-		text-decoration: underline;
-	}
-
-	.content {
-		display: flex;
-		justify-content: center;
 	}
 
 	.product {
@@ -124,5 +116,46 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-around;
+	}
+
+	.header {
+		color: var(--text-color);
+		font-family: Tahoma;
+	}
+
+	a {
+		color: var(--text-color);
+		font-family: Tahoma;
+		text-decoration: none;
+		margin: 20px;
+	}
+
+	button {
+		background-color: var(--primary-color);
+		color: var(--text-color);
+		border: solid var(--text-color);
+		border-radius: 20px;
+		cursor: pointer;
+	}
+
+	.active {
+		text-decoration: underline;
+	}
+
+	.content {
+		display: flex;
+		justify-content: center;
+	}
+
+	.para {
+		text-align: center;
+		width: 30%;
+		font-size: 2em;
+		background: var(--secondary-color);
+		padding: 30px;
+		color: var(--text-color);
+		font-family: "Agbalumo";
+		margin-bottom: 30px;
+		border-radius: 50px;
 	}
 </style>
