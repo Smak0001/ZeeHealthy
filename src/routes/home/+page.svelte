@@ -19,7 +19,6 @@ export let data;
 		<a href="/shop">Shop</a>
 		<a href="/chat">Chat</a>
 		<a href="/profile">{session?.user.email}</a>
-		<!-- <a href="/chat">{profile?.full_name}</a> -->
 	</nav>
 </div>
 <div class="content-container">
@@ -27,7 +26,7 @@ export let data;
 		<div class="para para-1">Home</div>
 	</div>
 </div>
-
+	
 <style>
 	:root {
 		--primary-color: #012d78;

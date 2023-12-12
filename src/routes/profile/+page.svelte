@@ -38,6 +38,8 @@
     </h1>
 </div>
 
+<button class="bg-primary text-text cursor-pointer p-2 m-2 border-none rounded-3xl hover:opacity-80" onclick="window.location='/home'">← Go back to the Home page</button>
+
 <div class="flex items-center justify-center p-5">
     <form
         class="w-3/5 h-auto bg-secondary p-10 mt-11 border-4 border-primary rounded-3xl"
