@@ -73,7 +73,7 @@
 <div class="products-container">
   {#each products as product (product.id)}
     <div class="product">
-      <a href={`/shop/${product.id}`}>
+      <a href={`/ShopDetail`}>
         <h3>{product.name}</h3>
       </a>
 
