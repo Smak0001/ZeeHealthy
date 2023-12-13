@@ -1,17 +1,18 @@
 <!-- Import data to file -->
 <script>
-  import { onMount } from "svelte";
-	import { fetchUser } from "../../utils/auth";
+	import { onMount } from "svelte";
+	import { fetchUser } from "../../../utils/auth";
 	import { goto } from "$app/navigation";
-	import { supabase } from "../../supabase.js";
-  
+	import { supabase } from "../../../supabase.js";
+
+	export let data;
+
 	let isLoggedIn = false;
 
 	const hangleLogout = async () => {
 		try {
 			const { error } = await supabase.auth.signOut();
 			if (error) throw error;
-			console.log("Logged out");
 			goto("/login");
 		} catch (error) {
 			// @ts-ignore
@@ -22,35 +23,52 @@
 	onMount(async () => {
 		const user = await fetchUser();
 		if (user) {
-			console.log(user);
 			isLoggedIn = true;
 		}
 	});
 
-  /**
-   * @type {any[]}
-   */
-  let products = [];
+	/**
+	 * @type {any[]}
+	 */
+	let products = [];
 
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/api/products");
-      if (response.ok) {
-        products = await response.json();
-        console.log("Products:", products);
-      } else {
-        console.error("Failed to fetch products");
-      }
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
+	const fetchProducts = async () => {
+		try {
+			const response = await fetch("http://localhost:3001/api/products");
+			if (response.ok) {
+				products = await response.json();
 
-  onMount(() => {
-    fetchProducts();
-  });
+				// Map through the products and add an 'index' property
+				products = products.map((product, index) => {
+					return { ...product, index };
+				});
+
+				console.log("Products:", products);
+			} else {
+				console.error("Failed to fetch products");
+			}
+		} catch (error) {
+			console.error("Error fetching products:", error);
+		}
+	};
+	function loadProduct() {
+		document.querySelector(".products-container").innerHTML = `
+		<div class="product">
+		<h3>${products[data.slug].name}</h3>	
+		<p>Type: ${products[data.slug].type}</p>
+		<p>Weight: ${products[data.slug].weight} kg</p>
+		<p>Price: €${Number(products[data.slug].price).toFixed(2)}</p>
+		</div>
+		`;
+	}
+
+	onMount(() => {
+		fetchProducts();
+		setTimeout(() => {
+			loadProduct();
+		}, 500);
+	});
 </script>
-
 
 <div class="header-container">
 	<h1 class="header">ZeeHealthy</h1>
@@ -65,21 +83,12 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
-<link href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap" rel="stylesheet" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
+	rel="stylesheet"
+/>
 
-<div class="products-container">
-  {#each products as product}
-    <div class="product">
-      <a href={`/shopDetail/${product.id}`}>
-        <h3>{product.name}</h3>
-      </a>
-
-      <p>Type: {product.type}</p>
-      <p>Weight: {product.weight} kg</p>
-      <p>Price: €{Number(product.price).toFixed(2)}</p>
-    </div>
-  {/each}
-</div>
+<div class="products-container"></div>
 
 <!-- Style sheet -->
 <style>
