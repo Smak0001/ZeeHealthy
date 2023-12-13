@@ -37,12 +37,6 @@
 			const response = await fetch("http://localhost:3001/api/products");
 			if (response.ok) {
 				products = await response.json();
-
-				// Map through the products and add an 'index' property
-				products = products.map((product, index) => {
-					return { ...product, index };
-				});
-
 				console.log("Products:", products);
 			} else {
 				console.error("Failed to fetch products");
@@ -51,13 +45,14 @@
 			console.error("Error fetching products:", error);
 		}
 	};
+
 	function loadProduct() {
 		document.querySelector(".products-container").innerHTML = `
 		<div class="product">
-		<h3>${products[data.slug].name}</h3>	
-		<p>Type: ${products[data.slug].type}</p>
-		<p>Weight: ${products[data.slug].weight} kg</p>
-		<p>Price: €${Number(products[data.slug].price).toFixed(2)}</p>
+		<h3>${products[data.slug -1 ].name}</h3>	
+		<p>Type: ${products[data.slug -1 ].type}</p>
+		<p>Weight: ${products[data.slug - 1].weight} kg</p>
+		<p>Price: €${Number(products[data.slug - 1].price).toFixed(2)}</p>
 		</div>
 		`;
 	}
