@@ -56,8 +56,8 @@
 	<h1 class="header">ZeeHealthy</h1>
 	<h1 class="header">Shop</h1>
 	<nav>
-		<a class="active" href="/">Home</a>
-		<a href="/shop/[slug]">Shop</a>
+		<a href="/">Home</a>
+		<a class="active" href="/shop">Shop</a>
 		<a href="/chat">Chat</a>
 		<button on:click={hangleLogout}>Logout</button>
 	</nav>
