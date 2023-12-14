@@ -38,7 +38,7 @@
 	<h1 class="logo">Chat</h1>
 	<nav>
 		<a href="/">Home</a>
-		<a href="/shop/[slug]">Shop</a>
+		<a href="/shop">Shop</a>
 		<a class="active" href="/chat">Chat</a>
 		<!-- <button on:click={hangleLogout}>Logout</button> -->
 	</nav>

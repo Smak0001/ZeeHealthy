@@ -49,10 +49,12 @@
 	function loadProduct() {
 		document.querySelector(".products-container").innerHTML = `
 		<div class="product">
-		<h3>${products[data.slug -1 ].name}</h3>	
-		<p>Type: ${products[data.slug -1 ].type}</p>
+		<h3>${products[data.slug - 1].name}</h3>	
+		<p>Type: ${products[data.slug - 1].type}</p>
 		<p>Weight: ${products[data.slug - 1].weight} kg</p>
 		<p>Price: €${Number(products[data.slug - 1].price).toFixed(2)}</p>
+		<p>kcal: ${products[data.slug - 1].kcal}</p>
+		<p>Nutri-Score: ${products[data.slug - 1].NutriScore}</p>
 		</div>
 		`;
 	}
@@ -65,15 +67,17 @@
 	});
 </script>
 
-<div class="header-container">
-	<h1 class="header">ZeeHealthy</h1>
-	<h1 class="header">Shop</h1>
-	<nav>
-		<a class="active" href="/">Home</a>
-		<a href="/shop/[slug]">Shop</a>
-		<a href="/chat">Chat</a>
-		<button on:click={hangleLogout}>Logout</button>
-	</nav>
+<div class="header-container bg-blue-500 text-white py-4 flex justify-between items-center">
+  <div class="ml-4">
+    <h1 class="text-4xl font-bold">ZeeHealthy</h1>
+  </div>
+  <h1 class="text-2xl font-bold">Shop</h1>
+  <nav class="flex justify-end items-center mr-4">
+    <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
+    <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+    <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+    <button class="text-white hover:text-gray-300" on:click={hangleLogout}>Logout</button>
+  </nav>
 </div>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -83,80 +87,4 @@
 	rel="stylesheet"
 />
 
-<div class="products-container"></div>
-
-<!-- Style sheet -->
-<style>
-	:root {
-		--primary-color: #012d78;
-		--secondary-color: #012d787a;
-		--text-color: #deeade;
-	}
-
-	.header-container {
-		background: var(--primary-color);
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		border-radius: 15px;
-		margin-bottom: 20px;
-		padding: 0 20px 0 20px;
-	}
-
-	.product {
-		border: 3px solid #012d78;
-		padding: 20px;
-		margin: 10px;
-		width: 45%;
-		display: inline-block;
-		vertical-align: top;
-		border-radius: 10px;
-	}
-
-	.products-container {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
-	}
-
-	.header {
-		color: var(--text-color);
-		font-family: Tahoma;
-	}
-
-	a {
-		color: var(--text-color);
-		font-family: Tahoma;
-		text-decoration: none;
-		margin: 20px;
-	}
-
-	button {
-		background-color: var(--primary-color);
-		color: var(--text-color);
-		border: solid var(--text-color);
-		border-radius: 20px;
-		cursor: pointer;
-	}
-
-	.active {
-		text-decoration: underline;
-	}
-
-	.content {
-		display: flex;
-		justify-content: center;
-	}
-
-	.para {
-		text-align: center;
-		width: 30%;
-		font-size: 2em;
-		background: var(--secondary-color);
-		padding: 30px;
-		color: var(--text-color);
-		font-family: "Agbalumo";
-		margin-bottom: 30px;
-		border-radius: 50px;
-	}
-</style>
+<div class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8"></div>
