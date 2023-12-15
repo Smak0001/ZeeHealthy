@@ -1,11 +1,8 @@
-import { supabase } from "$lib/supabaseClient";
-
-/** @type {import('./$types').PageServerLoad} */
 export async function load() {
-  const drivers = (await supabase.from("drivers").select()).data;
+  const res = await fetch('http://localhost:3030/drivers', { method: 'POST' });
+  const drivers = await res.json();
 
   return {
-    drivers: drivers || [],
-    f: 1
-  };
-};
+    drivers
+  }
+}

@@ -1,17 +1,15 @@
-import { supabase } from "$lib/supabaseClient";
-import { error } from "@sveltejs/kit";
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
-  const driver = (await supabase.from("drivers").select().match({ id: Number(params.slug) })).data || [];
-  const declinedOrdersID = new Set(Object.values(driver[0]['declined_orders'] || {}).map(Number));
-  const acceptedOrdersID = new Set(Object.values(driver[0]['accepted_orders'] || {}).map(Number));
+  const driver = await fetch(`http://localhost:3030/drivers/${params.slug}`, { method: 'POST' }).then(res => res.json());
 
-  if (driver === null || driver.length === 0) {
-    throw error(404, 'Try again! Driver not found!');
-  }
+  const acceptedOrdersID = new Set((driver[0]['accepted_orders'] || '').split(' '));
+  const declinedOrdersID = new Set((driver[0]['declined_orders'] || '').split(' '));
 
-  const orders = (await supabase.from("orders").select()).data || [];
+  // if (driver === null || driver.length === 0) {
+  //   throw error(404, 'Try again! Driver not found!');
+  // }
+  const orders = await fetch(`http://localhost:3030/drivers/${params.slug}/orders`, { method: 'POST' }).then(res => res.json());
 
   const newOrders = orders.filter(order => !declinedOrdersID.has(order.id) && !acceptedOrdersID.has(order.id));
   const acceptedOrders = orders.filter(order => acceptedOrdersID.has(order.id));

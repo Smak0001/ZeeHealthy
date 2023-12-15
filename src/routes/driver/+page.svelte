@@ -1,12 +1,12 @@
 <script>
-  /** @type {import('./$types').PageData} */
   export let data;
+  console.log(data);
 </script>
 
 <div class="content">
-  <h1 class="content-header">Choose driver (test)</h1>
+  <h1 class="content-header underline">Choose driver (test)</h1>
   {#each data.drivers as { id }}
-    <div class="driver" {id}>
+    <div class="driver">
       <div class="driver-button-container">
         <a href="driver/{id}/orders"
           ><button class="driver-button">{id}</button></a

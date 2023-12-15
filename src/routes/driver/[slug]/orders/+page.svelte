@@ -1,14 +1,10 @@
 <script>
-	import { decl } from "postcss";
-
 	/** @type {import('./$types').PageData} */
 	export let data;
 
 	let newOrders = true;
 	let acceptedOrders = false;
 	let declinedOrders = false;
-
-	console.log(data.newOrders);
 </script>
 
 <h1 class="content-header">Orders</h1>
@@ -37,13 +33,12 @@
 </div>
 <div class="content">
 	{#if newOrders}
-		{#each data.newOrders as { id, user_name, destination, user_order }}
+		{#each data.newOrders as { id, destination, products }}
 			<div class="order" {id}>
-				<p>Name: {user_name}</p>
 				<p>Destination: {destination}</p>
 				<p>Products:</p>
 				<ul>
-					{#each user_order.products as { productName, quantity }}
+					{#each products.products as { productName, quantity }}
 						<li>{`${productName} -- ${quantity}`}</li>
 					{/each}
 				</ul>
@@ -56,13 +51,12 @@
 		{/each}
 	{/if}
 	{#if acceptedOrders}
-		{#each data.acceptedOrders as { id, user_name, destination, user_order }}
+		{#each data.acceptedOrders as { id, destination, products }}
 			<div class="order accepted" {id}>
-				<p>Name: {user_name}</p>
 				<p>Destination: {destination}</p>
 				<p>Products:</p>
 				<ul>
-					{#each user_order.products as { productName, quantity }}
+					{#each products.products as { productName, quantity }}
 						<li>{`${productName} -- ${quantity}`}</li>
 					{/each}
 				</ul>
@@ -75,13 +69,12 @@
 		{/each}
 	{/if}
 	{#if declinedOrders}
-		{#each data.declinedOrders as { id, user_name, destination, user_order }}
+		{#each data.declinedOrders as { id, destination, products }}
 			<div class="order declined" {id}>
-				<p>Name: {user_name}</p>
 				<p>Destination: {destination}</p>
 				<p>Products:</p>
 				<ul>
-					{#each user_order.products as { productName, quantity }}
+					{#each products.products as { productName, quantity }}
 						<li>{`${productName} -- ${quantity}`}</li>
 					{/each}
 				</ul>

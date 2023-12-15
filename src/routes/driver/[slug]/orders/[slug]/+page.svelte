@@ -1,23 +1,24 @@
 <script>
-	/** @type {import('./$types').PageData} */
 	export let data;
-	const { id, created_at, user_name, destination, user_order } = data.order;
+
+	const { id, created_at, destination, products } = data.order;
 	const date = new Date(created_at).toLocaleString();
 </script>
 
 <h1 class="content-header">Order #{id}</h1>
 <div class="order">
-	<p>Name: {user_name}</p>
 	<p>Destination: {destination}</p>
 	<p>Order placed: {date}</p>
 	<p>Products:</p>
 	<ul>
-		{#each user_order.products as { productName, quantity }}
+		{#each products.products as { productName, quantity }}
 			<li>{`${productName} -- ${quantity}`}</li>
 		{/each}
 	</ul>
 	<div class="order-button-container">
-		<button class="order-button">Accept</button>
+		<a href="{id}/accept">
+			<button class="order-button" type="submit">Accept</button>
+		</a>
 		<button class="order-button button-red">Decline</button>
 	</div>
 </div>

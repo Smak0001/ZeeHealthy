@@ -1,15 +1,11 @@
-import { supabase } from "$lib/supabaseClient";
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
+import { page } from '$app/stores';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
-  const orders = (await supabase.from("orders").select().match({ id: Number(params.slug) })).data;
-
-  if (orders === null || orders.length === 0) {
-    throw error(404, 'Try again! Order not found!');
-  }
+  const order = await fetch(`http://localhost:3030/orders/${params.slug}`, { method: 'POST' }).then(res => res.json());
 
   return {
-    order: orders[0]
+    order: order[0] || []
   }
 }
