@@ -1,19 +1,91 @@
 <script>
+  /** @type {import('./$types').PageData} */
   export let data;
-  console.log(data);
+
+  let newOrders = true;
+  let acceptedOrders = false;
+  let declinedOrders = false;
 </script>
 
+<h1 class="content-header">Orders</h1>
+<div class="content-filter">
+  <input
+    type="checkbox"
+    name="order"
+    id="new-orders"
+    bind:checked={newOrders}
+  />
+  <label for="new-orders">New orders</label>
+  <input
+    type="checkbox"
+    name="order"
+    id="accepted-orders"
+    bind:checked={acceptedOrders}
+  />
+  <label for="accepted-orders">Accepted orders</label>
+  <input
+    type="checkbox"
+    name="order"
+    id="declined-orders"
+    bind:checked={declinedOrders}
+  />
+  <label for="declined-orders">Declined orders</label>
+</div>
 <div class="content">
-  <h1 class="content-header underline">Choose driver (test)</h1>
-  {#each data.drivers as { id }}
-    <div class="driver">
-      <div class="driver-button-container">
-        <a href="driver/{id}/orders"
-          ><button class="driver-button">{id}</button></a
-        >
+  {#if newOrders}
+    {#each data.newOrders as { id, destination, products }}
+      <div class="order">
+        <p>Destination: {destination}</p>
+        <p>Products:</p>
+        <ul>
+          {#each products.products as { product_name, quantity }}
+            <li>{`${product_name} -- ${quantity}`}</li>
+          {/each}
+        </ul>
+        <div class="order-button-container">
+          <a href="driver/{id}"
+            ><button class="order-button">Read more...</button></a
+          >
+        </div>
       </div>
-    </div>
-  {/each}
+    {/each}
+  {/if}
+  {#if acceptedOrders}
+    {#each data.acceptedOrders as { id, destination, products }}
+      <div class="order accepted">
+        <p>Destination: {destination}</p>
+        <p>Products:</p>
+        <ul>
+          {#each products.products as { product_name, quantity }}
+            <li>{`${product_name} -- ${quantity}`}</li>
+          {/each}
+        </ul>
+        <div class="order-button-container">
+          <a href="driver/{id}"
+            ><button class="order-button">Read more...</button></a
+          >
+        </div>
+      </div>
+    {/each}
+  {/if}
+  {#if declinedOrders}
+    {#each data.declinedOrders as { id, destination, products }}
+      <div class="order declined">
+        <p>Destination: {destination}</p>
+        <p>Products:</p>
+        <ul>
+          {#each products.products as { product_name, quantity }}
+            <li>{`${product_name} -- ${quantity}`}</li>
+          {/each}
+        </ul>
+        <div class="order-button-container">
+          <a href="driver/{id}"
+            ><button class="order-button">Read more...</button></a
+          >
+        </div>
+      </div>
+    {/each}
+  {/if}
 </div>
 
 <style>
@@ -21,8 +93,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    align-items: center;
     flex-wrap: wrap;
   }
 
@@ -31,7 +101,13 @@
     font-size: 2.5em;
   }
 
-  .driver {
+  .content-filter {
+    color: var(--primary-color);
+    font-family: Tahoma;
+    margin-bottom: 20px;
+  }
+
+  .order {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -46,15 +122,37 @@
     border-radius: 15px;
   }
 
-  .driver-button-container {
-    width: 100%;
-    align-self: center;
-    display: flex;
-    justify-content: center;
+  .declined {
+    background: grey;
+    border: 5px groove #333;
   }
 
-  .driver-button {
-    width: 80px;
+  .declined button {
+    background: #333;
+  }
+
+  .declined button:hover {
+    background: #222;
+  }
+
+  .accepted {
+    border: 5px groove #1da90d;
+    background: #24c424;
+  }
+
+  .accepted button {
+    background: #1da90d;
+  }
+
+  .accepted button:hover {
+    background: #116d07;
+  }
+
+  .order-button-container {
+    align-self: center;
+  }
+
+  .order-button {
     cursor: pointer;
     background: var(--secondary-color);
     color: var(--text-color);
@@ -63,10 +161,9 @@
     border: none;
     border-radius: 15px;
     transition: 0.2s ease-in-out;
-    align-self: center;
   }
 
-  .driver-button:hover {
+  .order-button:hover {
     background: var(--primary-color);
     transform: scale(1.1);
   }
