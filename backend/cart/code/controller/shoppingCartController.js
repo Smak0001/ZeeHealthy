@@ -30,8 +30,6 @@ const upsertNewProduct = async (req, res) => {
     Product,
     amount,
   };
-  console.log(newProduct);
-
   try {
     const { data, error } = await supabase
       .from("shoppingCart")

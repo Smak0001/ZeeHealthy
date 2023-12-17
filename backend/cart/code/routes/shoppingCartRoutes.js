@@ -10,6 +10,6 @@ router.get('/api/shoppingCart', ShoppingCartController.getCart);
 router.get('/api/shoppingCart/:id', ShoppingCartController.getCartById);
 
 // Route to add a new product
-router.get('/api/shoppingCart/cart', ShoppingCartController.upsertNewProduct)
+router.post('/api/shoppingCart/cart', ShoppingCartController.upsertNewProduct)
 
 export default router;
