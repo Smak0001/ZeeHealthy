@@ -30,12 +30,12 @@
       amount: newAmount,
     };
     try {
-      const response = await fetch("https://localhost:3002/api/shoppingCart", {
+      const response = await fetch("http://localhost:3002/api/shoppingCart/cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newProduct),
+        body: JSON.stringify(data),
       });
       if (!response.ok) {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
