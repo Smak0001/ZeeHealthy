@@ -76,6 +76,7 @@
     <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
     <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
     <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+		<a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4">Cart</a>
     <button class="text-white hover:text-gray-300" on:click={hangleLogout}>Logout</button>
   </nav>
 </div>
