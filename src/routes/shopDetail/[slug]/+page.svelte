@@ -48,7 +48,7 @@
 
 	function loadProduct() {
     document.querySelector(".products-container").innerHTML = `
-        <div class="product bg-white shadow-lg rounded-lg p-6 transform transition duration-300 hover:scale-105">
+        <div class="product bg-white shadow-lg rounded-lg p-6 transform:scale-105">
             <div>
                 <img src=${products[data.slug - 1].pictures} alt=${products[data.slug - 1].name} class="w-full h-48 object-cover mb-2 rounded-lg shadow-md"/>
                 <div>
