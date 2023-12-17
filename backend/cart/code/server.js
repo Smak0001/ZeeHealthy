@@ -1,11 +1,16 @@
 import express from 'express';
 import cors from 'cors';
-import path from 'path';
 import productRouter from './routes/shoppingCartRoutes.js';
 
+const corsOptions = {
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  // credentials: true,
+};
+
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Use product routes
 app.use('/', productRouter);

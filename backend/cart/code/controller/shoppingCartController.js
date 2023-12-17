@@ -24,6 +24,19 @@ const getCart = async (req, res) => {
   }
 };
 
+const { Product, amount } = req.body;
+const newProduct = {
+  Product,
+  amount,
+};
+
+const { data, error } = await supabase
+  .from("shoppingCart")
+  .upsert([newProduct])
+  .select();
+
+
+
 const getCartId = async (req, res) => {
   const cartId = req.params.id;
 
