@@ -30,7 +30,7 @@
       amount: newAmount,
     };
     try {
-      const response = await fetch("https://localhost:3002/cart", {
+      const response = await fetch("https://localhost:3002/api/shoppingCart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

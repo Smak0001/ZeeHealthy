@@ -14,6 +14,14 @@ app.use(express.urlencoded({ extended: true }));
 
 // Use product routes
 app.use('/', productRouter);
+app.use((req, res, next) => {
+  try {
+    // set header before response
+    res.status(404).send("Sorry can't find that!");
+  } catch (err) {
+    next(err);
+  }
+});
 
 const PORT = 3002;
 app.listen(PORT, () => {

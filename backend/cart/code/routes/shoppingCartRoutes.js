@@ -1,12 +1,15 @@
 import express from 'express';
-import { getCart, getCartById } from '../controller/shoppingCartController.js';
+import * as ShoppingCartController from '../controller/shoppingCartController.js';
 
 const router = express.Router();
 
 // Route to get all products
-router.get('/api/shoppingCart', getCart);
+router.get('/api/shoppingCart', ShoppingCartController.getCart);
 
 // Route to get a product by ID
-router.get('/api/shoppingCart/:id', getCartById);
+router.get('/api/shoppingCart/:id', ShoppingCartController.getCartById);
+
+// Route to add a new product
+router.get('/api/shoppingCart/cart', ShoppingCartController.upsertNewProduct)
 
 export default router;
