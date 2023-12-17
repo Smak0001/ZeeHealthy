@@ -25,16 +25,16 @@ const getCart = async (req, res) => {
 };
 
 const upsertNewProduct = async (req, res) => {
-  const { Product, amount } = req.body;
+  const { product, amount } = req.body;
   const newProduct = {
-    Product,
+    product,
     amount,
   };
   try {
     const { data, error } = await supabase
       .from("shoppingCart")
-      .upsert([newProduct])
-      .select();
+      .upsert([newProduct]);
+    res.status(200).json(newProduct);
   } catch (error) {
     console.log(error);
   }
