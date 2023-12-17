@@ -47,16 +47,16 @@
 	};
 
 	function loadProduct() {
-		document.querySelector(".products-container").innerHTML = `
-		<div class="product">
-		<h3>${products[data.slug - 1].name}</h3>	
-		<p>Type: ${products[data.slug - 1].type}</p>
-		<p>Weight: ${products[data.slug - 1].weight} kg</p>
-		<p>Price: €${Number(products[data.slug - 1].price).toFixed(2)}</p>
-		<p>kcal: ${products[data.slug - 1].kcal}</p>
-		<p>Nutri-Score: ${products[data.slug - 1].NutriScore}</p>
-		</div>
-		`;
+        document.querySelector(".products-container").innerHTML = `
+        <div class="product bg-white shadow-lg rounded-lg p-6 transform transition duration-500 hover:scale-105">
+            <h3 class="text-2xl font-semibold mb-2 text-gray-800">${products[data.slug - 1].name}</h3>	
+            <p class="text-gray-600">Type: ${products[data.slug - 1].type}</p>
+            <p class="text-gray-600">Weight: ${products[data.slug - 1].weight} kg</p>
+            <p class="text-gray-600">Price: €${Number(products[data.slug - 1].price).toFixed(2)}</p>
+            <p class="text-gray-600">kcal: ${products[data.slug - 1].kcal}</p>
+            <p class="text-gray-600">Nutri-Score: ${products[data.slug - 1].NutriScore}</p>
+        </div>
+        `;
 	}
 
 	onMount(() => {
@@ -87,4 +87,4 @@
 	rel="stylesheet"
 />
 
-<div class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8"></div>
+<div class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 p-4"></div>

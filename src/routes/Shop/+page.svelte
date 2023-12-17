@@ -68,15 +68,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap" rel="stylesheet" />
 
-<div class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+<div class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 p-4">
   {#each products as product}
-    <div class="product bg-white rounded-lg shadow-md p-4">
-      <a href={`/shopDetail/${product.id}`}>
-        <h3 class="text-lg font-semibold mb-2">{product.name}</h3>
+    <div class="product bg-white rounded-lg shadow-lg p-4 transform transition duration-500 ease-in-out hover:scale-105">
+      <a href={`/shopDetail/${product.id}`} class="flex flex-col items-center">
+        <img src={product.image} alt={product.name} class="w-full h-48 object-cover mb-4 rounded-lg shadow-md"/>
+        <h3 class="text-lg font-semibold mb-2 text-gray-800">{product.name}</h3>
       </a>
-      <p class="mb-2">Type: {product.type}</p>
-      <p class="mb-2">Weight: {product.weight} kg</p>
-      <p class="mb-2">Price: €{Number(product.price).toFixed(2)}</p>
+      <p class="mb-2 text-gray-600">Type: {product.type}</p>
+      <p class="mb-2 text-gray-600">Weight: {product.weight} kg</p>
+      <p class="mb-2 text-gray-600">Price: €{Number(product.price).toFixed(2)}</p>
+      <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Add to Cart
+      </button>
     </div>
   {/each}
 </div>
