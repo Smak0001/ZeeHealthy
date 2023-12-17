@@ -22,7 +22,7 @@
   onMount(async () => {
     const user = await fetchUser();
     if (user) {
-      console.log(user);
+      // console.log(user);
       isLoggedIn = true;
     }
   });
