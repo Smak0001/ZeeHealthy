@@ -78,7 +78,7 @@
       <p class="mb-2 text-gray-600">Type: {product.type}</p>
       <p class="mb-2 text-gray-600">Weight: {product.weight} kg</p>
       <p class="mb-2 text-gray-600">Price: €{Number(product.price).toFixed(2)}</p>
-      <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={() => alert(`Added to cart: ${product.name}`)}>
         Add to Cart
       </button>
     </div>
