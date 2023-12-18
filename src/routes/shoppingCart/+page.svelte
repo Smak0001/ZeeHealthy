@@ -45,6 +45,15 @@
     }
   };
 
+  /**
+   * @param {any} product
+   * @param {number} amount
+   */
+  function deleteFromCart(product, amount) {
+    // TODO actualy implement this feature
+    console.log(`deleted ${amount} ${product} from cart`);
+  }
+
   onMount(() => {
     fetchCart();
   });
