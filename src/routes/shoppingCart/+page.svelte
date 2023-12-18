@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
+  import { goto } from "$app/navigation";
   // import { fetchUser } from "../../utils/auth";
-  // import { goto } from "$app/navigation";
   // import { supabase } from "../../supabase.js";
 
   // let isLoggedIn = false;
@@ -81,7 +81,6 @@
   href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
   rel="stylesheet"
 />
-
 {#each shoppingCart as product}
   <div class="product bg-white rounded-lg shadow-md p-4">
     <h3 class="text-lg font-semibold mb-2">{product.product}</h3>
