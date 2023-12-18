@@ -40,6 +40,7 @@
 		<a class="active" href="/">Home</a>
 		<a href="/shop">Shop</a>
 		<a href="/chat">Chat</a>
+		<a href="/Farmer">Farmers</a>
 		<button on:click={hangleLogout}>Logout</button>
 	</nav>
 </div>
