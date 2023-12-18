@@ -3,14 +3,43 @@ services:
   users:
     container_name: products
     build: ./products
-    volumes: 
-      -  ./products/code:/usr/src/app
-    networks: 
-      -  products
-    ports: 
-      -  "3001:3001"
+    volumes:
+      - ./products/code:/usr/src/app
+    networks:
+      - products
+    ports:
+      - "3001:3001"
     working_dir: /usr/src/app
     command: bash -c "npm install && npm run dev"
+
+  cart:
+    container_name: shoppingCart
+    build: ./cart
+    volumes:
+      - ./cart/code:/usr/src/app
+    networks:
+      - cart
+    ports:
+      - "3002:3002"
+    working_dir: /usr/src/app
+    command: bash -c "npm install && npm run dev"
+
+  driver:
+    container_name: driver
+    build: ./driver
+    volumes:
+      - ./driver/code:/usr/src/app
+    networks:
+      - cart
+    ports:
+      - "3030:3030"
+    working_dir: /usr/src/app
+    command: bash -c "npm install && npm run dev"
+
 networks:
   products:
+    driver: bridge
+  cart:
+    driver: bridge
+  driver:
     driver: bridge

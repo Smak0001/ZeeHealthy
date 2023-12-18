@@ -8,13 +8,22 @@
   rel="stylesheet"
 />
 
-<div class="header-container">
-  <h1 class="header underline">ZeeHealthy</h1>
-  <nav>
-    <a class="navlink" href="/">Home</a>
-    <a class="navlink" href="/shop">Shop</a>
-    <a class="navlink" href="/chat">Chat</a>
-    <a class="navlink" href="/driver">Orders</a>
+<div
+  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+>
+  <div class="ml-4">
+    <h1 class="text-4xl font-bold">ZeeHealthy</h1>
+  </div>
+  <h1 class="text-2xl font-bold">Shop</h1>
+  <nav class="flex justify-end items-center mr-4">
+    <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
+    <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+    <a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4">Cart</a>
+    <a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
+    <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+    
+    <!-- <button class="text-white hover:text-gray-300" on:click={handleLogout}
+      >Logout</button> -->
   </nav>
 </div>
 <div class="content-container">
@@ -30,27 +39,6 @@
     --text-color: #deeade;
   }
 
-  .header-container {
-    background: var(--primary-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    padding: 0 20px 0 20px;
-  }
-
-  .header {
-    color: var(--text-color);
-    font-family: Tahoma;
-  }
-
-  .navlink {
-    color: var(--text-color);
-    font-family: Tahoma;
-    text-decoration: none;
-    margin: 20px;
-  }
   .content-container {
     display: flex;
     justify-content: center;
