@@ -1,31 +1,31 @@
 <!-- Import data to file -->
 <script>
 	import { onMount } from "svelte";
-	import { fetchUser } from "../../../utils/auth";
-	import { goto } from "$app/navigation";
-	import { supabase } from "../../../supabase.js";
+	// import { fetchUser } from "../../../utils/auth";
+	// import { goto } from "$app/navigation";
+	// import { supabase } from "../../../supabase.js";
 
 	export let data;
 
-	let isLoggedIn = false;
+	// let isLoggedIn = false;
 
-	const hangleLogout = async () => {
-		try {
-			const { error } = await supabase.auth.signOut();
-			if (error) throw error;
-			goto("/login");
-		} catch (error) {
-			// @ts-ignore
-			console.error("Logout error:", error.message);
-		}
-	};
+	// const hangleLogout = async () => {
+	// 	try {
+	// 		const { error } = await supabase.auth.signOut();
+	// 		if (error) throw error;
+	// 		goto("/login");
+	// 	} catch (error) {
+	// 		// @ts-ignore
+	// 		console.error("Logout error:", error.message);
+	// 	}
+	// };
 
-	onMount(async () => {
-		const user = await fetchUser();
-		if (user) {
-			isLoggedIn = true;
-		}
-	});
+	// onMount(async () => {
+	// 	const user = await fetchUser();
+	// 	if (user) {
+	// 		isLoggedIn = true;
+	// 	}
+	// });
 
 	/**
 	 * @type {any[]}
@@ -82,7 +82,7 @@
     <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
     <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
     <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
-    <button class="text-white hover:text-gray-300" on:click={hangleLogout}>Logout</button>
+    <!-- <button class="text-white hover:text-gray-300" on:click={hangleLogout}>Logout</button> -->
   </nav>
 </div>
 
