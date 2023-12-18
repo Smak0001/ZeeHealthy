@@ -13,8 +13,9 @@
                 password,
             });
             if (error) throw error;
-            console.log("Logged in:", user);
-            goto('/');
+            // console.log("Logged in:", user);
+            console.log("Logged in");
+            goto("/");
         } catch (error) {
             errorMessage = error.message;
         }
@@ -28,25 +29,41 @@
     rel="stylesheet"
 />
 
-<div class="header-container">
-    <h1 class="header">ZeeHealthy</h1>
+<div
+    class="header-container bg-blue-500 text-white py-4 flex justify-center items-center"
+>
+    <div class="ml-4 flex items-center">
+        <h1 class="text-4xl font-bold">ZeeHealthy</h1>
+    </div>
 </div>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+    href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
+    rel="stylesheet"
+/>
 
 <form class="modal-content" on:submit|preventDefault={handleSignIn}>
     <div class="container">
         <label for="email"><b>Email</b></label>
         <input type="email" bind:value={email} placeholder="Enter your email" />
         <label for="email"><b>Password</b></label>
-        <input type="password" bind:value={password} placeholder="Enter your password" />
+        <input
+            type="password"
+            bind:value={password}
+            placeholder="Enter your password"
+        />
         <div class="login-register">
             <button type="submit">Login</button>
-            <button type="button" onclick="window.location.href = '/register';">Register</button>
+            <button type="button" onclick="window.location.href = '/register';"
+                >Register</button
+            >
         </div>
-        <a href="">Forgot your password? Click here.</a>
+        <a href="placeholder">Forgot your password? Click here.</a>
         <p class="errorMessage">{errorMessage}</p>
     </div>
 </form>
-
 
 <style>
     :root {
@@ -54,20 +71,6 @@
         --secondary-color: #012d787a;
         --text-color: #deeade;
         font-family: Tahoma;
-    }
-
-    .header-container {
-        background: var(--primary-color);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 15px;
-        margin-bottom: 20px;
-        padding: 0 20px 0 20px;
-    }
-
-    .header {
-        color: var(--text-color);
     }
 
     input[type="email"],

@@ -6,7 +6,7 @@
 
 	let isLoggedIn = false;
 
-	const hangleLogout = async () => {
+	const handleLogout = async () => {
 		try {
 			const { error } = await supabase.auth.signOut();
 			if (error) throw error;
@@ -20,7 +20,7 @@
 	onMount(async () => {
 		const user = await fetchUser();
 		if (user) {
-			console.log(user);
+			// console.log(user);
 			isLoggedIn = true;
 		}
 	});
@@ -33,16 +33,29 @@
 	rel="stylesheet"
 />
 
-<div class="header-container">
-	<h1 class="header">ZeeHealthy</h1>
-	<h1 class="header">Home</h1>
-	<nav>
-		<a class="active" href="/">Home</a>
-		<a href="/shop">Shop</a>
-		<a href="/chat">Chat</a>
-		<button on:click={hangleLogout}>Logout</button>
+<div
+	class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+>
+	<div class="ml-4">
+		<h1 class="text-4xl font-bold">ZeeHealthy</h1>
+	</div>
+	<h1 class="text-2xl font-bold">Home</h1>
+	<nav class="flex justify-end items-center mr-4">
+		<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
+		<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+		<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+		<button class="text-white hover:text-gray-300" on:click={handleLogout}
+			>Logout</button
+		>
 	</nav>
 </div>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
+	rel="stylesheet"
+/>
 
 <div class="map">
 	<iframe
@@ -57,63 +70,6 @@
 </div>
 
 <style>
-	:root {
-		--primary-color: #012d78;
-		--secondary-color: #012d787a;
-		--text-color: #deeade;
-	}
-
-	.header-container {
-		background: var(--primary-color);
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		border-radius: 15px;
-		margin-bottom: 20px;
-		padding: 0 20px 0 20px;
-	}
-
-	.header {
-		color: var(--text-color);
-		font-family: Tahoma;
-	}
-
-	a {
-		color: var(--text-color);
-		font-family: Tahoma;
-		text-decoration: none;
-		margin: 20px;
-	}
-
-	button {
-		background-color: var(--primary-color);
-		color: var(--text-color);
-		border: solid var(--text-color);
-		border-radius: 20px;
-		cursor: pointer;
-	}
-
-	.active {
-		text-decoration: underline;
-	}
-
-	.content {
-		display: flex;
-		justify-content: center;
-	}
-
-	.para {
-		text-align: center;
-		width: 30%;
-		font-size: 2em;
-		background: var(--secondary-color);
-		padding: 30px;
-		color: var(--text-color);
-		font-family: "Agbalumo";
-		margin-bottom: 30px;
-		border-radius: 50px;
-	}
-
 	.map {
 		display: flex;
 		justify-content: center;

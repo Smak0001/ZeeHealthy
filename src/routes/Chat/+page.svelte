@@ -1,30 +1,33 @@
-<!-- <script>
-	import { goto } from "$app/navigation";
-	import { supabase } from "../supabase.js";
+<script>
 	import { onMount } from "svelte";
-	import { fetchUser } from "../utils/auth";
+	import { fetchUser } from "../../utils/auth";
+	import { goto } from "$app/navigation";
+	import { supabase } from "../../supabase.js";
+	import Chat from './Scheduler.svelte';
+	import BouncingDots from './BouncingDots.svelte'
 
 	let isLoggedIn = false;
 
-	const hangleLogout = async () => {
+	const handleLogout = async () => {
 		try {
 			const { error } = await supabase.auth.signOut();
 			if (error) throw error;
 			console.log("Logged out");
 			goto("/login");
 		} catch (error) {
-			console.error("Logout error:", error);
+			// @ts-ignore
+			console.error("Logout error:", error.message);
 		}
 	};
 
 	onMount(async () => {
 		const user = await fetchUser();
 		if (user) {
-			console.log(user);
+			// console.log(user);
 			isLoggedIn = true;
 		}
 	});
-</script> -->
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -33,52 +36,27 @@
 	rel="stylesheet"
 />
 
-<div class="nav-container">
-	<h1 class="logo">ZeeHealthy</h1>
-	<h1 class="logo">Chat</h1>
-	<nav>
-		<a href="/">Home</a>
-		<a href="/shop">Shop</a>
-		<a class="active" href="/chat">Chat</a>
-		<!-- <button on:click={hangleLogout}>Logout</button> -->
+<div
+	class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+>
+	<div class="ml-4">
+		<h1 class="text-4xl font-bold">ZeeHealthy</h1>
+	</div>
+	<h1 class="text-2xl font-bold">Chat</h1>
+	<nav class="flex justify-end items-center mr-4">
+		<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
+		<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+		<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+		<button class="text-white hover:text-gray-300" on:click={handleLogout}>Logout</button>
 	</nav>
 </div>
 
-<style>
-	:root {
-		--primary-color: #012d78;
-		--secondary-color: #012d787a;
-		--text-color: #deeade;
-	}
-
-	.nav-container {
-		background: var(--primary-color);
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		border-radius: 15px;
-		margin-bottom: 20px;
-		padding: 0 20px 0 20px;
-	}
-
-	.logo {
-		color: var(--text-color);
-		font-family: Tahoma;
-	}
-
-	a {
-		color: var(--text-color);
-		font-family: Tahoma;
-		text-decoration: none;
-		margin: 20px;
-	}
-
-	.active {
-		text-decoration: underline;
-	}
-
-	.content {
-		display: flex;
-		justify-content: center;
-	}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
+	rel="stylesheet"
+/>
+<main>
+	<Chat />
+</main> 
