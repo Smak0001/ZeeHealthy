@@ -32,7 +32,7 @@ services:
     networks:
       - cart
     ports:
-      - "3030:3030"
+      - "3003:3003"
     working_dir: /usr/src/app
     command: bash -c "npm install && npm run dev"
 

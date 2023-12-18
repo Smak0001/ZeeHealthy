@@ -16,7 +16,13 @@
             view="sign_in"
             redirectTo={`${data.url}/auth/callback`}
             showLinks={true}
-            appearance={{ theme: ThemeSupa, style: { button: "background-color: #012d78; border: #012d78; border-radius: 16px", input: "color: black; border-radius: 16px" } }}
-            />
+            appearance={{
+                theme: ThemeSupa,
+                style: {
+                    button: "background-color: #012d78; border: #012d78; border-radius: 16px",
+                    input: "color: black; border-radius: 16px",
+                },
+            }}
+        />
     </div>
 </div>

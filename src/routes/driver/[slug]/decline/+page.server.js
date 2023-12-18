@@ -5,7 +5,7 @@ export async function load({ params, locals: { getSession } }) {
   const session = await getSession();
   const USER_ID = session?.user.id;
 
-  const data = fetch(`http://localhost:3030/drivers/${USER_ID}/orders/${params.slug}/decline`, { method: 'POST' }).then(data => data.text());
+  const data = fetch(`http://localhost:3003/drivers/${USER_ID}/orders/${params.slug}/decline`, { method: 'POST' }).then(data => data.text());
 
   throw redirect(308, '../')
 };
