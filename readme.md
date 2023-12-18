@@ -1,9 +1,9 @@
 1. Start docker
 
-2. Open docker folder in project, run in that folder the terminal, and type "docker-compose up -d
+2. Copy .env file with credentials form Teams in project root.
 
-3. In the root of your project in the terminal type "node server.js"
+3. Open backend folder, and run "docker compose up"
 
-4. It should work :) At least I think.
+4. In the root of your project in the terminal type "npm run dev"
 
-Credentials for database and PHPMyAdmin are in the docker compose file.
+5. It should work :)
