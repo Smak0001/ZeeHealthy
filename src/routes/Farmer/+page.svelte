@@ -52,7 +52,7 @@
         </tr>
       </thead>
       <tbody>
-        {#each farmers as farmer (farmer.id)}
+        {#each farmers as farmer}
           <tr>
             <td>{farmer.name}</td>
             <td>{farmer.location}</td>
