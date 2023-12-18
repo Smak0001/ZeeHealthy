@@ -104,14 +104,50 @@
   rel="stylesheet"
 />
 
-<div
-  class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8"
->
+<style>
+  .product {
+    animation: product-entry 1s ease-out;
+  }
+
+  @keyframes product-entry {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .product img {
+    margin-bottom: 2px;
+    transition: transform .3s ease-in-out;
+  }
+
+  .product img:hover {
+    transform: scale(1.05);
+  }
+
+  .cool-button {
+    background: #007BFF;
+    box-shadow: 0 4px 15px 0 rgba(0, 123, 255, 0.4);
+    transition: box-shadow 0.5s;
+  }
+
+  .cool-button:hover {
+    box-shadow: 0 8px 30px 0 rgba(0, 123, 255, 0.7);
+  }
+</style>
+
+<div class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 p-4">
   {#each products as product}
-    <div class="product bg-white rounded-lg shadow-md p-4">
-      <a href={`/shopDetail/${product.id}`}>
-        <h3 class="text-lg font-semibold mb-2">{product.name}</h3>
+    <div class="product bg-white rounded-lg shadow-lg p-4 transform transition duration-500 ease-in-out hover:scale-105">
+      <a href={`/shopDetail/${product.id}`} class="flex flex-col items-center">
+        <img src={product.pictures} alt={product.name} class="w-full h-48 object-cover mb-2 rounded-lg shadow-md"/>
+        <h3 class="text-lg font-semibold mb-2 text-gray-800">{product.name}</h3>
       </a>
+
       <p class="mb-2">Type: {product.type}</p>
       <p class="mb-2">Weight: {product.weight} kg</p>
       <p class="mb-2">Price: €{Number(product.price).toFixed(2)}</p>

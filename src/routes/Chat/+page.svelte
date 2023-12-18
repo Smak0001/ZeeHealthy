@@ -3,6 +3,8 @@
 	import { fetchUser } from "../../utils/auth";
 	import { goto } from "$app/navigation";
 	import { supabase } from "../../supabase.js";
+	import Chat from './Scheduler.svelte';
+	import BouncingDots from './BouncingDots.svelte'
 
 	let isLoggedIn = false;
 
@@ -56,3 +58,6 @@
 	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
 	rel="stylesheet"
 />
+<main>
+	<Chat />
+</main> 

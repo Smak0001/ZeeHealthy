@@ -47,16 +47,22 @@
 	};
 
 	function loadProduct() {
-		document.querySelector(".products-container").innerHTML = `
-		<div class="product">
-		<h3>${products[data.slug - 1].name}</h3>	
-		<p>Type: ${products[data.slug - 1].type}</p>
-		<p>Weight: ${products[data.slug - 1].weight} kg</p>
-		<p>Price: €${Number(products[data.slug - 1].price).toFixed(2)}</p>
-		<p>kcal: ${products[data.slug - 1].kcal}</p>
-		<p>Nutri-Score: ${products[data.slug - 1].NutriScore}</p>
-		</div>
-		`;
+    document.querySelector(".products-container").innerHTML = `
+        <div class="product bg-white shadow-lg rounded-lg p-6 transform:scale-105">
+            <div>
+                <img src=${products[data.slug - 1].pictures} alt=${products[data.slug - 1].name} class="w-full h-48 object-cover mb-2 rounded-lg shadow-md"/>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-2 text-gray-800">${products[data.slug - 1].name}</h3>
+                    <p>Type: ${products[data.slug - 1].type}</p>
+                    <p>Weight: ${products[data.slug - 1].weight} kg</p>
+                    <p>Price: €${Number(products[data.slug - 1].price).toFixed(2)}</p>
+                    <p>kcal: ${products[data.slug - 1].kcal}</p>
+                    <p>Nutri-Score: ${products[data.slug - 1].NutriScore}</p>
+                    <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    `;
 	}
 
 	onMount(() => {
@@ -88,4 +94,4 @@
 	rel="stylesheet"
 />
 
-<div class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8"></div>
+<div class="products-container grid mt-8 p-4"></div>

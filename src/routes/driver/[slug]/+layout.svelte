@@ -1,7 +1,7 @@
 <script>
 </script>
 
-<div class="back"><a href="/driver/1/orders">←Back to orders</a></div>
+<div class="back"><a href="/driver">←Back to orders</a></div>
 <slot />
 
 <style>

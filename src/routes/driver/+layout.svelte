@@ -9,11 +9,12 @@
 />
 
 <div class="header-container">
-  <h1 class="header">ZeeHealthy</h1>
+  <h1 class="header underline">ZeeHealthy</h1>
   <nav>
     <a class="navlink" href="/">Home</a>
     <a class="navlink" href="/shop">Shop</a>
     <a class="navlink" href="/chat">Chat</a>
+    <a class="navlink" href="/driver">Orders</a>
   </nav>
 </div>
 <div class="content-container">
