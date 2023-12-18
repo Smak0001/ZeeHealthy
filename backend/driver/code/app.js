@@ -11,6 +11,10 @@ app.use(express.json())
 app.use('/drivers', driversRouter);
 app.use('/orders', ordersRouter);
 
-app.listen(3030);
+const PORT = 3030;
 
 export default app;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
