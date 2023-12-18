@@ -5,12 +5,12 @@ module.exports = {
     fontFamily: {
       body: ['Tahoma'],
     },
-    colors: {
-      transparent: 'transparent',
-      'primary': '#012d78',
-      'secondary': '#012d787a',
-      'text': '#deeade',
-      'error': 'rgb(148, 42, 42)',
-    },
+    // colors: {
+    //   transparent: 'transparent',
+    //   'primary': '#012d78',
+    //   'secondary': '#012d787a',
+    //   'text': '#deeade',
+    //   'error': 'rgb(148, 42, 42)',
+    // },
   },
 }
