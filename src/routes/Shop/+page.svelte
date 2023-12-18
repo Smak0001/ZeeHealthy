@@ -4,7 +4,8 @@
   import { fetchUser } from "../../utils/auth";
   import { goto } from "$app/navigation";
   import { supabase } from "../../supabase.js";
-  
+  import { FunctionsHttpError } from "@supabase/supabase-js";
+
   let isLoggedIn = false;
 
   const handleLogout = async () => {
@@ -18,6 +19,33 @@
       console.error("Logout error:", error.message);
     }
   };
+
+  /**
+   * @param {any} newProduct
+   * @param {any} newAmount
+   */
+  async function addToCart(newProduct, newAmount) {
+    let data = {
+      product: newProduct,
+      amount: newAmount,
+    };
+    try {
+      const response = await fetch("http://localhost:3002/api/shoppingCart/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+      const result = await response.json();
+      console.log("Added to cart:", result);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  }
 
   onMount(async () => {
     const user = await fetchUser();
@@ -51,7 +79,9 @@
   });
 </script>
 
-<div class="header-container bg-blue-500 text-white py-4 flex justify-between items-center">
+<div
+  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+>
   <div class="ml-4">
     <h1 class="text-4xl font-bold">ZeeHealthy</h1>
   </div>
@@ -60,13 +90,19 @@
     <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
     <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
     <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
-    <button class="text-white hover:text-gray-300" on:click={handleLogout}>Logout</button>
+    <a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4">Cart</a>
+    <button class="text-white hover:text-gray-300" on:click={handleLogout}
+      >Logout</button
+    >
   </nav>
 </div>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
-<link href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap" rel="stylesheet" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
+  rel="stylesheet"
+/>
 
 <style>
   .product {
@@ -111,12 +147,18 @@
         <img src={product.pictures} alt={product.name} class="w-full h-48 object-cover mb-2 rounded-lg shadow-md"/>
         <h3 class="text-lg font-semibold mb-2 text-gray-800">{product.name}</h3>
       </a>
-      <p class="mb-2 text-gray-600">Type: {product.type}</p>
-      <p class="mb-2 text-gray-600">Weight: {product.weight} kg</p>
-      <p class="mb-2 text-gray-600">Price: €{Number(product.price).toFixed(2)}</p>
-      <button class="mt-4 text-white font-bold py-2 px-4 rounded cool-button" on:click={() => alert(`Added to cart: ${product.name}`)}>
-        Add to Cart
-      </button>
+
+      <p class="mb-2">Type: {product.type}</p>
+      <p class="mb-2">Weight: {product.weight} kg</p>
+      <p class="mb-2">Price: €{Number(product.price).toFixed(2)}</p>
+      <p>
+        <button
+          class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          on:click={() => addToCart(product.name, 1)}
+        >
+          Add to Cart
+        </button>
+      </p>
     </div>
   {/each}
 </div>
