@@ -5,7 +5,6 @@
 
     export let data;
 </script>
-
 <svelte:head>
     <title>ZeeHealthy</title>
 </svelte:head>
