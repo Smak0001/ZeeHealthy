@@ -22,7 +22,7 @@
 <div class="ml-4">
   <h1 class="text-4xl font-bold">ZeeHealthy</h1>
 </div>
-<h1 class="text-2xl font-bold">Shop</h1>
+<h1 class="text-2xl font-bold">Farmers</h1>
 <nav class="flex justify-end items-center mr-4">
   <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
   <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>

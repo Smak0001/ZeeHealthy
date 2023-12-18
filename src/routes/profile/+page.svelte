@@ -33,12 +33,15 @@
 
 <div class="flex justify-center items-center m-1 bg-primary rounded-2xl p-6">
     <h1 class="text-text font-bold text-4xl">
-        Hello, <span class="underline">{fullName}</span>. If you want to update your profile plese
-        feel free to do that.
+        Hello, <span class="underline">{fullName}</span>. If you want to update
+        your profile plese feel free to do that.
     </h1>
 </div>
 
-<button class="bg-primary text-text cursor-pointer p-2 m-2 border-none rounded-3xl hover:opacity-80" onclick="window.location='/home'">← Go back to the Home page</button>
+<button
+    class="bg-primary text-text cursor-pointer p-2 m-2 border-none rounded-3xl hover:opacity-80"
+    onclick="window.location='/home'">← Go back to the Home page</button
+>
 
 <div class="flex items-center justify-center p-5">
     <form
@@ -98,6 +101,5 @@
                 >
             </div>
         </form>
-
     </form>
 </div>
