@@ -16,14 +16,24 @@
   rel="stylesheet"
 />
 
-<div class="navbar-container">
-  <h1 class="header">ZeeHealthy | Farmers</h1>
-  <nav>
-    <a class="navlink" href="/">Home</a>
-    <a class="navlink" href="/shop">Shop</a>
-    <a class="navlink" href="/chat">Chat</a>
-    <a class="navlink" href="/Farmer">Farmers</a>
-  </nav>
+<div
+  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+>
+<div class="ml-4">
+  <h1 class="text-4xl font-bold">ZeeHealthy</h1>
+</div>
+<h1 class="text-2xl font-bold">Shop</h1>
+<nav class="flex justify-end items-center mr-4">
+  <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
+  <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+  <a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4">Cart</a>
+  <a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
+  <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
+  <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+  
+  <!-- <button class="text-white hover:text-gray-300" on:click={handleLogout}
+    >Logout</button> -->
+</nav>
 </div>
 <div class="content-container">
   <div class="header-container">
