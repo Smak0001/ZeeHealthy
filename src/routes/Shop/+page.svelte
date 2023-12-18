@@ -1,24 +1,9 @@
 <!-- Import data to file -->
 <script>
   import { onMount } from "svelte";
-  // import { fetchUser } from "../../utils/auth";
-  // import { goto } from "$app/navigation";
-  // import { supabase } from "../../supabase.js";
   import { FunctionsHttpError } from "@supabase/supabase-js";
 
   let isLoggedIn = false;
-
-  // const handleLogout = async () => {
-  //   try {
-  //     const { error } = await supabase.auth.signOut();
-  //     if (error) throw error;
-  //     console.log("Logged out");
-  //     goto("/login");
-  //   } catch (error) {
-  //     // @ts-ignore
-  //     console.error("Logout error:", error.message);
-  //   }
-  // };
 
   /**
    * @param {any} newProduct
@@ -46,14 +31,6 @@
       console.error("Error adding to cart:", error);
     }
   }
-
-  // onMount(async () => {
-  //   const user = await fetchUser();
-  //   if (user) {
-  //     // console.log(user);
-  //     isLoggedIn = true;
-  //   }
-  // });
 
   /**
    * @type {any[]}

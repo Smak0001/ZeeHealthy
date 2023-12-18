@@ -1,30 +1,30 @@
 <script>
   import { onMount } from "svelte";
-  import { fetchUser } from "../../utils/auth";
-  import { goto } from "$app/navigation";
-  import { supabase } from "../../supabase.js";
+  // import { fetchUser } from "../../utils/auth";
+  // import { goto } from "$app/navigation";
+  // import { supabase } from "../../supabase.js";
 
-  let isLoggedIn = false;
+  // let isLoggedIn = false;
 
-  const handleLogout = async () => {
-    try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-      console.log("Logged out");
-      goto("/login");
-    } catch (error) {
-      // @ts-ignore
-      console.error("Logout error:", error.message);
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     const { error } = await supabase.auth.signOut();
+  //     if (error) throw error;
+  //     console.log("Logged out");
+  //     goto("/login");
+  //   } catch (error) {
+  //     // @ts-ignore
+  //     console.error("Logout error:", error.message);
+  //   }
+  // };
 
-  onMount(async () => {
-    const user = await fetchUser();
-    if (user) {
-      // console.log(user);
-      isLoggedIn = true;
-    }
-  });
+  // onMount(async () => {
+  //   const user = await fetchUser();
+  //   if (user) {
+  //     // console.log(user);
+  //     isLoggedIn = true;
+  //   }
+  // });
 
   /**
    * @type {any[]}
@@ -69,9 +69,9 @@
     <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
     <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
     <a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4">Cart</a>
-    <button class="text-white hover:text-gray-300" on:click={handleLogout}
+    <!-- <button class="text-white hover:text-gray-300" on:click={handleLogout}
       >Logout</button
-    >
+    > -->
   </nav>
 </div>
 
@@ -81,3 +81,18 @@
   href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
   rel="stylesheet"
 />
+
+{#each shoppingCart as product}
+  <div class="product bg-white rounded-lg shadow-md p-4">
+    <h3 class="text-lg font-semibold mb-2">{product.product}</h3>
+    <h3 class="text-lg font-semibold mb-2">{product.amount}</h3>
+    <p>
+      <button
+        class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        on:click={() => deleteFromCart(product.product, 1)}
+      >
+        Remove from Cart
+      </button>
+    </p>
+  </div>
+{/each}
