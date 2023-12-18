@@ -1,128 +1,122 @@
+<!-- Import data to file -->
 <script>
-	import { onMount } from "svelte";
+  import { onMount } from "svelte";
+  import { fetchUser } from "../../utils/auth";
+  import { goto } from "$app/navigation";
+  import { supabase } from "../../supabase.js";
+  
+  let isLoggedIn = false;
 
-	/**
-	 * @type {any[]}
-	 */
-	let products = [];
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      console.log("Logged out");
+      goto("/login");
+    } catch (error) {
+      // @ts-ignore
+      console.error("Logout error:", error.message);
+    }
+  };
 
-	const fetchProducts = async () => {
-		try {
-			const response = await fetch("http://localhost:3000/api/products");
-			if (response.ok) {
-				products = await response.json();
-				console.log("Products:", products);
-			} else {
-				console.error("Failed to fetch products");
-			}
-		} catch (error) {
-			console.error("Error fetching products:", error);
-		}
-	};
+  onMount(async () => {
+    const user = await fetchUser();
+    if (user) {
+      // console.log(user);
+      isLoggedIn = true;
+    }
+  });
 
-	onMount(() => {
-		fetchProducts();
-	});
+  /**
+   * @type {any[]}
+   */
+  let products = [];
 
-	const goToProductInfo = (product) => {
-		console.log("Navigating to product info for product ID:", product);
-		navigate(`/product/${product.id}`);
-	};
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/products");
+      if (response.ok) {
+        products = await response.json();
+        console.log("Products:", products);
+      } else {
+        console.error("Failed to fetch products");
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  onMount(() => {
+    fetchProducts();
+  });
 </script>
+
+<div class="header-container bg-blue-500 text-white py-4 flex justify-between items-center">
+  <div class="ml-4">
+    <h1 class="text-4xl font-bold">ZeeHealthy</h1>
+  </div>
+  <h1 class="text-2xl font-bold">Shop</h1>
+  <nav class="flex justify-end items-center mr-4">
+    <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
+    <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+    <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+    <button class="text-white hover:text-gray-300" on:click={handleLogout}>Logout</button>
+  </nav>
+</div>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-	rel="stylesheet"
-/>
-
-<div class="nav-container">
-	<h1 class="logo">ZeeHealthy</h1>
-	<div class="content-container">
-		<div class="content">
-			<div class="logo">Shop</div>
-		</div>
-	</div>
-	<nav>
-		<a href="/home">Home</a>
-		<a class="active" href="/shop">Shop</a>
-		<a href="/chat">Chat</a>
-	</nav>
-</div>
-
-<div class="products-container">
-	{#each products as product}
-		<div
-			class="product"
-			on:click={() => goToProductInfo(product)}
-			on:keydown={(event) => {
-				if (event.key === "Enter") {
-					goToProductInfo(product);
-				}
-			}}
-			role="button"
-			tabindex="0"
-		>
-			<h3>{product.name}</h3>
-			<p>Type: {product.type}</p>
-			<p>Weight: {product.weight} kg</p>
-			<p>Price: €{Number(product.price).toFixed(2)}</p>
-		</div>
-	{/each}
-</div>
+<link href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap" rel="stylesheet" />
 
 <style>
-	:root {
-		--primary-color: #012d78;
-		--secondary-color: #012d787a;
-		--text-color: #deeade;
-	}
+  .product {
+    animation: product-entry 1s ease-out;
+  }
 
-	.nav-container {
-		background: var(--primary-color);
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		border-radius: 15px;
-		margin-bottom: 20px;
-		padding: 0 20px 0 20px;
-	}
+  @keyframes product-entry {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-	.logo {
-		color: var(--text-color);
-		font-family: Tahoma;
-	}
+  .product img {
+    margin-bottom: 2px;
+    transition: transform .3s ease-in-out;
+  }
 
-	a {
-		color: var(--text-color);
-		font-family: Tahoma;
-		text-decoration: none;
-		margin: 20px;
-	}
+  .product img:hover {
+    transform: scale(1.05);
+  }
 
-	.active {
-		text-decoration: underline;
-	}
+  .cool-button {
+    background: #007BFF;
+    box-shadow: 0 4px 15px 0 rgba(0, 123, 255, 0.4);
+    transition: box-shadow 0.5s;
+  }
 
-	.content {
-		display: flex;
-		justify-content: center;
-	}
-
-	.product {
-		border: 3px solid #012d78;
-		padding: 20px;
-		margin: 10px;
-		width: 45%;
-		display: inline-block;
-		vertical-align: top;
-		border-radius: 10px;
-	}
-
-	.products-container {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
-	}
+  .cool-button:hover {
+    box-shadow: 0 8px 30px 0 rgba(0, 123, 255, 0.7);
+  }
 </style>
+
+<div class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 p-4">
+  {#each products as product}
+    <div class="product bg-white rounded-lg shadow-lg p-4 transform transition duration-500 ease-in-out hover:scale-105">
+      <a href={`/shopDetail/${product.id}`} class="flex flex-col items-center">
+        <img src={product.pictures} alt={product.name} class="w-full h-48 object-cover mb-2 rounded-lg shadow-md"/>
+        <h3 class="text-lg font-semibold mb-2 text-gray-800">{product.name}</h3>
+      </a>
+      <p class="mb-2 text-gray-600">Type: {product.type}</p>
+      <p class="mb-2 text-gray-600">Weight: {product.weight} kg</p>
+      <p class="mb-2 text-gray-600">Price: €{Number(product.price).toFixed(2)}</p>
+      <button class="mt-4 text-white font-bold py-2 px-4 rounded cool-button" on:click={() => alert(`Added to cart: ${product.name}`)}>
+        Add to Cart
+      </button>
+    </div>
+  {/each}
+</div>
