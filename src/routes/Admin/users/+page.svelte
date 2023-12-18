@@ -7,15 +7,14 @@
 
 	let data = [];
 
-	onMount(async () => {
-		const response = await fetch("http://localhost:3002/users");
-		data = await response.json();
-	});
-
 	async function fetchData() {
 		const response = await fetch("http://localhost:3002/users");
 		data = await response.json();
 	}
+
+	onMount(async () => {
+		fetchData();
+	});
 
 	/**
 	 *
@@ -34,10 +33,17 @@
 				console.error("Error deleting row:", response.statusText);
 			}
 		} catch (error) {
+			// @ts-ignore
 			console.error("Error deleting row:", error.message);
 		}
 	}
-	function handleUpdate() {
+
+	/**
+	 *
+	 * @param {any} id
+	 */
+	function handleUpdate(id) {
+		window.location.href = `/Admin/users/update/${id}`;
 		console.log("user updated");
 	}
 	function handleBLacklist() {
@@ -55,7 +61,7 @@
 				<p>User email: {user.email}</p>
 				<p>User password: {user.password}</p>
 				<button on:click={() => handleDelete(user.id)}>Delete</button>
-				<button on:click={() => handleUpdate()}>Update</button>
+				<button on:click={() => handleUpdate(user.id)}>Update</button>
 				<button on:click={() => handleBLacklist()}>Blacklist</button>
 			</div>
 		{/each}
