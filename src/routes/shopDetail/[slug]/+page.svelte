@@ -71,9 +71,6 @@
 		<a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
 		<a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
 		<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
-
-		<!-- <button class="text-white hover:text-gray-300" on:click={handleLogout}
-    >Logout</button> -->
 	</nav>
 </div>
 
