@@ -11,7 +11,10 @@ const supabase = createClient(
 const getCart = async (req, res) => {
   try {
     // Fetch all products from Supabase
-    const { data, error } = await supabase.from('shoppingCart').select('*').order('id');
+    const { data, error } = await supabase
+      .from('shoppingCart')
+      .select('*')
+      .order('id');
 
     if (error) {
       throw error;

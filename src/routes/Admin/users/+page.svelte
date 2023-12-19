@@ -1,4 +1,5 @@
 <script>
+	import { LOGONSERVER } from "$env/static/private";
 	import { onMount } from "svelte";
 
 	/**
