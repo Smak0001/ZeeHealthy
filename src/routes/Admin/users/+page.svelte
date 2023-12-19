@@ -1,5 +1,4 @@
 <script>
-	// import { VITE_LOGONSERVER } from "$env/static/private";
 	import { onMount } from "svelte";
 
 	/**

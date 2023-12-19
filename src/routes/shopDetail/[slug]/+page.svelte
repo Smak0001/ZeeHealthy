@@ -1,4 +1,3 @@
-<!-- Import data to file -->
 <script>
 	import { onMount } from "svelte";
 
