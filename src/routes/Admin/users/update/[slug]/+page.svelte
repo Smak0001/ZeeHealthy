@@ -12,7 +12,7 @@
 
 	async function fetchData() {
 		try {
-			const response = await fetch(`http://localhost:3002/users/${data.slug}`, {
+			const response = await fetch(`http://localhost:3004/users/${data.slug}`, {
 				method: "GET",
 			});
 			currentUser = await response.json();
@@ -37,7 +37,7 @@
 		};
 		try {
 			const response = await fetch(
-				`http://localhost:3002/users/update/${data.slug}`,
+				`http://localhost:3004/users/update/${data.slug}`,
 				{
 					method: "PUT",
 					headers: {

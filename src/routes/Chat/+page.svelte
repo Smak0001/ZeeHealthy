@@ -1,32 +1,5 @@
 <script>
-	import { onMount } from "svelte";
-	// import { fetchUser } from "../../utils/auth";
-	// import { goto } from "$app/navigation";
-	// import { supabase } from "../../supabase.js";
 	import Chat from "./Scheduler.svelte";
-	import BouncingDots from "./BouncingDots.svelte";
-
-	// let isLoggedIn = false;
-
-	// const handleLogout = async () => {
-	// 	try {
-	// 		const { error } = await supabase.auth.signOut();
-	// 		if (error) throw error;
-	// 		console.log("Logged out");
-	// 		goto("/login");
-	// 	} catch (error) {
-	// 		// @ts-ignore
-	// 		console.error("Logout error:", error.message);
-	// 	}
-	// };
-
-	// onMount(async () => {
-	// 	const user = await fetchUser();
-	// 	if (user) {
-	// 		// console.log(user);
-	// 		isLoggedIn = true;
-	// 	}
-	// });
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -50,9 +23,6 @@
 		<a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
 		<a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
 		<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
-
-		<!-- <button class="text-white hover:text-gray-300" on:click={handleLogout}
-    >Logout</button> -->
 	</nav>
 </div>
 

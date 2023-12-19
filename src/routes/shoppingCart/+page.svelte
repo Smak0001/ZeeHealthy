@@ -1,30 +1,5 @@
 <script>
   import { onMount } from "svelte";
-  import { goto } from "$app/navigation";
-  // import { fetchUser } from "../../utils/auth";
-  // import { supabase } from "../../supabase.js";
-
-  // let isLoggedIn = false;
-
-  // const handleLogout = async () => {
-  //   try {
-  //     const { error } = await supabase.auth.signOut();
-  //     if (error) throw error;
-  //     console.log("Logged out");
-  //     goto("/login");
-  //   } catch (error) {
-  //     // @ts-ignore
-  //     console.error("Logout error:", error.message);
-  //   }
-  // };
-
-  // onMount(async () => {
-  //   const user = await fetchUser();
-  //   if (user) {
-  //     // console.log(user);
-  //     isLoggedIn = true;
-  //   }
-  // });
 
   /**
    * @type {any[]}
@@ -36,7 +11,6 @@
       const response = await fetch("http://localhost:3002/api/shoppingCart");
       if (response.ok) {
         shoppingCart = await response.json();
-        console.log("cart:", shoppingCart);
       } else {
         console.error("Failed to fetch cart");
       }
@@ -69,21 +43,18 @@
 <div
   class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
 >
-<div class="ml-4">
-  <h1 class="text-4xl font-bold">ZeeHealthy</h1>
-</div>
-<h1 class="text-2xl font-bold">Shopping cart</h1>
-<nav class="flex justify-end items-center mr-4">
-  <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
-  <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
-  <a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4">Cart</a>
-  <a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
-  <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
-  <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
-  
-  <!-- <button class="text-white hover:text-gray-300" on:click={handleLogout}
-    >Logout</button> -->
-</nav>
+  <div class="ml-4">
+    <h1 class="text-4xl font-bold">ZeeHealthy</h1>
+  </div>
+  <h1 class="text-2xl font-bold">Shopping cart</h1>
+  <nav class="flex justify-end items-center mr-4">
+    <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
+    <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+    <a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4">Cart</a>
+    <a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
+    <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
+    <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+  </nav>
 </div>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />

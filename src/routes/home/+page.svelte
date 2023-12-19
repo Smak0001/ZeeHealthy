@@ -11,7 +11,6 @@
 	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
 	rel="stylesheet"
 />
-
 <div
 	class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
 >
