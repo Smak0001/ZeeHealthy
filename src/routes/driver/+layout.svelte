@@ -22,7 +22,7 @@
     <a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
     <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
     <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
-    
+
     <!-- <button class="text-white hover:text-gray-300" on:click={handleLogout}
       >Logout</button> -->
   </nav>
@@ -54,16 +54,5 @@
     align-items: center;
     flex-direction: column;
     flex-wrap: wrap;
-  }
-
-  .back {
-    position: absolute;
-    left: 20px;
-    top: 100px;
-  }
-
-  .back a {
-    text-decoration: none;
-    color: grey;
   }
 </style>

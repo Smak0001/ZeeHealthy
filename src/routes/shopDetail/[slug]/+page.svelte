@@ -1,8 +1,6 @@
 <script>
 	import { onMount } from "svelte";
-	/**
-	 * @type {any[]}
-	 */
+
 	export let data;
 
 	/**
@@ -15,7 +13,6 @@
 			const response = await fetch("http://localhost:3001/api/products");
 			if (response.ok) {
 				products = await response.json();
-				console.log("Products:", products);
 			} else {
 				console.error("Failed to fetch products");
 			}
@@ -25,28 +22,33 @@
 	};
 
 	function loadProduct() {
-		document.querySelector(".products-container").innerHTML = `
+		const productsContainer = document.querySelector(".products-container");
+		if (productsContainer) {
+			productsContainer.innerHTML = `
         <div class="product bg-white shadow-lg rounded-lg p-6 transform:scale-105">
             <div>
-                <img src=${products[data.slug - 1].pictures} alt=${
-									products[data.slug - 1].name
+                <img src=${products[Number(data.slug) - 1].pictures} alt=${
+									products[Number(data.slug) - 1].name
 								} class="w-full h-48 object-cover mb-2 rounded-lg shadow-md"/>
                 <div>
                     <h3 class="text-2xl font-semibold mb-2 text-gray-800">${
-											products[data.slug - 1].name
+											products[Number(data.slug) - 1].name
 										}</h3>
-                    <p>Type: ${products[data.slug - 1].type}</p>
-                    <p>Weight: ${products[data.slug - 1].weight} kg</p>
-                    <p>Price: €${Number(products[data.slug - 1].price).toFixed(
-											2,
-										)}</p>
-                    <p>kcal: ${products[data.slug - 1].kcal}</p>
-                    <p>Nutri-Score: ${products[data.slug - 1].NutriScore}</p>
+                    <p>Type: ${products[Number(data.slug) - 1].type}</p>
+                    <p>Weight: ${products[Number(data.slug) - 1].weight} kg</p>
+                    <p>Price: €${Number(
+											products[Number(data.slug) - 1].price,
+										).toFixed(2)}</p>
+                    <p>kcal: ${products[Number(data.slug) - 1].kcal}</p>
+                    <p>Nutri-Score: ${
+											products[Number(data.slug) - 1].NutriScore
+										}</p>
                     <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Add to Cart</button>
                 </div>
             </div>
         </div>
     `;
+		}
 	}
 
 	onMount(() => {

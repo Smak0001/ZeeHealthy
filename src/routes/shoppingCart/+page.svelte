@@ -11,7 +11,6 @@
       const response = await fetch("http://localhost:3002/api/shoppingCart");
       if (response.ok) {
         shoppingCart = await response.json();
-        console.log("cart:", shoppingCart);
       } else {
         console.error("Failed to fetch cart");
       }
