@@ -1,30 +1,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" />
-	<link
-		href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-		rel="stylesheet"
-	/>
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
+	rel="stylesheet"
+/>
 
-	<div class="header-container">
-		<h1 class="header">ZeeHealthy</h1>
-		<nav>
-			<a class="active" href="/admin">Admin Page</a>
-			<a href="/Shop">Shop</a>
-			<a href="/Chat">Chat</a>
-		</nav>
+<div class="header-container">
+	<h1 class="header">ZeeHealthy</h1>
+	<nav>
+		<a class="active" href="/admin">Admin Page</a>
+		<a href="/Shop">Shop</a>
+		<a href="/Chat">Chat</a>
+	</nav>
+</div>
+<div class="content-container">
+	<div class="content">
+		<div class="para para-1">Admin</div>
 	</div>
-	<div class="content-container">
-		<div class="content">
-			<div class="para para-1">Admin</div>
-		</div>
-	</div>
-    <slot/>
+</div>
+<slot />
+
 <style>
 	button {
 		background-color: blue;
-		 color: white;
+		color: white;
 	}
-
 
 	:root {
 		--primary-color: #012d78;
@@ -95,5 +95,4 @@
 		border-width: 5px;
 		border-radius: 20px;
 	}
-
 </style>
