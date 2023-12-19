@@ -2,26 +2,27 @@ import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 dotenv.config(); // Load environment variables from .env file
 
-
 // Initialize Supabase client
 const supabase = createClient(
   process.env.PUBLIC_SUPABASE_URL,
   process.env.PUBLIC_SUPABASE_ANON_KEY
 );
+
 const getAlluserData = async (req, res) => {
   try {
+    // Fetch all user data from Supabase
     const { data, error } = await supabase
-        .from('profiles')
-        .select('*');
+      .from('profiles')
+      .select('*')
+      .order('id');
 
     if (error) {
       throw error;
     }
 
     res.json(data);
-
   } catch (error) {
-    console.error('Error fetching data from Supabase:', error.message);
+    console.error('Error fetching user data from Supabase:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
@@ -51,8 +52,9 @@ const updateUser = async (req, res) => {
     full_name,
     password,
   };
+
   try {
-    const { data , error } = await supabase
+    const { data, error } = await supabase
       .from('profiles')
       .update([updatedUser])
       .eq('id', userId)// Specify the condition to update only the user with the given id

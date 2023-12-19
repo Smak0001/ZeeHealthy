@@ -9,7 +9,7 @@
 	let data = [];
 
 	async function fetchData() {
-		const response = await fetch("http://localhost:3002/users");
+		const response = await fetch("http://localhost:3004/users");
 		data = await response.json();
 	}
 
@@ -23,7 +23,7 @@
 	 */
 	async function handleDelete(id) {
 		try {
-			const response = await fetch(`http://localhost:3002/users/${id}`, {
+			const response = await fetch(`http://localhost:3004/users/${id}`, {
 				method: "DELETE",
 			});
 
