@@ -12,40 +12,41 @@
 
 	async function fetchData() {
 		try {
-			const response = await fetch(`http://localhost:3002/users/${data.slug}`, {
+			const response = await fetch(`http://localhost:1914/users/${data.slug}`, {
 				method: "GET",
 			});
 			currentUser = await response.json();
 		} catch {}
 	}
 
-	onMount(async () => {
-		fetchData();
-	});
-
-	async function updateUser(
-		newUserFullName,
-		newUserId,
-		newUserEmail,
-		newUserPassword,
-	) {
-		let userData = {
-			userFullName: newUserFullName,
-			userId: newUserId,
-			userEmail: newUserEmail,
-			userPassword: newUserPassword,
-		};
-		try {
-			const response = await fetch(
-				`http://localhost:3002/users/update/${data.slug}`,
-				{
-					method: "PUT",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(userData),
-				},
-			);
+    onMount(async () => {
+        fetchData();
+    });
+    
+    async function updateUser(
+        newUserFullName,
+        newUserId,
+        newUserEmail,
+        newUserPassword,
+    ) {
+    
+        let userData = {
+            full_name: newUserFullName,
+            id: newUserId,
+            password: newUserPassword,
+            email: newUserEmail,
+            };
+        try {
+            const response = await fetch(
+                `http://localhost:1914/users/update/${data.slug}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userData),
+                },
+            );
 
 			if (response.ok) {
 				await fetchData();
@@ -60,25 +61,29 @@
 	}
 </script>
 
+<a href="Admin">Go back</a>
+
+
 <form>
-	<label for="fname">Full name:</label><br />
-	<input type="text" value={currentUser.full_name} /><br />
-	<label for="lname">User ID:</label><br />
-	<input type="text" value={currentUser.id} /><br />
-	<label for="lname">User email:</label><br />
-	<input type="text" value={currentUser.email} /><br />
-	<label for="lname">User password:</label><br />
-	<input type="text" value={currentUser.password} /><br />
-	<br />
-	<button
-		on:click={() =>
-			updateUser(
-				currentUser.full_name,
-				currentUser.id,
-				currentUser.email,
-				currentUser.password,
-			)}
-	>
-		update
-	</button>
+    <label for="fname">Full name:</label><br />
+    <input type="text" bind:value={currentUser.full_name} /><br />
+    <label for="lname">User ID:</label><br />
+    <input type="text" bind:value={currentUser.id} /><br />
+    <label for="lname">User email:</label><br />
+    <input type="text" bind:value={currentUser.email} /><br />
+    <label for="lname">User password:</label><br />
+    <input type="text" bind:value={currentUser.password} /><br />
+    <br />
+    <button
+        on:click={() =>
+            updateUser(
+                currentUser.full_name,
+                currentUser.id,
+                currentUser.email,
+                currentUser.password,
+            )}
+            
+    >
+        update
+    </button>
 </form>

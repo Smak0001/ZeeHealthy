@@ -20,7 +20,7 @@
 </div>
 <slot />
 
-<style>
+<!-- <style>
 	button {
 		background-color: blue;
 		color: white;
@@ -95,4 +95,4 @@
 		border-width: 5px;
 		border-radius: 20px;
 	}
-</style>
+</style> -->

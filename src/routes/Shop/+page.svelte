@@ -1,7 +1,7 @@
 <!-- Import data to file -->
 <script>
   import { onMount } from "svelte";
-  import { FunctionsHttpError } from "@supabase/supabase-js";
+  // import { FunctionsHttpError } from "@supabase/supabase-js";
 
   let isLoggedIn = false;
 
@@ -106,16 +106,6 @@
 
   .product img:hover {
     transform: scale(1.05);
-  }
-
-  .cool-button {
-    background: #007BFF;
-    box-shadow: 0 4px 15px 0 rgba(0, 123, 255, 0.4);
-    transition: box-shadow 0.5s;
-  }
-
-  .cool-button:hover {
-    box-shadow: 0 8px 30px 0 rgba(0, 123, 255, 0.7);
   }
 </style>
 

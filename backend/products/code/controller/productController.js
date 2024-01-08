@@ -6,7 +6,8 @@ dotenv.config(); // Load environment variables from .env file
 const supabase = createClient(
   process.env.PUBLIC_SUPABASE_URL,
   process.env.PUBLIC_SUPABASE_ANON_KEY
-);
+);;
+
 
 const getAllProducts = async (req, res) => {
   try {

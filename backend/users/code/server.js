@@ -9,7 +9,7 @@ app.use(express.json());
 // Use product routes
 app.use('/', usersRouter);
 
-const PORT = 3004;
+const PORT = 1914;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

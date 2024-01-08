@@ -78,28 +78,6 @@
     --text-color: #deeade;
   }
 
-  .navbar-container {
-    background: var(--primary-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    padding: 0 20px 0 20px;
-  }
-
-  .header {
-    color: var(--text-color);
-    font-family: Tahoma;
-  }
-
-  .navlink {
-    color: var(--text-color);
-    font-family: Tahoma;
-    text-decoration: none;
-    margin: 20px;
-  }
-
   .content-container {
     display: flex;
     flex-direction: column;
@@ -189,17 +167,7 @@
     flex-wrap: wrap;
   }
 
-  .back {
-    position: absolute;
-    left: 20px;
-    top: 100px;
-  }
-
-  .back a {
-    text-decoration: none;
-    color: grey;
-  }
-
+  
   table {
     width: 100%;
     border-collapse: collapse;

@@ -56,14 +56,4 @@
     flex-wrap: wrap;
   }
 
-  .back {
-    position: absolute;
-    left: 20px;
-    top: 100px;
-  }
-
-  .back a {
-    text-decoration: none;
-    color: grey;
-  }
 </style>
