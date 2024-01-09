@@ -139,17 +139,4 @@
   .product img:hover {
     transform: scale(1.05);
   }
-<<<<<<< HEAD
-
-  .cool-button {
-    background: #007bff;
-    box-shadow: 0 4px 15px 0 rgba(0, 123, 255, 0.4);
-    transition: box-shadow 0.5s;
-  }
-
-  .cool-button:hover {
-    box-shadow: 0 8px 30px 0 rgba(0, 123, 255, 0.7);
-  }
-=======
->>>>>>> f468c2f08d614e2e8621e8b6632a13da8fe0a02c
 </style>
