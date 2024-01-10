@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
+
 dotenv.config(); // Load environment variables from .env file
 
 // Initialize Supabase client
@@ -33,17 +34,22 @@ const upsertNewProduct = async (req, res) => {
     product,
     amount,
   };
+
   try {
-    const { data, error } = await supabase
-      .from("shoppingCart")
-      .upsert([newProduct]);
+    const { data, error } = await supabase.from('shoppingCart').upsert([newProduct]);
+
+    if (error) {
+      throw error;
+    }
+
     res.status(200).json(newProduct);
   } catch (error) {
-    console.log(error);
+    console.error('Error adding/updating product:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
-const getCartId = async (req, res) => {
+const getCartById = async (req, res) => {
   const cartId = req.params.id;
 
   try {
@@ -69,4 +75,43 @@ const getCartId = async (req, res) => {
   }
 };
 
-export { getCart, upsertNewProduct, getCartId as getCartById };
+const placeOrder = async (req, res) => {
+  const { destination } = req.body; // Extract destination from request body
+
+  try {
+    // Fetch all products from the shopping cart
+    const { data: shoppingCartItems, error: cartError } = await supabase
+      .from('shoppingCart')
+      .select('*');
+
+    if (cartError) {
+      throw cartError;
+    }
+
+    // Prepare order details including destination and products
+    const orderDetails = {
+      destination: destination,
+      products: shoppingCartItems || [], // Array containing products from shopping cart
+      // Add more fields as needed for the order
+    };
+
+    // Insert the order details into the 'orders' table using Supabase
+    const { data: insertedOrder, error: orderError } = await supabase
+      .from('orders')
+      .insert([orderDetails]);
+
+    if (orderError) {
+      throw orderError;
+    }
+
+    res.status(200).json(orderDetails); // Respond with order details if successful
+  } catch (error) {
+    console.error('Error placing order:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+
+
+export { getCart, upsertNewProduct, getCartById, placeOrder };

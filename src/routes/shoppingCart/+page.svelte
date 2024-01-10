@@ -1,10 +1,8 @@
 <script>
   import { onMount } from "svelte";
 
-  /**
-   * @type {any[]}
-   */
   let shoppingCart = [];
+  let destination = "";
 
   const fetchCart = async () => {
     try {
@@ -19,30 +17,47 @@
     }
   };
 
-  /**
-   * @param {any} product
-   * @param {number} amount
-   */
   function deleteFromCart(product, amount) {
-    // TODO actualy implement this feature
+    // TODO actually implement this feature
     console.log(`deleted ${amount} ${product} from cart`);
   }
+
+  const placeOrder = async () => {
+    try {
+      const response = await fetch("http://localhost:3002/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cart: shoppingCart,
+          destination: destination,
+        }),
+      });
+      if (response.ok) {
+        console.log("Order placed successfully!");
+        // Optionally, you can clear the shopping cart after placing the order
+        shoppingCart = [];
+        destination = "";
+        fetchCart(); // Fetch cart again to update the view
+      } else {
+        console.error("Failed to place order");
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+    }
+  };
 
   onMount(() => {
     fetchCart();
   });
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-  href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-  rel="stylesheet"
-/>
+<style>
+  /* Add your CSS styles here */
+</style>
 
-<div
-  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
->
+<div class="header-container bg-blue-500 text-white py-4 flex justify-between items-center">
   <div class="ml-4">
     <h1 class="text-4xl font-bold">ZeeHealthy</h1>
   </div>
@@ -57,12 +72,11 @@
   </nav>
 </div>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-  href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-  rel="stylesheet"
-/>
+<div class="destination-input">
+  <label for="destination" class="text-lg font-semibold">Destination:</label>
+  <input type="text" id="destination" bind:value={destination} placeholder="Enter destination" class="border rounded-md p-2 mt-2" />
+</div>
+
 {#each shoppingCart as product}
   <div class="product bg-white rounded-lg shadow-md p-4">
     <h3 class="text-lg font-semibold mb-2">{product.product}</h3>
@@ -77,3 +91,12 @@
     </p>
   </div>
 {/each}
+
+<div class="place-order">
+  <button
+    class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+    on:click={placeOrder}
+  >
+    Place Order
+  </button>
+</div>
