@@ -11,8 +11,8 @@
 	<p>Order placed: {date}</p>
 	<p>Products:</p>
 	<ol>
-		{#each products.products as { product_name, quantity }}
-			<li>{`${product_name} -- ${quantity}`}</li>
+		{#each products as { product, amount, totalPrice }}
+			<li>{`${product} -- ${amount} -- €${totalPrice}`}</li>
 		{/each}
 	</ol>
 	<div class="order-button-container">

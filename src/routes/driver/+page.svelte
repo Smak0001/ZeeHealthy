@@ -38,8 +38,8 @@
         <p>Destination: {destination}</p>
         <p>Products:</p>
         <ul>
-          {#each products.products as { product_name, quantity }}
-            <li>{`${product_name} -- ${quantity}`}</li>
+          {#each products as { product, amount, totalPrice }}
+            <li>{`${product} -- ${amount} -- €${totalPrice}`}</li>
           {/each}
         </ul>
         <div class="order-button-container">
@@ -56,8 +56,8 @@
         <p>Destination: {destination}</p>
         <p>Products:</p>
         <ul>
-          {#each products.products as { product_name, quantity }}
-            <li>{`${product_name} -- ${quantity}`}</li>
+          {#each products as { product, amount, totalPrice }}
+            <li>{`${product} -- ${amount} -- €${totalPrice}`}</li>
           {/each}
         </ul>
         <div class="order-button-container">
@@ -74,8 +74,8 @@
         <p>Destination: {destination}</p>
         <p>Products:</p>
         <ul>
-          {#each products.products as { product_name, quantity }}
-            <li>{`${product_name} -- ${quantity}`}</li>
+          {#each products as { product, amount, totalPrice }}
+            <li>{`${product} -- ${amount} -- €${totalPrice}`}</li>
           {/each}
         </ul>
         <div class="order-button-container">

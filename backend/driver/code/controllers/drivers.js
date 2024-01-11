@@ -37,9 +37,15 @@ async function acceptOrder(req, res) {
   const driver = (await supabase.from("drivers")
     .select()
     .match({ id: req.params.id })).data;
+
   const acceptedOrders = driver[0].orders.accepted;
   const declinedOrders = driver[0].orders.declined;
   const ORDER_ID = +req.params.order_id;
+
+  await supabase
+  .from('orders')
+  .update({ driver_id: driver[0].id})
+  .eq('id', ORDER_ID)
 
   const { data, error } = await supabase
     .from('drivers')
@@ -63,9 +69,15 @@ async function declineOrder(req, res) {
     .from("drivers")
     .select()
     .match({ id: req.params.id })).data;
+
   const acceptedOrders = driver[0].orders.accepted;
   const declinedOrders = driver[0].orders.declined;
   const ORDER_ID = +req.params.order_id;
+
+  await supabase
+  .from('orders')
+  .update({ driver_id: null})
+  .eq('id', ORDER_ID)
 
   const { data, error } = await supabase
     .from('drivers')
