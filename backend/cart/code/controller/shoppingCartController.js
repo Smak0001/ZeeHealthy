@@ -111,7 +111,20 @@ const placeOrder = async (req, res) => {
   }
 };
 
+const deleteProduct = async (req, res) => {
+  const id = req.params.id;
 
+  try {
+    const result = await supabase
+      .from('shoppingCart')
+      .delete()
+      .eq('id', id);
+    console.log(result);
+    res.status(200).json({ message: 'Row deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting row:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
 
-
-export { getCart, upsertNewProduct, getCartById, placeOrder };
+export { getCart, upsertNewProduct, getCartById, placeOrder, deleteProduct };

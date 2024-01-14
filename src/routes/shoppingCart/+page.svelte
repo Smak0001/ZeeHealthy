@@ -1,6 +1,9 @@
 <script>
   import { onMount } from "svelte";
 
+  /**
+   * @type {any[]}
+   */
   let shoppingCart = [];
   let destination = "";
 
@@ -17,9 +20,26 @@
     }
   };
 
-  function deleteFromCart(product, amount) {
-    // TODO actually implement this feature
-    console.log(`deleted ${amount} ${product} from cart`);
+  /**
+   * @param {any} id
+   */
+  async function deleteFromCart(id) {
+    try {
+      const response = await fetch(
+        `http://localhost:3002/api/shoppingCart/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      if (response.ok) {
+        await fetchCart();
+      } else {
+        console.error("Error deleting row:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error deleting row:", error);
+    }
   }
 
   const placeOrder = async () => {
@@ -36,8 +56,6 @@
       });
       if (response.ok) {
         console.log("Order placed successfully!");
-        // Optionally, you can clear the shopping cart after placing the order
-        shoppingCart = [];
         destination = "";
         fetchCart(); // Fetch cart again to update the view
       } else {
@@ -46,6 +64,9 @@
     } catch (error) {
       console.error("Error placing order:", error);
     }
+    shoppingCart.forEach((product) => {
+      deleteFromCart(product.id);
+    });
   };
 
   onMount(() => {
@@ -53,11 +74,9 @@
   });
 </script>
 
-<style>
-  /* Add your CSS styles here */
-</style>
-
-<div class="header-container bg-blue-500 text-white py-4 flex justify-between items-center">
+<div
+  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+>
   <div class="ml-4">
     <h1 class="text-4xl font-bold">ZeeHealthy</h1>
   </div>
@@ -74,7 +93,13 @@
 
 <div class="destination-input">
   <label for="destination" class="text-lg font-semibold">Destination:</label>
-  <input type="text" id="destination" bind:value={destination} placeholder="Enter destination" class="border rounded-md p-2 mt-2" />
+  <input
+    type="text"
+    id="destination"
+    bind:value={destination}
+    placeholder="Enter destination"
+    class="border rounded-md p-2 mt-2"
+  />
 </div>
 
 {#each shoppingCart as product}
@@ -84,7 +109,7 @@
     <p>
       <button
         class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        on:click={() => deleteFromCart(product.product, 1)}
+        on:click={() => deleteFromCart(product.id)}
       >
         Remove from Cart
       </button>
@@ -100,3 +125,7 @@
     Place Order
   </button>
 </div>
+
+<style>
+  /* Add your CSS styles here */
+</style>
