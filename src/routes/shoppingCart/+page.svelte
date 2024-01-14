@@ -5,6 +5,7 @@
    * @type {any[]}
    */
   let shoppingCart = [];
+  console.log(localStorage.getItem('userId'));
 
   const fetchCart = async () => {
     try {

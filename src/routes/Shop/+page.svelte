@@ -4,15 +4,17 @@
   import { FunctionsHttpError } from "@supabase/supabase-js";
 
   let isLoggedIn = false;
-
+  
   /**
-   * @param {any} newProduct
-   * @param {any} newAmount
-   */
-  async function addToCart(newProduct, newAmount) {
+     * @param {any} newProduct
+     * @param {any} newAmount
+     * @param {any} newUserId
+     */
+  async function addToCart(newProduct, newAmount, newUserId) {
     let data = {
       product: newProduct,
       amount: newAmount,
+      userId: newUserId,
     };
     try {
       const response = await fetch(
