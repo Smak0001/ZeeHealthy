@@ -74,9 +74,7 @@
   });
 </script>
 
-<div
-  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
->
+<div class="header-container bg-blue-500 text-white py-4 flex justify-between items-center">
   <div class="ml-4">
     <h1 class="text-4xl font-bold">ZeeHealthy</h1>
   </div>
@@ -91,41 +89,55 @@
   </nav>
 </div>
 
-<div class="destination-input">
-  <label for="destination" class="text-lg font-semibold">Destination:</label>
-  <input
-    type="text"
-    id="destination"
-    bind:value={destination}
-    placeholder="Enter destination"
-    class="border rounded-md p-2 mt-2"
-  />
-</div>
-
-{#each shoppingCart as product}
-  <div class="product bg-white rounded-lg shadow-md p-4">
-    <h3 class="text-lg font-semibold mb-2">{product.product}</h3>
-    <h3 class="text-lg font-semibold mb-2">{product.amount}</h3>
-    <p>
-      <button
-        class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        on:click={() => deleteFromCart(product.id)}
-      >
-        Remove from Cart
-      </button>
-    </p>
+<div class="flex">
+  <div class="w-1/2 p-4">
+    {#each shoppingCart as product}
+      <div class="product bg-white rounded-lg shadow-md p-4 mb-4">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">{product.product}</h3>
+        <h3 class="text-lg font-semibold text-gray-600 mb-2">{product.amount}</h3>
+        <p>
+          <button
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4 focus:outline-none"
+            on:click={() => deleteFromCart(product.id)}
+          >
+            Remove from Cart
+          </button>
+        </p>
+      </div>
+    {/each}
   </div>
-{/each}
 
-<div class="place-order">
-  <button
-    class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-    on:click={placeOrder}
-  >
-    Place Order
-  </button>
+  <div class="w-1/2 p-4">
+    <div class="destination-input">
+      <label for="destination" class="text-lg font-semibold text-gray-700">Destination:</label>
+      <input
+        type="text"
+        id="destination"
+        bind:value={destination}
+        placeholder="Enter destination"
+        class="border rounded-md p-2 mt-2 focus:outline-none focus:border-blue-500"
+      />
+    </div>
+
+    <div class="place-order mt-8">
+      <button
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
+        on:click={placeOrder}
+      >
+        Place Order
+      </button>
+    </div>
+  </div>
 </div>
 
 <style>
-  /* Add your CSS styles here */
+  /* Add your global CSS styles here */
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f5f7;
+  }
+
+  /* Add any additional custom styles if needed */
 </style>
+
