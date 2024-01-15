@@ -4,10 +4,12 @@
 
   let completedOrders = false;
 </script>
-<div class="back"><a href="/driver">←Back to new orders</a></div>
 
-<h1 class="content-header">My orders</h1>
-<div class="content-filter">
+<div class="absolute left-[20px] top-[100px]"><a href="/driver" class="no-underline text-[grey] hover:underline hover:text-black">←Back to new orders</a></div>
+
+
+<h1 class="text-[2.5em] text-[color:var(--primary-color)]">My orders</h1>
+<div>
   <input
     type="checkbox"
     name="order"
@@ -19,129 +21,59 @@
 
   {#if completedOrders}
     {#if data.completedOrders.length === 0}
-      <p class="mt-12 text-xl text-center" style="color: var(--primary-color)">
+      <p class="mt-12 text-xl text-center text-[color:var(--primary-color)]">
       Seems like you have not completed any order yet...
       <br>Explore the <a class="font-bold" href="/driver">new orders</a> and pick your first one!
       </p>
     {/if}
 
     {#each data.completedOrders as { id, created_at, completed_at, destination, products }}
-    <div class="order">
-      <h3 class="content-header">Order #{id}</h3>
+    <div class="min-w-[40%] max-w-[50%] m-[10px] p-[10px] flex justify-center flex-col bg-[var(--secondary-color)] text-[color:var(--primary-color)] font-[Tahoma] border-4 border-[var(--primary-color)] rounded-[15px]">
+      <h3 class="text-[2em] text-[color:var(--primary-color)]">Order #{id}</h3>
       <p><span class="font-bold">Destination: </span>{destination}</p>
       <p><span class="font-bold">Order placed: </span>{new Date(created_at).toLocaleString()}</p>
       <p><span class="font-bold">Order completed: </span>{new Date(completed_at).toLocaleString()}</p>
       <p><span class="font-bold">Products:</span></p>
-      <ol style="list-style: circle;">
+      <ul class="list-[circle]">
         {#each products as { product, amount, totalPrice }}
           <li class="ml-8">{`${product}: ${amount} (€${totalPrice})`}</li>
         {/each}
-      </ol>
-      <div class="order-button-container flex-col">
+      </ul>
+      <div class="mt-[30px] flex flex-col items-center">
         <a href="{id}/delete" class="self-end" data-sveltekit-preload-data="tap">
-          <button class="order-button button-red" type="submit">Delete</button>
+          <button class="text-[color:var(--text-color)] text-[1.25em] transition-[0.2s] duration-[ease-in-out] p-[10px] rounded-[15px] border-none bg-[#f23535] font-[Tahoma] hover:scale-110 hover:bg-[#a32727]" type="submit">Delete</button>
         </a>
       </div>
     </div>
     {/each}
   {:else}
     {#if data.acceptedOrders.length === 0}
-      <p class="mt-12 text-xl text-center" style="color: var(--primary-color)">
+      <p class="mt-12 text-xl text-center text-[color:var(--primary-color)]">
       Seems like you have not picked any order yet...
       <br>Explore the <a class="font-bold" href="/driver">new orders</a> and pick one!
       </p>
     {/if}
 
     {#each data.acceptedOrders as { id, created_at, destination, products }}
-      <div class="order">
-        <h3 class="content-header">Order #{id}</h3>
+      <div class="min-w-[40%] max-w-[50%] m-[10px] p-[10px] flex justify-center flex-col bg-[var(--secondary-color)] text-[color:var(--primary-color)] font-[Tahoma] border-4 border-[var(--primary-color)] rounded-[15px]">
+        <h3 class="text-[2em] text-[color:var(--primary-color)]">Order #{id}</h3>
         <p><span class="font-bold">Destination: </span>{destination}</p>
         <p><span class="font-bold">Order placed: </span>{new Date(created_at).toLocaleString()}</p>
         <p><span class="font-bold">Products:</span></p>
-        <ol style="list-style: circle;">
+        <ol class="list-[circle]">
           {#each products as { product, amount, totalPrice }}
             <li class="ml-8">{`${product}: ${amount} (€${totalPrice})`}</li>
           {/each}
         </ol>
-        <div class="order-button-container">
+        <div class="mt-[30px] flex items-center justify-between">
           <a href="{id}/complete" data-sveltekit-preload-data="tap">
-            <button class="order-button" type="submit">Complete</button>
+            <button class="text-[color:var(--text-color)] text-[1.25em] transition-[0.2s] duration-[ease-in-out] p-[10px] rounded-[15px] border-none bg-[#159b64] font-[Tahoma] hover:scale-110 hover:bg-[#188b5b]" type="submit">Complete</button>
           </a>
           <a href="{id}/cancel" data-sveltekit-preload-data="tap">
-            <button class="order-button button-red">Cancel</button>
+            <button class="text-[color:var(--text-color)] text-[1.25em] transition-[0.2s] duration-[ease-in-out] p-[10px] rounded-[15px] border-none bg-[#f23535] font-[Tahoma] hover:scale-110 hover:bg-[#a32727]">Cancel</button>
           </a>
         </div>
       </div>
     {/each}
   {/if}
 
-<style>
-	.content-header {
-		color: var(--primary-color);
-		font-size: 2em;
-    align-self: center;
-	}
-
-	.order {
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		min-width: 40%;
-		max-width: 50%;
-		background: var(--secondary-color);
-		color: var(--primary-color);
-		font-family: Tahoma;
-		border: 5px groove var(--primary-color);
-		margin: 10px;
-		padding: 10px;
-		border-radius: 15px;
-	}
-
-	.order-button-container {
-		margin-top: 30px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.order-button {
-		cursor: pointer;
-		background: #159b64;
-		color: var(--text-color);
-		font-family: Tahoma;
-		font-size: 1.25em;
-		padding: 10px;
-		border: none;
-		border-radius: 15px;
-		transition: 0.2s ease-in-out;
-	}
-
-	.order-button:hover {
-		transform: scale(1.1);
-		background: #188b5b;
-	}
-
-	.button-red {
-		background: #f23535;
-	}
-
-	.button-red:hover {
-		background: #a32727;
-	}
-
-  .back {
-    position: absolute;
-    left: 20px;
-    top: 100px;
-  }
-
-  .back a {
-    text-decoration: none;
-    color: grey;
-  }
-
-  a:hover {
-    text-decoration: underline;
-    color: black
-  }
-</style>

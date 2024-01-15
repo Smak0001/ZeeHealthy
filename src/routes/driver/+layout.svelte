@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link
@@ -9,7 +6,7 @@
 />
 
 <div
-  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+  class="bg-blue-500 text-white py-4 flex justify-between items-center"
 >
   <div class="ml-4">
     <h1 class="text-4xl font-bold">ZeeHealthy</h1>
@@ -27,8 +24,8 @@
       >Logout</button> -->
   </nav>
 </div>
-<div class="content-container">
-  <div class="content">
+<div class="flex justify-center items-center flex-col">
+  <div class="w-[100%] flex justify-center items-center flex-col flex-wrap">
     <slot />
   </div>
 </div>
@@ -38,21 +35,5 @@
     --primary-color: #012d78;
     --secondary-color: #012d787a;
     --text-color: #deeade;
-  }
-
-  .content-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .content {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    flex-wrap: wrap;
   }
 </style>

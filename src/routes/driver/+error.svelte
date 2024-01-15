@@ -9,21 +9,4 @@
     </div>
 </div>
 
-<div class="back"><a href="/driver">←Back to new orders</a></div>
-
-<style>
-    .back {
-        position: absolute;
-        left: 20px;
-        top: 100px;
-    }
-
-    .back a {
-        text-decoration: none;
-        color: grey;
-    }
-
-    .back a:hover {
-        text-decoration: underline;
-    }
-</style>
+<div class="absolute left-[20px] top-[100px]"><a href="/driver" class="no-underline text-[grey] hover:underline hover:text-black">←Back to new orders</a></div>
