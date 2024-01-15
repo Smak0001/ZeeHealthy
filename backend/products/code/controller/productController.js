@@ -11,7 +11,10 @@ const supabase = createClient(
 const getAllProducts = async (req, res) => {
   try {
     // Fetch all products from Supabase
-    const { data, error } = await supabase.from('products').select('*').order('id');
+    const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .order('id');
 
     if (error) {
       throw error;

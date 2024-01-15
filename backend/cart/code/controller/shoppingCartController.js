@@ -10,10 +10,11 @@ const supabase = createClient(
 
 const getCart = async (req, res) => {
   try {
-    // Fetch all products from Supabase
+    // Fetch all products in cart from Supabase
     const { data, error } = await supabase
       .from('shoppingCart')
       .select('*')
+      .eq('userId', req.params.userId)
       .order('id');
 
     if (error) {
