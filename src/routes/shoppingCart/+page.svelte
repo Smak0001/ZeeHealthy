@@ -74,9 +74,7 @@
   });
 </script>
 
-<div
-  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
->
+<div class="header-container bg-blue-500 text-white py-4 flex justify-between items-center">
   <div class="ml-4">
     <h1 class="text-4xl font-bold">ZeeHealthy</h1>
   </div>
@@ -89,6 +87,14 @@
     <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
     <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
   </nav>
+</div>
+
+<div class="w-full flex items-center justify-center p-4">
+  {#if shoppingCart.length === 0}
+    <h3 class="text-xl font-semibold text-gray-800">
+      Your shopping cart is empty
+    </h3>
+  {/if}
 </div>
 
 <div class="flex">
@@ -136,14 +142,6 @@
           Place Order
         </button>
       </div>
-    </div>
-  {/if}
-
-  {#if shoppingCart.length === 0}
-    <div class="w-1/2 p-4">
-      <h3 class="text-xl font-semibold text-gray-800 mb-1">
-        Your shopping cart is empty
-      </h3>
     </div>
   {/if}
 </div>
