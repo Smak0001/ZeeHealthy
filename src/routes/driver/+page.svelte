@@ -3,89 +3,35 @@
   export let data;
 
   let newOrders = true;
-  let acceptedOrders = false;
   let declinedOrders = false;
 </script>
 
-<h1 class="content-header">Orders</h1>
-<div class="content-filter">
-  <input
-    type="checkbox"
-    name="order"
-    id="new-orders"
-    bind:checked={newOrders}
-  />
-  <label for="new-orders">New orders</label>
-  <input
-    type="checkbox"
-    name="order"
-    id="accepted-orders"
-    bind:checked={acceptedOrders}
-  />
-  <label for="accepted-orders">Accepted orders</label>
-  <input
-    type="checkbox"
-    name="order"
-    id="declined-orders"
-    bind:checked={declinedOrders}
-  />
-  <label for="declined-orders">Declined orders</label>
-</div>
+<h1 class="content-header">New orders</h1>
+<a href="/driver/my-orders">
+  <button class="order-button">My orders</button>
+</a>
+
+{#if data.newOrders.length === 0}
+  Sorry, no new orders at the moment...
+{/if}
+
 <div class="content">
-  {#if newOrders}
-    {#each data.newOrders as { id, destination, products }}
-      <div class="order">
-        <p>Destination: {destination}</p>
-        <p>Products:</p>
-        <ul>
-          {#each products as { product, amount, totalPrice }}
-            <li>{`${product} -- ${amount} -- €${totalPrice}`}</li>
-          {/each}
-        </ul>
-        <div class="order-button-container">
-          <a href="driver/{id}"
-            ><button class="order-button">Read more...</button></a
-          >
-        </div>
+  {#each data.newOrders as { id, destination, products }}
+    <div class="order">
+      <p><span class="font-bold">Destination: </span>{destination}</p>
+      <p><span class="font-bold">Products:</span></p>
+      <ul style="list-style: circle;">
+        {#each products as { product, amount, totalPrice }}
+          <li class="ml-8">{`${product}: ${amount} (€${totalPrice})`}</li>
+        {/each}
+      </ul>
+      <div class="order-button-container">
+        <a href="driver/{id}"
+          ><button class="order-button">Read more...</button></a
+        >
       </div>
-    {/each}
-  {/if}
-  {#if acceptedOrders}
-    {#each data.acceptedOrders as { id, destination, products }}
-      <div class="order accepted">
-        <p>Destination: {destination}</p>
-        <p>Products:</p>
-        <ul>
-          {#each products as { product, amount, totalPrice }}
-            <li>{`${product} -- ${amount} -- €${totalPrice}`}</li>
-          {/each}
-        </ul>
-        <div class="order-button-container">
-          <a href="driver/{id}"
-            ><button class="order-button">Read more...</button></a
-          >
-        </div>
-      </div>
-    {/each}
-  {/if}
-  {#if declinedOrders}
-    {#each data.declinedOrders as { id, destination, products }}
-      <div class="order declined">
-        <p>Destination: {destination}</p>
-        <p>Products:</p>
-        <ul>
-          {#each products as { product, amount, totalPrice }}
-            <li>{`${product} -- ${amount} -- €${totalPrice}`}</li>
-          {/each}
-        </ul>
-        <div class="order-button-container">
-          <a href="driver/{id}"
-            ><button class="order-button">Read more...</button></a
-          >
-        </div>
-      </div>
-    {/each}
-  {/if}
+    </div>
+  {/each}
 </div>
 
 <style>
@@ -108,44 +54,18 @@
   }
 
   .order {
+    color: var(--primary-color);
     display: flex;
     justify-content: center;
     flex-direction: column;
     min-width: 30%;
     max-width: 50%;
     background: var(--secondary-color);
-    color: var(--text-color);
     font-family: Tahoma;
     border: 5px groove var(--primary-color);
     margin: 10px;
     padding: 10px;
     border-radius: 15px;
-  }
-
-  .declined {
-    background: grey;
-    border: 5px groove #333;
-  }
-
-  .declined button {
-    background: #333;
-  }
-
-  .declined button:hover {
-    background: #222;
-  }
-
-  .accepted {
-    border: 5px groove #1da90d;
-    background: #24c424;
-  }
-
-  .accepted button {
-    background: #1da90d;
-  }
-
-  .accepted button:hover {
-    background: #116d07;
   }
 
   .order-button-container {

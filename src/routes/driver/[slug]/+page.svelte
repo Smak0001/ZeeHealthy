@@ -5,21 +5,21 @@
 	const date = new Date(created_at).toLocaleString();
 </script>
 
-<h1 class="content-header">Order #{id}</h1>
 <div class="order">
-	<p>Destination: {destination}</p>
-	<p>Order placed: {date}</p>
-	<p>Products:</p>
-	<ol>
-		{#each products as { product, amount, totalPrice }}
-			<li>{`${product} -- ${amount} -- €${totalPrice}`}</li>
-		{/each}
-	</ol>
+	<h3 class="content-header">Order #{id}</h3>
+	<p><span class="font-bold">Destination: </span>{destination}</p>
+	<p><span class="font-bold">Order placed: </span>{new Date(created_at).toLocaleString()}</p>
+	<p><span class="font-bold">Products:</span></p>
+	<ol style="list-style: circle;">
+	{#each products as { product, amount, totalPrice }}
+	  <li class="ml-8">{`${product}: ${amount} (€${totalPrice})`}</li>
+	{/each}
+  </ol>
 	<div class="order-button-container">
-		<a href="{id}/accept">
+		<a href="{id}/accept" data-sveltekit-preload-data="tap">
 			<button class="order-button" type="submit">Accept</button>
 		</a>
-		<a href="{id}/decline">
+		<a href="{id}/decline" data-sveltekit-preload-data="tap">
 			<button class="order-button button-red">Decline</button>
 		</a>
 	</div>
@@ -29,6 +29,7 @@
 	.content-header {
 		color: var(--primary-color);
 		font-size: 2.5em;
+		align-self: center;
 	}
 
 	.order {
@@ -38,7 +39,7 @@
 		min-width: 40%;
 		max-width: 50%;
 		background: var(--secondary-color);
-		color: var(--text-color);
+		color: var(--primary-color);
 		font-family: Tahoma;
 		border: 5px groove var(--primary-color);
 		margin: 10px;

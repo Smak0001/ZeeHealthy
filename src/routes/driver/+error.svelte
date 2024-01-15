@@ -4,8 +4,8 @@
 
 <div class="h-screen flex items-center justify-center">
     <div class="bg-white p-8 rounded shadow-md max-w-md w-full border-4 border-red-500">
-        <h1 class="text-4xl font-bold text-red-500 mb-4">Error {$page.status}</h1>
-        <p class="text-gray-600">{$page.error?.message}</p>
+        <h1 class="text-4xl font-bold text-red-500 mb-4 text-center">Error {$page.status}</h1>
+        <p class="text-red-500 text-center">{$page.error?.message}</p>
     </div>
 </div>
 

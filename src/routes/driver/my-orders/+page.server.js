@@ -1,5 +1,6 @@
 import { error } from '@sveltejs/kit';
 
+/** @type {import('./$types').PageServerLoad} */
 export async function load({ locals: { getSession } }) {
   const session = await getSession();
   const USER_ID = session?.user.id;
@@ -15,15 +16,14 @@ export async function load({ locals: { getSession } }) {
   }
 
   const acceptedOrdersID = new Set(driver.orders.accepted);
-  const declinedOrdersID = new Set(driver.orders.declined);
+  const completedOrdersID = new Set(driver.orders.completed);
 
   const orders = await fetch(`http://localhost:3003/drivers/${USER_ID}/orders`).then(res => res.json());
-  const newOrders = orders.filter(order => !declinedOrdersID.has(order.id) && !acceptedOrdersID.has(order.id) && order.driver_id === null);
   const acceptedOrders = orders.filter(order => acceptedOrdersID.has(order.id));
-  const declinedOrders = orders.filter(order => declinedOrdersID.has(order.id));
-  
+  const completedOrders = orders.filter(order => completedOrdersID.has(order.id));
+
   return {
-    newOrders: newOrders,
-    declinedOrders: declinedOrders
+    acceptedOrders: acceptedOrders,
+    completedOrders: completedOrders
   }
-}
+};

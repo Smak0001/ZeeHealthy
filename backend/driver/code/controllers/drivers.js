@@ -40,12 +40,14 @@ async function acceptOrder(req, res) {
 
   const acceptedOrders = driver[0].orders.accepted;
   const declinedOrders = driver[0].orders.declined;
+  const completedOrders = driver[0].orders.completed;
+
   const ORDER_ID = +req.params.order_id;
 
   await supabase
   .from('orders')
   .update({ driver_id: driver[0].id})
-  .eq('id', ORDER_ID)
+  .eq('id', ORDER_ID);
 
   const { data, error } = await supabase
     .from('drivers')
@@ -55,7 +57,8 @@ async function acceptOrder(req, res) {
           if (!acceptedOrders.includes(ORDER_ID)) {
             return [...acceptedOrders, ORDER_ID];
           } return acceptedOrders;
-        })(), declined: [...declinedOrders.filter(ID => ID !== ORDER_ID)]
+        })(), declined: [...declinedOrders.filter(ID => ID !== ORDER_ID)],
+        completed: [...completedOrders.filter(ID => ID !== ORDER_ID)]
       }
     })
     .eq('id', req.params.id)
@@ -72,6 +75,8 @@ async function declineOrder(req, res) {
 
   const acceptedOrders = driver[0].orders.accepted;
   const declinedOrders = driver[0].orders.declined;
+  const completedOrders = driver[0].orders.completed;
+
   const ORDER_ID = +req.params.order_id;
 
   await supabase
@@ -87,6 +92,42 @@ async function declineOrder(req, res) {
           if (!declinedOrders.includes(ORDER_ID)) {
             return [...declinedOrders, ORDER_ID];
           } return declinedOrders;
+        })(), completed: [...completedOrders.filter(ID => ID !== ORDER_ID)]
+      }
+    })
+    .eq('id', req.params.id)
+    .select();
+
+  res.send(data)
+}
+
+async function completeOrder(req, res) {
+  const driver = (await supabase
+    .from("drivers")
+    .select()
+    .match({ id: req.params.id })).data;
+
+  const acceptedOrders = driver[0].orders.accepted;
+  const declinedOrders = driver[0].orders.declined;
+  const completedOrders = driver[0].orders.completed;
+
+  const ORDER_ID = +req.params.order_id;
+
+  await supabase
+  .from('orders')
+  .update({ completed_at: new Date().toISOString()})
+  .eq('id', ORDER_ID);
+
+  const { data, error } = await supabase
+    .from('drivers')
+    .update({
+      orders: {
+        accepted: [...acceptedOrders.filter(ID => ID !== ORDER_ID)], 
+        declined: [...declinedOrders.filter(ID => ID !== ORDER_ID)], 
+        completed: (() => {
+          if (!completedOrders.includes(ORDER_ID)) {
+            return [...completedOrders, ORDER_ID];
+          } return completedOrders;
         })()
       }
     })
@@ -96,4 +137,34 @@ async function declineOrder(req, res) {
   res.send(data)
 }
 
-export { getAllDrivers, getDriverById, getDriverOrders, acceptOrder, declineOrder }
+async function cancelOrder(req, res) {
+  const driver = (await supabase
+    .from("drivers")
+    .select()
+    .match({ id: req.params.id })).data;
+
+  const acceptedOrders = driver[0].orders.accepted;
+  const declinedOrders = driver[0].orders.declined;
+  const completedOrders = driver[0].orders.completed;
+
+  const ORDER_ID = +req.params.order_id;
+
+  await supabase
+  .from('orders')
+  .update({ driver_id: null})
+  .eq('id', ORDER_ID)
+
+  const { data, error } = await supabase
+    .from('drivers')
+    .update({
+      orders: {
+        accepted: [...acceptedOrders.filter(ID => ID !== ORDER_ID)], declined: [...declinedOrders.filter(ID => ID !== ORDER_ID)], completed: [...completedOrders.filter(ID => ID !== ORDER_ID)]
+      }
+    })
+    .eq('id', req.params.id)
+    .select();
+
+  res.send(data)
+}
+
+export { getAllDrivers, getDriverById, getDriverOrders, acceptOrder, declineOrder, completeOrder, cancelOrder }

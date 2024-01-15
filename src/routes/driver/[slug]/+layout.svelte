@@ -1,22 +1,22 @@
 <script>
 </script>
 
-<div class="back"><a href="/driver">←Back to orders</a></div>
+<div class="link"><a href="/driver">←Back to new orders</a></div>
 <slot />
 
 <style>
-  .back {
+  .link {
     position: absolute;
     left: 20px;
     top: 100px;
   }
 
-  .back a {
+  .link a {
     text-decoration: none;
     color: grey;
   }
 
-  .back a:hover {
+  .link a:hover {
     text-decoration: underline;
   }
 </style>
