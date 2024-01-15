@@ -20,14 +20,14 @@
     <div class="order">
       <p><span class="font-bold">Destination: </span>{destination}</p>
       <p><span class="font-bold">Products:</span></p>
-      <ul style="list-style: circle;">
+      <ul style="list-style: circle; flex: 1 0 auto; min-height: 30%; max-height: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
         {#each products as { product, amount, totalPrice }}
           <li class="ml-8">{`${product}: ${amount} (€${totalPrice})`}</li>
         {/each}
       </ul>
       <div class="order-button-container">
         <a href="driver/{id}"
-          ><button class="order-button">Read more...</button></a
+          ><button class="order-button" data-sveltekit-preload-data="tap">Read more...</button></a
         >
       </div>
     </div>
@@ -40,17 +40,12 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    height: 60vh;
   }
 
   .content-header {
     color: var(--primary-color);
     font-size: 2.5em;
-  }
-
-  .content-filter {
-    color: var(--primary-color);
-    font-family: Tahoma;
-    margin-bottom: 20px;
   }
 
   .order {
@@ -60,6 +55,7 @@
     flex-direction: column;
     min-width: 30%;
     max-width: 50%;
+    max-height: 30vh;
     background: var(--secondary-color);
     font-family: Tahoma;
     border: 5px groove var(--primary-color);

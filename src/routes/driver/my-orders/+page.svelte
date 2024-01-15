@@ -37,6 +37,11 @@
           <li class="ml-8">{`${product}: ${amount} (€${totalPrice})`}</li>
         {/each}
       </ol>
+      <div class="order-button-container flex-col">
+        <a href="{id}/delete" class="self-end" data-sveltekit-preload-data="tap">
+          <button class="order-button button-red" type="submit">Delete</button>
+        </a>
+      </div>
     </div>
     {/each}
   {:else}

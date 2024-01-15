@@ -10,7 +10,6 @@ export async function load({ locals: { getSession } }) {
 
   const driver = drivers.find(driver => driver.id === USER_ID);
 
-  
   if (driver === undefined) {
     throw error(403, 'You need to register as a driver first!');
   }

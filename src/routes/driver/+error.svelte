@@ -9,10 +9,7 @@
     </div>
 </div>
 
-<!-- <h1>Error {$page.status}!</h1> 
-<h1>{$page.error?.message}</h1> -->
-
-<div class="back"><a href="/">←Back to home</a></div>
+<div class="back"><a href="/driver">←Back to new orders</a></div>
 
 <style>
     .back {
