@@ -10,9 +10,12 @@
 
 	/**
 	 * @param {any} newProduct
-	 * @param {any} newAmount
 	 */
-	async function addToCart(newProduct, newAmount) {
+	async function addToCart(newProduct) {
+		let newAmount = parseInt(prompt("How many do you want to add to your cart?") ?? "");
+		if (!newAmount) {
+			newAmount = 1;
+		}
 		let data = {
 			product: newProduct,
 			amount: newAmount,
@@ -28,7 +31,6 @@
 					body: JSON.stringify(data),
 				},
 			);
-			alert(`Added ${newAmount} ${newProduct} to cart`);
 			if (!response.ok) {
 				throw new Error(`Error: ${response.status} - ${response.statusText}`);
 			}
@@ -52,7 +54,7 @@
 	function getButton() {
 		if (addToCartBtn) {
 			addToCartBtn.addEventListener("click", () => {
-				addToCart(products[Number(data.slug) - 1].name, 1);
+				addToCart(products[Number(data.slug) - 1].name);
 			});
 		}
 	}

@@ -1,9 +1,11 @@
 <!-- Import data to file -->
 <script>
   import { onMount } from "svelte";
-  import { FunctionsHttpError } from "@supabase/supabase-js";
+  // import { FunctionsHttpError } from "@supabase/supabase-js";
 
   let isLoggedIn = false;
+
+  let newAmount = 1;
 
   /**
    * @param {any} newProduct
@@ -25,7 +27,6 @@
           body: JSON.stringify(data),
         },
       );
-      alert(`Added ${newAmount} ${newProduct} to cart`);
       if (!response.ok) {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
       }
@@ -104,9 +105,10 @@
       <p class="mb-2">Weight: {product.weight} kg</p>
       <p class="mb-2">Price: €{Number(product.price).toFixed(2)}</p>
       <p>
+        <input type="number" min="1" max="10" bind:value={newAmount} />
         <button
           class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          on:click={() => addToCart(product.name, 1)}
+          on:click={() => addToCart(product.name, newAmount)}
         >
           Add to Cart
         </button>
