@@ -4,27 +4,27 @@
   import type { SubmitFunction } from "@sveltejs/kit";
 
   /**
+   * @type {import("@sveltejs/kit").Session}
+   */
+  let session: typeof import("@sveltejs/kit");
+  /**
    * @type {any[]}
    */
+  let farmers: any[] = [];
+  // $: ({ session } = data);
 
-   let { session, supabase, farmer } = data;
-    $: ({ session, supabase, farmer } = data);
+  let fullName: string;
+  let form: any;
 
-    let farmerForm: HTMLFormElement;
-    let loading = false;
-    let address: string = farmer?.address ?? "";
-    let name: string = farmer?.name ?? "";
-    let zipcode: string = farmer?.zipcode ?? "";
-    let city: string = farmer?.city ?? "";
+  let loading = false;
 
-    const handleSubmit: SubmitFunction = () => {
-        loading = true;
-        return async () => {
-            loading = false;
-        };
+  const handleSubmit: SubmitFunction = () => {
+    loading = true;
+    return async () => {
+      loading = false;
     };
+  };
 
-  let farmers = [];
   const fetchFarmer = async () => {
     try {
       const response = await fetch("http://localhost:3005/api/farmers");
@@ -39,16 +39,15 @@
     }
   };
   console.log(farmers);
-  const updateFarmer = async (data) => {
+  const updateFarmer = async (data: any) => {
     try {
-      const response = await fetch("http://localhost:3005/api/farmers", 
-      {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        },);
+      const response = await fetch("http://localhost:3005/api/farmers", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         farmers = await response.json();
         console.log("Products:", farmers);
@@ -63,7 +62,6 @@
     fetchFarmer();
   });
 </script>
-
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -91,64 +89,65 @@
 
 <div class="flex justify-center items-center m-1 bg-primary rounded-2xl p-6">
   <h1 class="text-text font-bold text-4xl">
-      Hello, <span class="underline">{fullName}</span>. If you want to update
-      your profile plese feel free to do that.
+    Hello, <span class="underline">{fullName}</span>. If you want to update your
+    profile please feel free to do that.
   </h1>
 </div>
 
 <button
   class="bg-primary text-text cursor-pointer p-2 m-2 border-none rounded-3xl hover:opacity-80"
-  onclick="window.location='/home'">← Go back to the Home page</button
+  on:click={() => (window.location.href = "/home")}
 >
+  ← Go back to the Home page
+</button>
 
 <div class="flex items-center justify-center p-5">
   <form
-      class="w-3/5 h-auto bg-secondary p-10 mt-11 border-4 border-primary rounded-3xl"
-      method="post"
-      action="?/update"
-      use:enhance={handleSubmit}
-      bind:this={}
+    class="w-3/5 h-auto bg-secondary p-10 mt-11 border-4 border-primary rounded-3xl"
+    method="post"
+    action="?/update"
+    use:enhance={handleSubmit}
+    bind:this={form}
   >
-      <div>
-          <label for="name">Name</label>
-          <input
-              class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
-              id="name"
-              name="name"
-              type="text"
-              value={session.farmer.name ?? name}
-          />
-      </div>
+    <div>
+      <label for="name">Name</label>
+      <input
+        class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
+        id="name"
+        name="name"
+        type="text"
+      />
+    </div>
 
-      <div>
-          <label for="fullName">Full Name</label>
-          <input
-              class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
-              id="fullName"
-              name="fullName"
-              type="text"
-              value={form?.fullName ?? fullName}
-          />
-      </div>
+    <div>
+      <label for="fullName">Full Name</label>
+      <input
+        class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
+        id="fullName"
+        name="fullName"
+        type="text"
+        value={form?.fullName ?? ""}
+      />
+    </div>
 
-      <div>
-          <label for="password">Password</label>
-          <input
-              class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
-              id="password"
-              name="password"
-              type="password"
-              value={form?.password ?? password}
-          />
-      </div>
+    <div>
+      <label for="password">Password</label>
+      <input
+        class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
+        id="password"
+        name="password"
+        type="password"
+        value={form?.password ?? ""}
+      />
+    </div>
 
-      <div>
-          <input
-              type="submit"
-              class="bg-primary text-text cursor-pointer w-full py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80"
-              value={loading ? "Loading..." : "Update"}
-              disabled={loading}
-          />
-      </div>
+    <div>
+      <input
+        type="submit"
+        class="bg-primary text-text cursor-pointer w-full py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80"
+        value={loading ? "Loading..." : "Update"}
+        disabled={loading}
+      />
+    </div>
   </form>
 </div>
