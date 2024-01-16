@@ -2,12 +2,14 @@
   import { onMount } from "svelte";
 
   let isLoggedIn = false;
+
   let products = [];
 
   async function addToCart(newProduct, newAmount) {
     let data = {
       product: newProduct,
       amount: newAmount,
+      userId: newUserId,
     };
     try {
       const response = await fetch("http://localhost:3002/api/shoppingCart/cart", {

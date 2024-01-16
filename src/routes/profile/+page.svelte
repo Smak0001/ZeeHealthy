@@ -32,7 +32,7 @@
     };
 </script>
 
-<div class="flex justify-center items-center m-1 bg-primary rounded-2xl p-6">
+<div class="flex justify-center items-center m-1 bg-primary rounded-2xl p-6 bg-blue-500 text-white py-4">
     <h1 class="text-text font-bold text-4xl">
         Hello, <span class="underline">{fullName}</span>. If you want to update
         your profile plese feel free to do that.
@@ -46,7 +46,7 @@
 
 <div class="flex items-center justify-center p-5">
     <form
-        class="w-3/5 h-auto bg-secondary p-10 mt-11 border-4 border-primary rounded-3xl"
+        class="w-3/5 h-auto bg-blue-200 p-10 mt-11 border-4 border-blue-500 rounded-3xl"
         method="post"
         action="?/update"
         use:enhance={handleSubmit}
@@ -88,7 +88,7 @@
         <div>
             <input
                 type="submit"
-                class="bg-primary text-text cursor-pointer w-full py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80"
+                class="bg-primary text-text cursor-pointer w-full bg-blue-500 text-white py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80"
                 value={loading ? "Loading..." : "Update"}
                 disabled={loading}
             />
@@ -97,7 +97,7 @@
         <form method="post" action="?/signout" use:enhance={handleSignOut}>
             <div>
                 <button
-                    class="bg-primary text-text cursor-pointer w-full py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80"
+                    class="bg-primary text-text cursor-pointer w-full bg-blue-500 text-white py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80"
                     disabled={loading}>Sign Out</button
                 >
             </div>

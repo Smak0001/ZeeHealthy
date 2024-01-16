@@ -16,6 +16,7 @@ const getAllProducts = async (req, res) => {
       .select("*")
       .order("id");
 
+
     if (error) {
       throw error;
     }

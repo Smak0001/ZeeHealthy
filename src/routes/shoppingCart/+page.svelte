@@ -5,6 +5,7 @@
    * @type {any[]}
    */
   let shoppingCart = [];
+
   let destination = "";
 
   const fetchCart = async () => {

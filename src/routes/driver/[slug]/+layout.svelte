@@ -1,22 +1,5 @@
 <script>
 </script>
 
-<div class="back"><a href="/driver">←Back to orders</a></div>
+<div class="absolute left-[20px] top-[100px]"><a href="/driver" class="text-gray-500 hover:underline hover:text-black">←Back to new orders</a></div>
 <slot />
-
-<style>
-  .back {
-    position: absolute;
-    left: 20px;
-    top: 100px;
-  }
-
-  .back a {
-    text-decoration: none;
-    color: grey;
-  }
-
-  .back a:hover {
-    text-decoration: underline;
-  }
-</style>

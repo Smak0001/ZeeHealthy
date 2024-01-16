@@ -13,7 +13,9 @@
         const { data } = supabase.auth.onAuthStateChange((event, _session) => {
             if (_session?.expires_at !== session?.expires_at) {
                 invalidate("supabase:auth");
+                location.reload();
             }
+
         });
 
         return () => data.subscription.unsubscribe();
