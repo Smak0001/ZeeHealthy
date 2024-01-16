@@ -105,7 +105,7 @@
           {product.product}
         </h3>
         <h3 class="text-lg font-semibold text-gray-600 mb-2">
-          {product.amount}
+          Amount: {product.amount}
         </h3>
         <p>
           <button
@@ -121,20 +121,29 @@
 
   {#if shoppingCart.length > 0}
     <div class="w-1/2 p-4">
-      <div class="destination-input">
-        <label for="destination" class="text-lg font-semibold text-gray-700"
-          >Destination:</label
-        >
+      <div class="destination-input mb-4">
+        <label for="destination" class="text-lg font-semibold text-gray-700">Destination:</label>
         <input
           type="text"
           id="destination"
           bind:value={destination}
           placeholder="Enter destination"
-          class="border rounded-md p-2 mt-2 focus:outline-none focus:border-blue-500"
+          class="border rounded-md p-2 mt-2 w-full focus:outline-none focus:border-blue-500"
         />
       </div>
 
-      <div class="place-order mt-8">
+      <!-- Additional Input Fields -->
+      <div class="additional-inputs mb-4">
+        <label for="Name" class="text-lg font-semibold text-gray-700">Name:</label>
+        <input
+          type="text"
+          id="Name"
+          placeholder="Enter name"
+          class="border rounded-md p-2 mt-2 w-full focus:outline-none focus:border-blue-500"
+        />
+      </div>
+
+      <div class="place-order">
         <button
           class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
           on:click={placeOrder}
@@ -145,14 +154,3 @@
     </div>
   {/if}
 </div>
-
-<style>
-  /* Add your global CSS styles here */
-
-  body {
-    font-family: "Inter", sans-serif;
-    background-color: #f4f5f7;
-  }
-
-  /* Add any additional custom styles if needed */
-</style>
