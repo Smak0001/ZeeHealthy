@@ -1,7 +1,6 @@
 <!-- Import data to file -->
 <script>
   import { onMount } from "svelte";
-  // import { FunctionsHttpError } from "@supabase/supabase-js";
 
   let isLoggedIn = false;
 

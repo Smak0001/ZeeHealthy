@@ -74,7 +74,9 @@
   });
 </script>
 
-<div class="header-container bg-blue-500 text-white py-4 flex justify-between items-center">
+<div
+  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+>
   <div class="ml-4">
     <h1 class="text-4xl font-bold">ZeeHealthy</h1>
   </div>
