@@ -1,5 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv';
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
 dotenv.config(); // Load environment variables from .env file
 
 // Initialize Supabase client
@@ -11,7 +11,10 @@ const supabase = createClient(
 const getAllProducts = async (req, res) => {
   try {
     // Fetch all products from Supabase
-    const { data, error } = await supabase.from('products').select('*').order('id');
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .order("id");
 
     if (error) {
       throw error;
@@ -19,8 +22,8 @@ const getAllProducts = async (req, res) => {
 
     res.json(data);
   } catch (error) {
-    console.error('Error fetching products:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -30,9 +33,9 @@ const getProductById = async (req, res) => {
   try {
     // Fetch a product by ID from Supabase
     const { data: product, error } = await supabase
-      .from('products')
-      .select('*')
-      .eq('id', productId)
+      .from("products")
+      .select("*")
+      .eq("id", productId)
       .single();
 
     if (error) {
@@ -42,11 +45,11 @@ const getProductById = async (req, res) => {
     if (product) {
       res.json(product);
     } else {
-      res.status(404).json({ error: 'Product not found' });
+      res.status(404).json({ error: "Product not found" });
     }
   } catch (error) {
-    console.error('Error fetching product by ID:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error fetching product by ID:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
