@@ -5,7 +5,8 @@
    * @type {any[]}
    */
   let shoppingCart = [];
-  console.log(localStorage.getItem('userId'));
+
+  let destination = "";
 
   const fetchCart = async () => {
     try {
@@ -21,25 +22,58 @@
   };
 
   /**
-   * @param {any} product
-   * @param {number} amount
+   * @param {any} id
    */
-  function deleteFromCart(product, amount) {
-    // TODO actualy implement this feature
-    console.log(`deleted ${amount} ${product} from cart`);
+  async function deleteFromCart(id) {
+    try {
+      const response = await fetch(
+        `http://localhost:3002/api/shoppingCart/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      if (response.ok) {
+        await fetchCart();
+      } else {
+        console.error("Error deleting row:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error deleting row:", error);
+    }
   }
+
+  const placeOrder = async () => {
+    try {
+      const response = await fetch("http://localhost:3002/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cart: shoppingCart,
+          destination: destination,
+        }),
+      });
+      if (response.ok) {
+        console.log("Order placed successfully!");
+        destination = "";
+        fetchCart(); // Fetch cart again to update the view
+      } else {
+        console.error("Failed to place order");
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+    }
+    shoppingCart.forEach((product) => {
+      deleteFromCart(product.id);
+    });
+  };
 
   onMount(() => {
     fetchCart();
   });
 </script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-  href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-  rel="stylesheet"
-/>
 
 <div
   class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
@@ -58,23 +92,68 @@
   </nav>
 </div>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-  href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-  rel="stylesheet"
-/>
-{#each shoppingCart as product}
-  <div class="product bg-white rounded-lg shadow-md p-4">
-    <h3 class="text-lg font-semibold mb-2">{product.product}</h3>
-    <h3 class="text-lg font-semibold mb-2">{product.amount}</h3>
-    <p>
-      <button
-        class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        on:click={() => deleteFromCart(product.product, 1)}
-      >
-        Remove from Cart
-      </button>
-    </p>
+<div class="w-full flex items-center justify-center p-4">
+  {#if shoppingCart.length === 0}
+    <h3 class="text-xl font-semibold text-gray-800">
+      Your shopping cart is empty
+    </h3>
+  {/if}
+</div>
+
+<div class="flex">
+  <div class="w-1/2 p-4">
+    {#each shoppingCart as product}
+      <div class="product bg-white rounded-lg shadow-md p-4 mb-4">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+          {product.product}
+        </h3>
+        <h3 class="text-lg font-semibold text-gray-600 mb-2">
+          Amount: {product.amount}
+        </h3>
+        <p>
+          <button
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4 focus:outline-none"
+            on:click={() => deleteFromCart(product.id)}
+          >
+            Remove from Cart
+          </button>
+        </p>
+      </div>
+    {/each}
   </div>
-{/each}
+
+  {#if shoppingCart.length > 0}
+    <div class="w-1/2 p-4">
+      <div class="destination-input mb-4">
+        <label for="destination" class="text-lg font-semibold text-gray-700">Destination:</label>
+        <input
+          type="text"
+          id="destination"
+          bind:value={destination}
+          placeholder="Enter destination"
+          class="border rounded-md p-2 mt-2 w-full focus:outline-none focus:border-blue-500"
+        />
+      </div>
+
+      <!-- Additional Input Fields -->
+      <div class="additional-inputs mb-4">
+        <label for="Name" class="text-lg font-semibold text-gray-700">Name:</label>
+        <input
+          type="text"
+          id="Name"
+          placeholder="Enter name"
+          class="border rounded-md p-2 mt-2 w-full focus:outline-none focus:border-blue-500"
+        />
+      </div>
+
+      <div class="place-order">
+        <button
+          class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
+          on:click={placeOrder}
+        >
+          Place Order
+        </button>
+      </div>
+    </div>
+  {/if}
+</div>

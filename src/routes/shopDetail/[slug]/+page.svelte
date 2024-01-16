@@ -8,6 +8,57 @@
 	 */
 	let products = [];
 
+	/**
+	 * @param {any} newProduct
+	 */
+	async function addToCart(newProduct) {
+		let newAmount = parseInt(prompt("How many do you want to add to your cart?") ?? "");
+		if (!newAmount) {
+			newAmount = 1;
+		}
+		let data = {
+			product: newProduct,
+			amount: newAmount,
+		};
+		try {
+			const response = await fetch(
+				"http://localhost:3002/api/shoppingCart/cart",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(data),
+				},
+			);
+			if (!response.ok) {
+				throw new Error(`Error: ${response.status} - ${response.statusText}`);
+			}
+			const result = await response.json();
+			console.log("Added to cart:", result);
+		} catch (error) {
+			console.error("Error adding to cart:", error);
+		}
+	}
+
+	/**
+	 * @type {HTMLButtonElement | null}
+	 */
+	let addToCartBtn = null;
+	setTimeout(() => {
+		addToCartBtn = document.querySelector("button");
+		console.log("Button:", addToCartBtn);
+		getButton();
+	}, 1000);
+
+	function getButton() {
+		if (addToCartBtn) {
+			addToCartBtn.addEventListener("click", () => {
+				addToCart(products[Number(data.slug) - 1].name);
+			});
+		}
+	}
+
 	const fetchProducts = async () => {
 		try {
 			const response = await fetch("http://localhost:3001/api/products");

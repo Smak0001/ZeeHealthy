@@ -1,42 +1,66 @@
-<script>
-  let farmers = [
-    {
-      name: "Oest Farm & Stay",
-      location: "Zuidweg 6, 4389 VG Ritthem",
-      specialization: "Vegetables",
-      rating: 4.5,
-    },
-    {
-      name: "Zorg- en Kaasboerderij Pitteperk",
-      location: "Breeweg 21, 4371 SB Koudekerke",
-      specialization: "Livestock",
-      rating: 3.8,
-    },
-    {
-      name: "Kippenboerderij Sturm",
-      location: "Frederik Barbarossaweg 1, 4364 SG Grijpskerke",
-      specialization: "Livestock",
-      rating: 4.2,
-    },
-    {
-      name: "Tuinenburg",
-      location: "Wilgenhoekweg 37, 4333 RG Middelburg",
-      specialization: "Vegetables",
-      rating: 4.7,
-    },
-    {
-      name: "Alpaca Care",
-      location: "Koestraat 35, 4331 KX Middelburg",
-      specialization: "Livestock",
-      rating: 3.2,
-    },
-    {
-      name: "J. van Wallenburg",
-      location: "Oude Veerseweg 128, 4332 SJ Middelburg",
-      specialization: "Meat",
-      rating: 4.1,
-    },
-  ];
+<script lang="ts">
+  import { onMount } from "svelte";
+  import { enhance } from "$app/forms";
+  import type { SubmitFunction } from "@sveltejs/kit";
+
+  /**
+   * @type {import("@sveltejs/kit").Session}
+   */
+  let session: typeof import("@sveltejs/kit");
+  /**
+   * @type {any[]}
+   */
+  let farmers: any[] = [];
+  // $: ({ session } = data);
+
+  let fullName: string;
+  let form: any;
+
+  let loading = false;
+
+  const handleSubmit: SubmitFunction = () => {
+    loading = true;
+    return async () => {
+      loading = false;
+    };
+  };
+
+  const fetchFarmer = async () => {
+    try {
+      const response = await fetch("http://localhost:3005/api/farmers");
+      if (response.ok) {
+        farmers = await response.json();
+        console.log("Products:", farmers);
+      } else {
+        console.error("Failed to fetch farmers");
+      }
+    } catch (error) {
+      console.error("Error fetching farmers:", error);
+    }
+  };
+  console.log(farmers);
+  const updateFarmer = async (data: any) => {
+    try {
+      const response = await fetch("http://localhost:3005/api/farmers", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        farmers = await response.json();
+        console.log("Products:", farmers);
+      } else {
+        console.error("Failed to Put farmers");
+      }
+    } catch (error) {
+      console.error("Error updating farmers:", error);
+    }
+  };
+  onMount(() => {
+    fetchFarmer();
+  });
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -62,136 +86,68 @@
     <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
   </nav>
 </div>
-<div class="content-container">
-  <div class="header-container">
-    <h1>List of ZeeHealthy Farmers</h1>
-    <button
-      ><i class="fa-regular fa-floppy-disk"></i>
-      <p>Save</p></button
-    >
-  </div>
-  <div class="content">
-    <table>
-      <thead>
-        <tr>
-          <th>Farmer Name</th>
-          <th>Farmer Location</th>
-          <th>Specialization</th>
-          <th>AVG Consumer Rating</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each farmers as farmer}
-          <tr>
-            <td>{farmer.name}</td>
-            <td>{farmer.location}</td>
-            <td>{farmer.specialization}</td>
-            <td>{farmer.rating}</td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-  </div>
-  <main></main>
-  <div class="enterFarmer">
-    <button>Add</button>
-  </div>
+
+<div class="flex justify-center items-center m-1 bg-primary rounded-2xl p-6">
+  <h1 class="text-text font-bold text-4xl">
+    Hello, <span class="underline">{fullName}</span>. If you want to update your
+    profile please feel free to do that.
+  </h1>
 </div>
 
-<style>
-  :root {
-    --primary-color: #012d78;
-    --secondary-color: #012d787a;
-    --text-color: #deeade;
-  }
+<button
+  class="bg-primary text-text cursor-pointer p-2 m-2 border-none rounded-3xl hover:opacity-80"
+  on:click={() => (window.location.href = "/home")}
+>
+  ← Go back to the Home page
+</button>
 
-  .content-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    gap: 24px;
-    padding: 24px;
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
+<div class="flex items-center justify-center p-5">
+  <form
+    class="w-3/5 h-auto bg-secondary p-10 mt-11 border-4 border-primary rounded-3xl"
+    method="post"
+    action="?/update"
+    use:enhance={handleSubmit}
+    bind:this={form}
+  >
+    <div>
+      <label for="name">Name</label>
+      <input
+        class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
+        id="name"
+        name="name"
+        type="text"
+      />
+    </div>
 
-  .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+    <div>
+      <label for="fullName">Full Name</label>
+      <input
+        class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
+        id="fullName"
+        name="fullName"
+        type="text"
+        value={form?.fullName ?? ""}
+      />
+    </div>
 
-  .header-container button {
-    background: var(--secondary-color);
-    color: var(--text-color);
-    padding: 10px 18px;
-    border: none;
-    border-radius: 4px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-  }
+    <div>
+      <label for="password">Password</label>
+      <input
+        class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
+        id="password"
+        name="password"
+        type="password"
+        value={form?.password ?? ""}
+      />
+    </div>
 
-  .header-container button i {
-    font-size: 1.1rem;
-  }
-
-  .header-container button:hover {
-    opacity: 0.8;
-    background: var(--primary-color);
-  }
-
-  main {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex: 1;
-  }
-
-  .enterFarmer button {
-    padding: 0 14px;
-    background: white;
-    border: none;
-    color: white;
-    color: var(--primary-color);
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .enterFarmer button:hover {
-    background: var(--secondary-color);
-  }
-
-  .content {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  th,
-  td {
-    border: 1px solid #012d78;
-    padding: 10px;
-    text-align: left;
-  }
-
-  th {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-  }
-
-  tr:nth-child(even) {
-    background-color: var(--secondary-color);
-  }
-</style>
+    <div>
+      <input
+        type="submit"
+        class="bg-primary text-text cursor-pointer w-full py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80"
+        value={loading ? "Loading..." : "Update"}
+        disabled={loading}
+      />
+    </div>
+  </form>
+</div>
