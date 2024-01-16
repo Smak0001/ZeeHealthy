@@ -8,6 +8,7 @@
 
     let { session, supabase, profile } = data;
     $: ({ session, supabase, profile } = data);
+    console.log(session);
 
     let profileForm: HTMLFormElement;
     let loading = false;

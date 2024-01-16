@@ -36,6 +36,18 @@ services:
     working_dir: /usr/src/app
     command: bash -c "npm install && npm run dev"
 
+  farmers:
+    container_name: farmers
+    build: ./farmer
+    volumes:
+      - ./farmer/code:/usr/src/app
+    networks:
+      - cart
+    ports:
+      - "3005:3005"
+    working_dir: /usr/src/app
+    command: bash -c "npm install && npm run dev"
+
   admin:
     container_name: admin
     build: ./users
@@ -56,4 +68,6 @@ networks:
   driver:
     driver: bridge
   admin:
+    driver: bridge
+  farmer:
     driver: bridge
