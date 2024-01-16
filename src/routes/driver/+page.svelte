@@ -3,168 +3,34 @@
   export let data;
 
   let newOrders = true;
-  let acceptedOrders = false;
   let declinedOrders = false;
 </script>
 
-<h1 class="content-header">Orders</h1>
-<div class="content-filter">
-  <input
-    type="checkbox"
-    name="order"
-    id="new-orders"
-    bind:checked={newOrders}
-  />
-  <label for="new-orders">New orders</label>
-  <input
-    type="checkbox"
-    name="order"
-    id="accepted-orders"
-    bind:checked={acceptedOrders}
-  />
-  <label for="accepted-orders">Accepted orders</label>
-  <input
-    type="checkbox"
-    name="order"
-    id="declined-orders"
-    bind:checked={declinedOrders}
-  />
-  <label for="declined-orders">Declined orders</label>
+<h1 class="text-[2.5em] text-[color:var(--primary-color)]">New orders</h1>
+
+<a href="/driver/my-orders">
+  <button class="bg-[var(--secondary-color)] text-[color:var(--text-color)] font-[Tahoma] p-[10px] border-none rounded-[15px] transition-[0.2s] duration-[ease-in-out] hover:bg-[var(--primary-color)] hover:scale-110">My orders</button>
+</a>
+
+{#if data.newOrders.length === 0}
+  Sorry, no new orders at the moment...
+{/if}
+
+<div class="w-[100%] flex justify-center wrap h-[60vh]">
+  {#each data.newOrders as { id, destination, products }}
+    <div class="min-w-[30%] max-w-[50%] max-h-[30vh] m-[10px] p-[10px] flex justify-center flex-col bg-[var(--secondary-color)] text-[color:var(--primary-color)] font-[Tahoma] border-4 border-[var(--primary-color)] rounded-[15px]">
+      <p><span class="font-bold">Destination: </span>{destination}</p>
+      <p><span class="font-bold">Products:</span></p>
+      <ul class="flex-[1_0_auto] min-h-[30%] max-h-[50%] list-[circle] whitespace-nowrap overflow-hidden text-ellipsis;">
+        {#each products as { product, amount, totalPrice }}
+          <li class="ml-8">{`${product}: ${amount} (€${totalPrice})`}</li>
+        {/each}
+      </ul>
+      <div class="self-center">
+        <a href="driver/{id}"
+          ><button class="bg-[var(--secondary-color)] text-[color:var(--text-color)] font-[Tahoma] p-[10px] border-none rounded-[15px] transition-[0.2s] duration-[ease-in-out] hover:bg-[var(--primary-color)] hover:scale-110" data-sveltekit-preload-data="tap">Read more...</button></a
+        >
+      </div>
+    </div>
+  {/each}
 </div>
-<div class="content">
-  {#if newOrders}
-    {#each data.newOrders as { id, destination, products }}
-      <div class="order">
-        <p>Destination: {destination}</p>
-        <p>Products:</p>
-        <ul>
-          {#each products.products as { product_name, quantity }}
-            <li>{`${product_name} -- ${quantity}`}</li>
-          {/each}
-        </ul>
-        <div class="order-button-container">
-          <a href="driver/{id}"
-            ><button class="order-button">Read more...</button></a
-          >
-        </div>
-      </div>
-    {/each}
-  {/if}
-  {#if acceptedOrders}
-    {#each data.acceptedOrders as { id, destination, products }}
-      <div class="order accepted">
-        <p>Destination: {destination}</p>
-        <p>Products:</p>
-        <ul>
-          {#each products.products as { product_name, quantity }}
-            <li>{`${product_name} -- ${quantity}`}</li>
-          {/each}
-        </ul>
-        <div class="order-button-container">
-          <a href="driver/{id}"
-            ><button class="order-button">Read more...</button></a
-          >
-        </div>
-      </div>
-    {/each}
-  {/if}
-  {#if declinedOrders}
-    {#each data.declinedOrders as { id, destination, products }}
-      <div class="order declined">
-        <p>Destination: {destination}</p>
-        <p>Products:</p>
-        <ul>
-          {#each products.products as { product_name, quantity }}
-            <li>{`${product_name} -- ${quantity}`}</li>
-          {/each}
-        </ul>
-        <div class="order-button-container">
-          <a href="driver/{id}"
-            ><button class="order-button">Read more...</button></a
-          >
-        </div>
-      </div>
-    {/each}
-  {/if}
-</div>
-
-<style>
-  .content {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .content-header {
-    color: var(--primary-color);
-    font-size: 2.5em;
-  }
-
-  .content-filter {
-    color: var(--primary-color);
-    font-family: Tahoma;
-    margin-bottom: 20px;
-  }
-
-  .order {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    min-width: 30%;
-    max-width: 50%;
-    background: var(--secondary-color);
-    color: var(--text-color);
-    font-family: Tahoma;
-    border: 5px groove var(--primary-color);
-    margin: 10px;
-    padding: 10px;
-    border-radius: 15px;
-  }
-
-  .declined {
-    background: grey;
-    border: 5px groove #333;
-  }
-
-  .declined button {
-    background: #333;
-  }
-
-  .declined button:hover {
-    background: #222;
-  }
-
-  .accepted {
-    border: 5px groove #1da90d;
-    background: #24c424;
-  }
-
-  .accepted button {
-    background: #1da90d;
-  }
-
-  .accepted button:hover {
-    background: #116d07;
-  }
-
-  .order-button-container {
-    align-self: center;
-  }
-
-  .order-button {
-    cursor: pointer;
-    background: var(--secondary-color);
-    color: var(--text-color);
-    font-family: Tahoma;
-    padding: 10px;
-    border: none;
-    border-radius: 15px;
-    transition: 0.2s ease-in-out;
-  }
-
-  .order-button:hover {
-    background: var(--primary-color);
-    transform: scale(1.1);
-  }
-</style>
