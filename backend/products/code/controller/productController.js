@@ -8,6 +8,7 @@ const supabase = createClient(
   process.env.PUBLIC_SUPABASE_ANON_KEY
 );
 
+
 const getAllProducts = async (req, res) => {
   try {
     // Fetch all products from Supabase

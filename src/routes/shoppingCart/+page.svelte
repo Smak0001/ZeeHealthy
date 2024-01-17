@@ -49,7 +49,7 @@
   <h1 class="text-2xl font-bold">Shopping cart</h1>
   <nav class="flex justify-end items-center mr-4">
     <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
-    <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+    <a href="/Shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
     <a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4">Cart</a>
     <a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
     <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
