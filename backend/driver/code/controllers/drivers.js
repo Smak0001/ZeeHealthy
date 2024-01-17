@@ -8,6 +8,7 @@ const supabase = createClient(
   process.env.PUBLIC_SUPABASE_ANON_KEY
 );
 
+
 async function getAllDrivers(req, res) {
   const { data, error } = await supabase
     .from("drivers")

@@ -38,4 +38,8 @@
 	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
 	rel="stylesheet"
 />
+{#if session?.user.email === 'admin@admin.com'}
 <slot />
+{:else}
+<h1 class="text align-center">You dont have access to this page</h1>
+{/if}

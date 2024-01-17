@@ -10,3 +10,9 @@ export const GET = async ({ url, locals: { supabase } }) => {
 
   throw redirect(303, '/home')
 }
+
+export function isAdmin(email: string) {
+  // Check if the user has admin privileges based on their email or other criteria
+  return email === "admin@example.com";
+}
+
