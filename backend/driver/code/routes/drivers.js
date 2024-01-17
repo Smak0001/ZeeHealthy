@@ -13,4 +13,10 @@ router.post('/:id/orders/:order_id/accept', driverController.acceptOrder);
 
 router.post('/:id/orders/:order_id/decline', driverController.declineOrder);
 
+router.post('/:id/orders/:order_id/complete', driverController.completeOrder);
+
+router.post('/:id/orders/:order_id/cancel', driverController.cancelOrder);
+
+router.post('/:id/orders/:order_id/delete', driverController.deleteOrder);
+
 export default router;

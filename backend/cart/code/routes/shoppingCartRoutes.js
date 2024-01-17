@@ -10,6 +10,12 @@ router.get('/api/shoppingCart', ShoppingCartController.getCart);
 router.get('/api/shoppingCart/:id', ShoppingCartController.getCartById);
 
 // Route to add a new product
-router.post('/api/shoppingCart/cart', ShoppingCartController.upsertNewProduct)
+router.post('/api/shoppingCart/cart', ShoppingCartController.upsertNewProduct);
+
+// Route to delete a product
+router.delete('/api/shoppingCart/:id', ShoppingCartController.deleteProduct);
+
+// Route to sent the shoppingcart as an order
+router.post('/api/orders', ShoppingCartController.placeOrder);
 
 export default router;
