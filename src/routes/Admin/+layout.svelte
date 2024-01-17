@@ -30,4 +30,8 @@
 	<h1 class="bg-blue-500 rounded-xl p-4 text-2xl cursor-default">Admin</h1>
 </div>
 
+{#if session?.user.email === 'admin@admin.com'}
 <slot />
+{:else}
+<h1 class="text align-center">You dont have access to this page</h1>
+{/if}

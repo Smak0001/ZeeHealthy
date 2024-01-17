@@ -15,7 +15,6 @@ const getCart = async (req, res) => {
     const { data, error } = await supabase
       .from('shoppingCart')
       .select('*')
-      .eq('userId', req.params.userId)
       .order('id');
 
     if (error) {

@@ -8,13 +8,19 @@
 
   let isLoggedIn = false;
 
+  /**
+     * @type {any[]}
+     */
   let products = [];
 
+  /**
+     * @param {any} newProduct
+     * @param {any} newAmount
+     */
   async function addToCart(newProduct, newAmount) {
     let data = {
       product: newProduct,
       amount: newAmount,
-      userId: newUserId,
     };
     try {
       const response = await fetch("http://localhost:3002/api/shoppingCart/cart", {
