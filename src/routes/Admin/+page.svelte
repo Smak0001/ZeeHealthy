@@ -1,8 +1,8 @@
 <script lang="ts">
     export let data;
 
-    let { session } = data;
-	$: ({ supabase, session } = data);
+    let { session, supabase } = data;
+    $: ({ session, supabase } = data);
 </script>
 
 <div class="flex flex-row justify-center">
