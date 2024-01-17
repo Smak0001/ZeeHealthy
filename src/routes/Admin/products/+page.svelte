@@ -47,30 +47,27 @@
     }
 </script>
 
-<div class="object-center">
-    <div>
-        <h1 class="text-center text-2xl">Products</h1>
-        <div class="flex flex-wrap ">
-            {#each products as product}
-                <div class="space-y- text-gray-700 border">
-                    <p class="text-lg ">product name: {product.name}</p>
-                    <p>product ID: {product.id}</p>
-                    <p>product price: {product.price}</p>
-                    <p>product description: {product.description}</p>
-                    <p>product image: {product.pictures}</p>
-                    <p>product weight: {product.weight}</p>
-                    <button
-                    class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                     on:click={() => handleDelete(product.id)}
-                        >Delete</button
-                    >
-                    <button 
-                    class="h-10 px-5 m-2 text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800"
-                    on:click={() => handleUpdate(product.id)}
-                        >Update</button
-                    >
-                </div>
-            {/each}
+<div
+    class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mb-8 p-4"
+>
+    {#each products as product}
+        <div
+            class="bg-white rounded-lg shadow-lg p-4 transform transition duration-500 ease-in-out hover:scale-105"
+        >
+            <p class="text-lg"><span class="font-bold">Product name:</span> {product.name}</p>
+            <p><span class="font-bold">Product ID:</span> {product.id}</p>
+            <p><span class="font-bold">Product price:</span> {product.price}€</p>
+            <p><span class="font-bold">Product description:</span> {product.description}</p>
+            <p class="text-sm"><span class="font-bold">Product image:</span> {product.pictures}</p>
+            <p><span class="font-bold">Product weight:</span> {product.weight}kg</p>
+            <button
+                class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg"
+                on:click={() => handleDelete(product.id)}>Delete</button
+            >
+            <button
+                class="h-10 px-5 m-2 text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800"
+                on:click={() => handleUpdate(product.id)}>Update</button
+            >
         </div>
-    </div>
+    {/each}
 </div>

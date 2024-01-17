@@ -1,57 +1,55 @@
-<script lang='ts'>
-    import { onMount } from "svelte";
+<script lang="ts">
+	import { onMount } from "svelte";
 
-//   import { createSearchStore, searchHandler } from "$lib/stores/search";
-//   import { onDestroy, onMount, } from "svelte";
-//   import type { PageData } from './$types';  
-//   import { writable } from "svelte/store";
-		// export let data: PageData;
+	//   import { createSearchStore, searchHandler } from "$lib/stores/search";
+	//   import { onDestroy, onMount, } from "svelte";
+	//   import type { PageData } from './$types';
+	//   import { writable } from "svelte/store";
+	// export let data: PageData;
 
-// 	export const createSearchStore = (data:any) => {
-		
-// 		const { subscribe, set , update } = writable({
-// 			data: data,
-// 			filtered: data,
-// 			search: '',
-// 		})
-		
-// 		return {
-// 			subscribe,
-// 			set,
-// 			update,
-// 		}
-// 	};
-	
-// 	type User = {
-// 	  email: any;
-// 	  password: any;
-// 	  full_name: any;
-// 	  id: string;
-// 	};
-// export const searchHandler = (store: { data: any; filtered: any; search: any; }) => {
-// const searchTerm = (store.search || "").toLowerCase();
-// store.filtered = store.data.filter((item: { searchTerm: string; }) => {
-// 	return item.searchTerm?.toLowerCase().includes(searchTerm);
-// });
-// };
+	// 	export const createSearchStore = (data:any) => {
 
-// console.log(data.users)
-// const users: User[] = data.users 
-// const searchUser: User[] = users.map((user: User) => ({
-//   ...user,
-//   searchTerms: `${user.id} ${user.full_name} ${user.email} ${user.password}`,
-// }));
-// console.log(searchUser)
-// const searchStore = createSearchStore(searchUser);
+	// 		const { subscribe, set , update } = writable({
+	// 			data: data,
+	// 			filtered: data,
+	// 			search: '',
+	// 		})
 
-// let unsubscribe = searchStore.subscribe((model) => searchHandler(model));
+	// 		return {
+	// 			subscribe,
+	// 			set,
+	// 			update,
+	// 		}
+	// 	};
 
-// console.log($searchStore.filtered)
-// onDestroy(() => {
-//   unsubscribe();
-// });
+	// 	type User = {
+	// 	  email: any;
+	// 	  password: any;
+	// 	  full_name: any;
+	// 	  id: string;
+	// 	};
+	// export const searchHandler = (store: { data: any; filtered: any; search: any; }) => {
+	// const searchTerm = (store.search || "").toLowerCase();
+	// store.filtered = store.data.filter((item: { searchTerm: string; }) => {
+	// 	return item.searchTerm?.toLowerCase().includes(searchTerm);
+	// });
+	// };
 
+	// console.log(data.users)
+	// const users: User[] = data.users
+	// const searchUser: User[] = users.map((user: User) => ({
+	//   ...user,
+	//   searchTerms: `${user.id} ${user.full_name} ${user.email} ${user.password}`,
+	// }));
+	// console.log(searchUser)
+	// const searchStore = createSearchStore(searchUser);
 
+	// let unsubscribe = searchStore.subscribe((model) => searchHandler(model));
+
+	// console.log($searchStore.filtered)
+	// onDestroy(() => {
+	//   unsubscribe();
+	// });
 
 	// import { createSearchStore, searchHandler } from "$lib/stores/search";
 	// import { onDestroy, onMount } from "svelte";
@@ -65,13 +63,13 @@
 	// // 	email:stringify;
 	// // 	password:string;
 	// // }
-	
+
 	// /**
 	//  * @type {any[]}
 	//  */
 
-	let usersData:any = [];
-	
+	let usersData: any = [];
+
 	async function fetchData() {
 		const response = await fetch("http://localhost:3004/users");
 		usersData = await response.json();
@@ -82,24 +80,24 @@
 		console.log(usersData); // Now it should contain the fetched data
 		// orderdList()
 	});
-	
-		// const searchUser: any[] = data.users.map((user) => ({
-		// 	...user,
-		// 	searchTerms: `${user.id} ${user.full_name} ${user.email} ${user.password}`,
-		// }));
-		// const searchStore = createSearchStore(searchUser);
-	
-		// const unsubscribe = searchStore.subscribe((model) => searchHandler(model));
-	
-		// onDestroy(() => {
-		// 	unsubscribe();
-		// });
-	
+
+	// const searchUser: any[] = data.users.map((user) => ({
+	// 	...user,
+	// 	searchTerms: `${user.id} ${user.full_name} ${user.email} ${user.password}`,
+	// }));
+	// const searchStore = createSearchStore(searchUser);
+
+	// const unsubscribe = searchStore.subscribe((model) => searchHandler(model));
+
+	// onDestroy(() => {
+	// 	unsubscribe();
+	// });
+
 	/**
 	 *
 	 * @param {any} id
 	 */
-	async function handleDelete(id:any) {
+	async function handleDelete(id: any) {
 		try {
 			const response = await fetch(`http://localhost:3004/users/${id}`, {
 				method: "DELETE",
@@ -121,7 +119,7 @@
 	 *
 	 * @param {any} id
 	 */
-	function handleUpdate(id:any) {
+	function handleUpdate(id: any) {
 		window.location.href = `/Admin/users/update/${id}`;
 		console.log("user updated");
 	}
@@ -155,24 +153,29 @@
 	<pre>{JSON.stringify($searchStore.filtered, null, 2)}</pre>
 </div> -->
 
-<div class="object-center">
-	<h1 class="text-center text-2xl ">Users</h1>
-	<div class="flex flex-wrap ">
-		{#each usersData as user}
-			<div  class="space-y- text-gray-700 border">
-				<p  class="text-lg ">Name: {user.full_name}</p>
-				<p>User ID: {user.id}</p>
-				<p>User email: {user.email}</p>
-				<p>User password: {user.password}</p>
-				<button
+<div
+	class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mb-8 p-4"
+>
+	{#each usersData as user}
+		<div
+			class="bg-white rounded-lg shadow-lg p-4 transform transition duration-500 ease-in-out hover:scale-105"
+		>
+			<p class="text-lg"><span class="font-bold">Name:</span> {user.full_name}</p>
+			<p><span class="font-bold">User ID:</span> {user.id}</p>
+			<p><span class="font-bold">User email:</span> {user.email}</p>
+			<button
 				type="button"
-  				class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-  						on:click={() => handleDelete(user.id)}>Delete</button>
-				<button 
+				class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg"
+				on:click={() => handleDelete(user.id)}>Delete</button
+			>
+			<button
 				class="h-10 px-5 m-2 text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800"
-				on:click={() => handleUpdate(user.id)}>Update</button>
-				<button on:click={() => handleBLacklist()}>Blacklist</button>
-			</div>
-		{/each}
-	</div>
+				on:click={() => handleUpdate(user.id)}>Update</button
+			>
+			<button
+				class="h-10 px-5 m-2 text-white transition-colors duration-150 bg-slate-950 rounded-lg focus:shadow-outline hover:bg-slate-700"
+				on:click={() => handleBLacklist()}>Blacklist</button
+			>
+		</div>
+	{/each}
 </div>

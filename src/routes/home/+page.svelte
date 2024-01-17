@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onDestroy, onMount } from "svelte";
+	import logo from "$lib/images/Zeehealthy-logo.png";
 
 	export let data;
 
@@ -34,82 +35,139 @@
 	let { supabase, session } = data;
 	$: ({ supabase, session } = data);
 </script>
-{#if session?.user.email === 'admin@admin.com' }
-	
-<div
-	class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
->
-	<div class="ml-4">
-		<a href="/home" class="text-4xl font-bold">ZeeHealthy</a>
+
+{#if session?.user.email === "admin@admin.com"}
+	<div
+		class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+	>
+		<div class="ml-4">
+			<a href="/home" class="text-4xl font-bold">ZeeHealthy</a>
+		</div>
+		<nav class="flex justify-end items-center mr-4">
+			<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
+			<a href="/Admin" class="text-white hover:text-gray-300 mr-4"
+				>Admin</a
+			>
+			<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+			<a href="/driver" class="text-white hover:text-gray-300 mr-4"
+				>Driver</a
+			>
+			<a href="/farmer" class="text-white hover:text-gray-300 mr-4"
+				>Farmer</a
+			>
+			<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+			<a href="/shoppingCart" class="mr-4"
+				><i class="fa fa-shopping-basket" aria-hidden="true"></i></a
+			>
+			<a href="/profile" class="text-white hover:text-gray-300 mr-4"
+				>{session?.user.email}</a
+			>
+		</nav>
 	</div>
-	<nav class="flex justify-end items-center mr-4">
-		<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
-		<a href="/Admin" class="text-white hover:text-gray-300 mr-4">Admin</a>
-		<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
-		<a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
-		<a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
-		<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
-		<a href="/shoppingCart" class="mr-4"
-			><i class="fa fa-shopping-basket" aria-hidden="true"></i></a
-		>
-		<a href="/profile" class="text-white hover:text-gray-300 mr-4"
-			>{session?.user.email}</a
-		>
-	</nav>
-</div>
 {:else}
-<div
-	class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
->
-	<div class="ml-4">
-		<a href="/home" class="text-4xl font-bold">ZeeHealthy</a>
+	<div
+		class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+	>
+		<div class="ml-4">
+			<a href="/home" class="text-4xl font-bold">ZeeHealthy</a>
+		</div>
+		<nav class="flex justify-end items-center mr-4">
+			<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
+			<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+			<a href="/driver" class="text-white hover:text-gray-300 mr-4"
+				>Driver</a
+			>
+			<a href="/farmer" class="text-white hover:text-gray-300 mr-4"
+				>Farmer</a
+			>
+			<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+			<a href="/shoppingCart" class="mr-4"
+				><i class="fa fa-shopping-basket" aria-hidden="true"></i></a
+			>
+			<a href="/profile" class="text-white hover:text-gray-300 mr-4"
+				>{session?.user.email}</a
+			>
+		</nav>
 	</div>
-	<nav class="flex justify-end items-center mr-4">
-		<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
-		<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
-		<a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
-		<a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
-		<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
-		<a href="/shoppingCart" class="mr-4"
-			><i class="fa fa-shopping-basket" aria-hidden="true"></i></a
-		>
-		<a href="/profile" class="text-white hover:text-gray-300 mr-4"
-			>{session?.user.email}</a
-		>
-	</nav>
-</div>
 {/if}
 
-<div class="grid place-content-center m-5 text-white">
-	<h1 class="bg-blue-500 rounded-xl p-4 text-2xl cursor-default">Home</h1>
-</div>
+<div class="main-content">
+	<div class="grid place-content-center mx-5 mt-5 text-white">
+		<h1 class="bg-blue-500 rounded-xl p-4 text-2xl cursor-default">Home</h1>
+	</div>
 
-<div
-	class="grid grid-flow-row-dense grid-cols-3 grid-rows-3 p-32 text-white cursor-default"
->
 	<div
-		class="col-span-3 m-5 p-5 text-2xl bg-blue-300 shadow-lg rounded-lg text-left transform transition duration-500 ease-in-out hover:scale-105"
+		class="grid grid-flow-row-dense grid-cols-1 grid-rows-1 px-32 pt-10 text-white cursor-default"
 	>
-		<h1>
-			{textArray[currentIndex]}
+		<div
+			class="col-span-3 mx-5 p-5 text-2xl bg-blue-300 shadow-lg rounded-lg text-left transform transition duration-500 ease-in-out hover:scale-105"
+		>
+			<h1>
+				{textArray[currentIndex]}
+			</h1>
+		</div>
+	</div>
+
+	<div class="flex justify-center gap-x-20 mt-16">
+		<div class="flex flex-col mt-20 w-1/3 text-blue-500">
+			<h1 class="text-3xl">
+				<span class="font-bold text-4xl">Welcome to ZeeHealthy:</span
+				><br />
+				Your Gateway to Affordable, Locally-Sourced, Organic Produce!
+			</h1>
+			<p class="mt-5 text-xl">
+				Discover a world where fresh and affordable go hand-in-hand.
+				<span class="font-bold">ZeeHealthy</span> connects students with
+				local farmers, ensuring you enjoy vibrant fruits and veggies without
+				straining your budget.
+			</p>
+		</div>
+		<div>
+			<img class="h-96" src={logo} alt="" />
+		</div>
+	</div>
+
+<div class="flex justify-center gap-x20 mt-32 mb-20 text-white cursor-default">
+	<div class="w-1/2 mx-10 p-5 text-2xl bg-blue-300 shadow-lg rounded-lg text-left transform transition duration-500 ease-in-out hover:scale-105">
+		<h1 class="font-bold text-3xl">
+			Why Choose ZeeHealthy?
 		</h1>
+		<p class="text-md pt-10">
+			<span class="font-bold">• Local Love:</span> Support nearby farmers and build a sustainable community
+			while enjoying farm-fresh produce.
+		</p>
+		<p class="text-md pt-5">
+			<span class="font-bold">• Student-Friendly Prices:</span> Stay healthy on a budget with our wallet-friendly prices tailored for students.
+		</p>
+		<p class="text-md pt-5">
+			<span class="font-bold">• Seasonal Delights:</span> Embrace the flavors of each season with our diverse, nutrient-packed selection.
+		</p>
+		<p class="text-md pt-5">
+			<span class="font-bold">• Convenient Ordering:</span> Skip the supermarket hassle; order your favorites with just a few clicks.
+		</p>
 	</div>
-	<div
-		class="col-span-2 row-span-5 m-5 p-5 bg-blue-300 shadow-lg rounded-lg text-xl"
-	>
-		Cheapest products this week are from this farm! Follow the link to visit
-		the farmer's shop!
+	<div class="w-1/2 mx-10 p-5 text-2xl bg-blue-300 shadow-lg rounded-lg text-left transform transition duration-500 ease-in-out hover:scale-105">
+		<h1 class="font-bold text-3xl">
+			How It Works?
+		</h1>
+		<p class="text-md pt-10">
+			<span class="font-bold">• Farm Exploration:</span> Browse profiles of local farmers and explore their delicious offerings.
+		</p>
+		<p class="text-md pt-5">
+			<span class="font-bold">• Easy Ordering:</span> Pick your favorites, place your order, and support local agriculture directly.
+		</p>
+		<p class="text-md pt-5">
+			<span class="font-bold">• Local Delivery Points:</span> Convenient deliveries will ensure that you will recieve the order directly at your campus.
+		</p>
+		<p class="text-md pt-5">
+			<span class="font-bold">• Enjoy, Repeat:</span> Revel in the goodness of locally-sourced, budget-friendly delights, and repeat!
+		</p>
 	</div>
-	<div class="row-span-5 m-5 p-5 bg-blue-300 shadow-lg rounded-lg text-xl">
-		Drivers schedule. Lorem ipsum dolor sit amet consectetur adipisicing
-		elit. Quis rem amet dignissimos placeat nam eaque ad autem sapiente
-		incidunt sunt, quam aperiam provident porro nostrum quod eligendi nobis
-		veritatis cupiditate!
 	</div>
 </div>
 
 <style>
-	.grid {
+	.main-content {
 		animation: content-entry 1s ease-out;
 	}
 

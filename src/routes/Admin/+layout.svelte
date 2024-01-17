@@ -13,13 +13,6 @@
 	</div>
 	<nav class="flex justify-end items-center mr-4">
 		<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
-		<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
-		<a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
-		<a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
-		<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
-		<a href="/shoppingCart" class="mr-4"
-			><i class="fa fa-shopping-basket" aria-hidden="true"></i></a
-		>
 		<a href="/profile" class="text-white hover:text-gray-300 mr-4"
 			>{session?.user.email}</a
 		>
@@ -27,11 +20,20 @@
 </div>
 
 <div class="grid place-content-center m-5 text-white">
-	<h1 class="bg-blue-500 rounded-xl p-4 text-2xl cursor-default">Admin</h1>
+	<a href="/Admin" class="bg-blue-500 rounded-xl p-4 text-2xl">Admin</a>
 </div>
 
-{#if session?.user.email === 'admin@admin.com'}
-<slot />
+{#if session?.user.email === "admin@admin.com"}
+	<slot />
 {:else}
-<h1 class="text align-center">You dont have access to this page</h1>
+	<div class="flex items-center justify-center mt-20">
+		<div
+			class="bg-white p-8 rounded-2xl shadow-md max-w-md w-full border-4 border-red-500"
+		>
+			<h1 class="text-4xl font-bold text-red-500 mb-4 text-center">
+				You dont have access to this page!
+			</h1>
+			<p class="text-red-500 text-center">Go back to the home page</p>
+		</div>
+	</div>
 {/if}
