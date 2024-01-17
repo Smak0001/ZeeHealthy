@@ -51,7 +51,7 @@ rel="stylesheet"
 	<h1 class="text-2xl font-bold">Home</h1>
 	<nav class="flex justify-end items-center mr-4">
 		<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
-		<a href="/admin" class="text-white hover:text-gray-300 mr-4">Admin</a>
+		<a href="/Admin" class="text-white hover:text-gray-300 mr-4">Admin</a>
 		<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
 		<a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4"
 			>Cart</a
