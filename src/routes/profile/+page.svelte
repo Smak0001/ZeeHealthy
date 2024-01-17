@@ -11,29 +11,32 @@
     console.log(session);
 
     let profileForm: HTMLFormElement;
-    let loading = false;
+    let loadingUpdate = false;
+    let loadingSignOut = false;
     let email: string = profile?.email ?? "";
     let fullName: string = profile?.full_name ?? "";
     let password: string = profile?.password ?? "";
 
     const handleSubmit: SubmitFunction = () => {
-        loading = true;
+        loadingUpdate = true;
         return async () => {
-            loading = false;
+            loadingUpdate = false;
         };
     };
 
     const handleSignOut: SubmitFunction = () => {
-        loading = true;
+        loadingSignOut = true;
         return async ({ update }) => {
-            loading = false;
+            loadingSignOut = false;
             update();
         };
     };
 </script>
 
-<div class="flex justify-center items-center m-1 bg-primary rounded-2xl p-6 bg-blue-500 text-white py-4">
-    <h1 class="text-text font-bold text-4xl">
+<div
+    class="flex justify-center items-center m-1 bg-primary rounded-2xl p-6 bg-blue-500 text-white py-4"
+>
+    <h1 class="text-text font-bold text-2xl">
         Hello, <span class="underline">{fullName}</span>. If you want to update
         your profile plese feel free to do that.
     </h1>
@@ -89,17 +92,19 @@
             <input
                 type="submit"
                 class="bg-primary text-text cursor-pointer w-full bg-blue-500 text-white py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80"
-                value={loading ? "Loading..." : "Update"}
-                disabled={loading}
+                value={loadingUpdate ? "Loading..." : "Update"}
+                disabled={loadingUpdate}
             />
         </div>
 
         <form method="post" action="?/signout" use:enhance={handleSignOut}>
             <div>
-                <button
+                <input
+                    type="submit"
                     class="bg-primary text-text cursor-pointer w-full bg-blue-500 text-white py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80"
-                    disabled={loading}>Sign Out</button
-                >
+                    value={loadingSignOut ? "Loading..." : "Sing Out"}
+                    disabled={loadingSignOut}
+                    />
             </div>
         </form>
     </form>

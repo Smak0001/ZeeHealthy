@@ -1,6 +1,11 @@
 <script>
   import { onMount } from "svelte";
 
+  export let data;
+
+  let { supabase, session } = data;
+	$: ({ supabase, session } = data);
+
   /**
    * @type {any[]}
    */
@@ -76,20 +81,28 @@
 </script>
 
 <div
-  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+	class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
 >
-  <div class="ml-4">
-    <h1 class="text-4xl font-bold">ZeeHealthy</h1>
-  </div>
-  <h1 class="text-2xl font-bold">Shopping cart</h1>
-  <nav class="flex justify-end items-center mr-4">
-    <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
-    <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
-    <a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4">Cart</a>
-    <a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
-    <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
-    <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
-  </nav>
+	<div class="ml-4">
+		<a href="/home" class="text-4xl font-bold">ZeeHealthy</a>
+	</div>
+	<nav class="flex justify-end items-center mr-4">
+		<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
+		<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+		<a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
+		<a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
+		<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+		<a href="/shoppingCart" class="mr-4"
+			><i class="fa fa-shopping-basket" aria-hidden="true"></i></a
+		>
+		<a href="/profile" class="text-white hover:text-gray-300 mr-4"
+			>{session?.user.email}</a
+		>
+	</nav>
+</div>
+
+<div class="grid place-content-center m-5 text-white">
+	<h1 class="bg-blue-500 rounded-xl p-4 text-2xl cursor-default">Shopping Cart</h1>
 </div>
 
 <div class="w-full flex items-center justify-center p-4">
