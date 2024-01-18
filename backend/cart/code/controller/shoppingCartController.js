@@ -29,10 +29,11 @@ const getCart = async (req, res) => {
 };
 
 const upsertNewProduct = async (req, res) => {
-  const { product, amount } = req.body;
+  const { product, amount, totalPrice } = req.body;
   const newProduct = {
     product,
     amount,
+    totalPrice,
   };
 
   try {

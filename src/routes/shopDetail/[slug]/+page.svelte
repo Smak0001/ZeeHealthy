@@ -8,17 +8,23 @@
 	 */
 	let products = [];
 
+	let showPopup = false;
+
 	/**
-	 * @param {any} newProduct
-	 */
+     * @param {any} newProduct
+     */
 	async function addToCart(newProduct) {
-		let newAmount = parseInt(prompt("How many do you want to add to your cart?") ?? "");
+		let newAmount = parseInt(
+			prompt("How many do you want to add to your cart?") ?? "",
+		);
 		if (!newAmount) {
 			newAmount = 1;
 		}
+		const newTotalPrice = getNewTotalPrice(newAmount);
 		let data = {
 			product: newProduct,
 			amount: newAmount,
+			totalPrice: newTotalPrice,
 		};
 		try {
 			const response = await fetch(
@@ -42,12 +48,18 @@
 	}
 
 	/**
+     * @param {number} newAmount
+     */
+	function getNewTotalPrice(newAmount) {
+		return products[Number(data.slug) - 1].price * newAmount;
+	}
+
+	/**
 	 * @type {HTMLButtonElement | null}
 	 */
 	let addToCartBtn = null;
 	setTimeout(() => {
 		addToCartBtn = document.querySelector("button");
-		console.log("Button:", addToCartBtn);
 		getButton();
 	}, 1000);
 
@@ -55,6 +67,10 @@
 		if (addToCartBtn) {
 			addToCartBtn.addEventListener("click", () => {
 				addToCart(products[Number(data.slug) - 1].name);
+				showPopup = true;
+				setTimeout(() => {
+					showPopup = false;
+				}, 5000);
 			});
 		}
 	}
@@ -135,3 +151,41 @@
 />
 
 <div class="products-container grid mt-8 p-4"></div>
+{#if showPopup}
+	<div class="popup">
+		<span class="popuptext" id="myPopup">Added to cart</span>
+	</div>
+{/if}
+
+<style>
+	/* Popup container */
+	.popup {
+		position: relative;
+		display: inline-block;
+		cursor: pointer;
+	}
+
+	/* The actual popup (appears on top) */
+	.popup .popuptext {
+		width: 160px;
+		background-color: #555;
+		color: #fff;
+		text-align: center;
+		border-radius: 6px;
+		padding: 8px 0;
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		margin-left: 0px;
+	}
+
+	/* Popup arrow */
+	.popup .popuptext::after {
+		position: absolute;
+		bottom: 100%; /* Changed from top: 100%; */
+		left: 50%;
+		margin-left: -5px;
+		border-width: 5px;
+		border-style: solid;
+	}
+</style>
