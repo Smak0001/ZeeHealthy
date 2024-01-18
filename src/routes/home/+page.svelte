@@ -127,42 +127,52 @@
 		</div>
 	</div>
 
-<div class="flex justify-center gap-x20 mt-32 mb-20 text-white cursor-default">
-	<div class="w-1/2 mx-10 p-5 text-2xl bg-blue-300 shadow-lg rounded-lg text-left transform transition duration-500 ease-in-out hover:scale-105">
-		<h1 class="font-bold text-3xl">
-			Why Choose ZeeHealthy?
-		</h1>
-		<p class="text-md pt-10">
-			<span class="font-bold">• Local Love:</span> Support nearby farmers and build a sustainable community
-			while enjoying farm-fresh produce.
-		</p>
-		<p class="text-md pt-5">
-			<span class="font-bold">• Student-Friendly Prices:</span> Stay healthy on a budget with our wallet-friendly prices tailored for students.
-		</p>
-		<p class="text-md pt-5">
-			<span class="font-bold">• Seasonal Delights:</span> Embrace the flavors of each season with our diverse, nutrient-packed selection.
-		</p>
-		<p class="text-md pt-5">
-			<span class="font-bold">• Convenient Ordering:</span> Skip the supermarket hassle; order your favorites with just a few clicks.
-		</p>
-	</div>
-	<div class="w-1/2 mx-10 p-5 text-2xl bg-blue-300 shadow-lg rounded-lg text-left transform transition duration-500 ease-in-out hover:scale-105">
-		<h1 class="font-bold text-3xl">
-			How It Works?
-		</h1>
-		<p class="text-md pt-10">
-			<span class="font-bold">• Farm Exploration:</span> Browse profiles of local farmers and explore their delicious offerings.
-		</p>
-		<p class="text-md pt-5">
-			<span class="font-bold">• Easy Ordering:</span> Pick your favorites, place your order, and support local agriculture directly.
-		</p>
-		<p class="text-md pt-5">
-			<span class="font-bold">• Local Delivery Points:</span> Convenient deliveries will ensure that you will recieve the order directly at your campus.
-		</p>
-		<p class="text-md pt-5">
-			<span class="font-bold">• Enjoy, Repeat:</span> Revel in the goodness of locally-sourced, budget-friendly delights, and repeat!
-		</p>
-	</div>
+	<div
+		class="flex justify-center gap-x20 mt-32 mb-20 text-white cursor-default"
+	>
+		<div
+			class="w-1/2 mx-10 p-5 text-2xl bg-blue-300 shadow-lg rounded-lg text-left transform transition duration-500 ease-in-out hover:scale-105"
+		>
+			<h1 class="font-bold text-3xl">Why Choose ZeeHealthy?</h1>
+			<p class="text-md pt-10">
+				<span class="font-bold">• Local Love:</span> Support nearby farmers
+				and build a sustainable community while enjoying farm-fresh produce.
+			</p>
+			<p class="text-md pt-5">
+				<span class="font-bold">• Student-Friendly Prices:</span> Stay healthy
+				on a budget with our wallet-friendly prices tailored for students.
+			</p>
+			<p class="text-md pt-5">
+				<span class="font-bold">• Seasonal Delights:</span> Embrace the flavors
+				of each season with our diverse, nutrient-packed selection.
+			</p>
+			<p class="text-md pt-5">
+				<span class="font-bold">• Convenient Ordering:</span> Skip the supermarket
+				hassle; order your favorites with just a few clicks.
+			</p>
+		</div>
+		<div
+			class="w-1/2 mx-10 p-5 text-2xl bg-blue-300 shadow-lg rounded-lg text-left transform transition duration-500 ease-in-out hover:scale-105"
+		>
+			<h1 class="font-bold text-3xl">How It Works?</h1>
+			<p class="text-md pt-10">
+				<span class="font-bold">• Farm Exploration:</span> Browse profiles
+				of local farmers and explore their delicious offerings.
+			</p>
+			<p class="text-md pt-5">
+				<span class="font-bold">• Easy Ordering:</span> Pick your favorites,
+				place your order, and support local agriculture directly.
+			</p>
+			<p class="text-md pt-5">
+				<span class="font-bold">• Local Delivery Points:</span> Convenient
+				deliveries will ensure that you will recieve the order directly at
+				your campus.
+			</p>
+			<p class="text-md pt-5">
+				<span class="font-bold">• Enjoy, Repeat:</span> Revel in the goodness
+				of locally-sourced, budget-friendly delights, and repeat!
+			</p>
+		</div>
 	</div>
 </div>
 
@@ -178,6 +188,24 @@
 		}
 		100% {
 			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	img {
+		animation: floatImage 4s ease-in-out infinite;
+	}
+
+	@keyframes floatImage {
+		0% {
+			transform: translateY(0);
+		}
+
+		50% {
+			transform: translateY(-1rem);
+		}
+
+		100% {
 			transform: translateY(0);
 		}
 	}

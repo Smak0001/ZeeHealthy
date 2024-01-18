@@ -8,7 +8,6 @@
 
     let { session, supabase, profile } = data;
     $: ({ session, supabase, profile } = data);
-    console.log(session);
 
     let profileForm: HTMLFormElement;
     let loadingUpdate = false;
@@ -49,16 +48,16 @@
 
 <div class="flex items-center justify-center p-5">
     <form
-        class="w-3/5 h-auto bg-blue-200 p-10 mt-11 border-4 border-blue-500 rounded-3xl"
+        class="w-3/5 h-auto p-10 mt-11 rounded-3xl bg-blue-100 shadow-lg"
         method="post"
         action="?/update"
         use:enhance={handleSubmit}
         bind:this={profileForm}
     >
         <div>
-            <label for="email">Email</label>
+            <label class="font-bold" for="email">Email</label>
             <input
-                class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
+                class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
                 id="email"
                 name="email"
                 type="text"
@@ -67,9 +66,9 @@
         </div>
 
         <div>
-            <label for="fullName">Full Name</label>
+            <label class="font-bold" for="fullName">Full Name</label>
             <input
-                class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
+                class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
                 id="fullName"
                 name="fullName"
                 type="text"
@@ -78,9 +77,9 @@
         </div>
 
         <div>
-            <label for="password">Password</label>
+            <label class="font-bold" for="password">Password</label>
             <input
-                class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
+                class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
                 id="password"
                 name="password"
                 type="password"
@@ -88,20 +87,20 @@
             />
         </div>
 
-        <div>
+        <div class="flex justify-center">
             <input
                 type="submit"
-                class="bg-primary text-text cursor-pointer w-full bg-blue-500 text-white py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80"
+                class="bg-blue-500 hover:bg-blue-700 w-full cursor-pointer text-white font-bold py-2 px-4 rounded-xl my-8"
                 value={loadingUpdate ? "Loading..." : "Update"}
                 disabled={loadingUpdate}
             />
         </div>
 
         <form method="post" action="?/signout" use:enhance={handleSignOut}>
-            <div>
+            <div class="flex justify-center">
                 <input
                     type="submit"
-                    class="bg-primary text-text cursor-pointer w-full bg-blue-500 text-white py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80"
+                    class="bg-blue-500 hover:bg-blue-700 w-full cursor-pointer text-white font-bold py-2 px-4 rounded-xl"
                     value={loadingSignOut ? "Loading..." : "Sing Out"}
                     disabled={loadingSignOut}
                     />

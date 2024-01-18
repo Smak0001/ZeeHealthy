@@ -23,6 +23,7 @@
 </script>
 
 <svelte:head>
+    <link rel="icon" href="../src/lib/images/favicon.ico" />
     <title>ZeeHealthy</title>
 </svelte:head>
 

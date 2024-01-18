@@ -8,28 +8,37 @@
 
   let isLoggedIn = false;
 
+  let showPopup = false;
+
   /**
-     * @type {any[]}
-     */
+   * @type {any[]}
+   */
   let products = [];
 
   /**
-     * @param {any} newProduct
-     * @param {any} newAmount
-     */
-  async function addToCart(newProduct, newAmount) {
+   * @param {any} newProduct
+   * @param {any} newAmount
+   * @param {any} newTotalPrice
+   */
+  async function addToCart(newProduct, newAmount, newTotalPrice) {
+    showPopup = true;
     let data = {
       product: newProduct,
       amount: newAmount,
+      totalPrice: newTotalPrice,
     };
+    console.log(data.totalPrice);
     try {
-      const response = await fetch("http://localhost:3002/api/shoppingCart/cart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "http://localhost:3002/api/shoppingCart/cart",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-      });
+      );
       if (!response.ok) {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
       }
@@ -46,7 +55,7 @@
       if (response.ok) {
         products = await response.json();
         // Adding a quantity property to each product
-        products = products.map(product => ({
+        products = products.map((product) => ({
           ...product,
           quantity: 1,
         }));
@@ -91,19 +100,44 @@
 
 <div class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mb-8 p-4">
   {#each products as product (product.id)}
-    <div class="product bg-white rounded-lg shadow-lg p-4 transform transition duration-500 ease-in-out hover:scale-105">
+    <div
+      class="product bg-white rounded-lg shadow-lg p-4 transform transition duration-500 ease-in-out hover:scale-105"
+    >
       <a href={`/shopDetail/${product.id}`} class="flex flex-col items-center">
-        <img src={product.pictures} alt={product.name} class="w-full h-48 object-cover mb-2 rounded-lg shadow-md" />
+        <img
+          src={product.pictures}
+          alt={product.name}
+          class="w-full h-48 object-cover mb-2 rounded-lg shadow-md"
+        />
         <h3 class="text-lg font-semibold mb-2 text-gray-800">{product.name}</h3>
       </a>
       <p class="mb-2">Type: {product.type}</p>
       <p class="mb-2">Weight: {product.weight} kg</p>
       <p class="mb-2">Price: €{Number(product.price).toFixed(2)}</p>
       <div class="flex items-center mt-2">
-        <input type="number" min="1" max="99" bind:value={product.quantity} class="mr-2 w-16 py-2 px-3 border border-gray-300 rounded text-center" />
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105" on:click={() => addToCart(product.name, product.quantity)}>
+        <input
+          type="number"
+          min="1"
+          max="99"
+          bind:value={product.quantity}
+          class="mr-2 w-16 py-2 px-3 border border-gray-300 rounded text-center"
+        />
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105"
+          on:click={() =>
+            addToCart(
+              product.name,
+              product.quantity,
+              Number(product.price) * Number(product.quantity),
+            )}
+        >
           Add to Cart
         </button>
+        {#if showPopup}
+          <div class="popup">
+            <span class="popuptext" id="myPopup">Added to cart</span>
+          </div>
+        {/if}
       </div>
     </div>
   {/each}
