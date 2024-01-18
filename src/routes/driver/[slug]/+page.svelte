@@ -6,7 +6,7 @@
 </script>
 
 <div class="min-w-[40%] max-w-[50%] m-[10px] p-[10px] flex justify-center flex-col bg-[var(--secondary-color)] text-[color:var(--primary-color)] font-[Tahoma] border-4 border-[var(--primary-color)] rounded-[15px]">
-	<h3 class="text-[2em] text-[color:var(--primary-color)]">Order #{id}</h3>
+	<h3 class="text-[2em] text-[color:var(--primary-color)] self-center font-bold">Order #{id}</h3>
 	<p><span class="font-bold">Destination: </span>{destination}</p>
 	<p><span class="font-bold">Order placed: </span>{new Date(created_at).toLocaleString()}</p>
 	<p><span class="font-bold">Products:</span></p>
