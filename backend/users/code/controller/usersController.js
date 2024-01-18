@@ -44,10 +44,9 @@ const deleteUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const { id, email, full_name, password } = req.body;
-  const userId = req.params.id
+  const id = req.params.id
+  const { email, full_name, password } = req.body;
   const updatedUser = {
-    id,
     email,
     full_name,
     password,
@@ -57,7 +56,7 @@ const updateUser = async (req, res) => {
     const { data, error } = await supabase
       .from('profiles')
       .update([updatedUser])
-      .eq('id', userId)// Specify the condition to update only the user with the given id
+      .eq('id', id)
 
     if (error) {
       console.error(error);
@@ -71,6 +70,30 @@ const updateUser = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+// const upsertNewProduct = async (req, res) => {
+//   const { product, amount, totalPrice } = req.body;
+//   const newProduct = {
+//     product,
+//     amount,
+//     totalPrice,
+//   };
+
+//   try {
+//     const { data, error } = await supabase
+// .from('shoppingCart')
+// .upsert([newProduct]);
+
+//     if (error) {
+//       throw error;
+//     }
+
+//     res.status(200).json(newProduct);
+//   } catch (error) {
+//     console.error('Error adding/updating product:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// };
 
 
 const getUserId = async (req, res) => {

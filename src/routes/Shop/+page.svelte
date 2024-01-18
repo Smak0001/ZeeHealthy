@@ -31,7 +31,6 @@
       amount: newAmount,
       totalPrice: newTotalPrice,
     };
-    console.log(data.totalPrice);
     try {
       const response = await fetch(
         "http://localhost:3002/api/shoppingCart/cart",
