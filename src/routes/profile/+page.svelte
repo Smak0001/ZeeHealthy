@@ -19,6 +19,15 @@
   let showProduct = false;
   let loading = false;
 
+  let productName: any;
+  let productType: any;
+  let productWeight: any;
+  let productPrice: any;
+  let productKcal: any;
+  let productNutriScore: any;
+  let productPictures: any;
+  let productFarmerId: any;
+
   const handleSubmit: SubmitFunction = () => {
     loadingUpdate = true;
     return async () => {
@@ -50,6 +59,47 @@
   async function fetchAllUserData() {
     const response = await fetch("http://localhost:3004/users");
     usersData = await response.json();
+  }
+
+  async function addProduct(
+    newProductName: any,
+    newProductType: any,
+    newProductWeight: any,
+    newProductPrice: any,
+    newProductKcal: any,
+    newProductNutriScore: any,
+    newProductPictures: any,
+    newProductFarmer_id: any,
+  ) {
+    let productData = {
+      name: newProductName,
+      type: newProductType,
+      weight: newProductWeight,
+      price: newProductPrice,
+      kcal: newProductKcal,
+      NutriScore: newProductNutriScore,
+      pictures: newProductPictures,
+      farmer_id: newProductFarmer_id,
+    };
+    try {
+      const response = await fetch("http://localhost:3001/api/products", {
+        method: "POST", // Assuming you want to add a new product, change to PUT if you are updating
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      });
+
+      if (response.ok) {
+        console.log("Product added successfully");
+      } else {
+        // Handle errors when the response is not okay
+        console.error("Error adding product. Status:", response.status);
+      }
+    } catch (error) {
+      // Handle general errors that might occur during the fetch
+      console.error("Error adding product:", error);
+    }
   }
 
   let productBtn;
@@ -153,49 +203,92 @@
 {/if}
 
 {#if showProduct}
-  <form action="post">
-    <label class="font-bold" for="productName">Product name</label>
+  <form id="productForm">
+    <label for="productName">Product Name:</label>
     <input
-      placeholder="name..."
-      class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
       type="text"
+      id="productName"
+      name="productName"
+      required
+      bind:value={productName}
     />
-    <label class="font-bold" for="productPrice">Product type</label>
+
+    <label for="productType">Product Type:</label>
     <input
-      placeholder="Fruits, Vegetables, etc..."
-      class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
       type="text"
+      id="productType"
+      name="productType"
+      required
+      bind:value={productType}
     />
-    <label class="font-bold" for="productPrice">Product weight</label>
+
+    <label for="productWeight">Product Weight:</label>
     <input
-      placeholder="weight..."
-      class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
       type="text"
+      id="productWeight"
+      name="productWeight"
+      required
+      bind:value={productWeight}
     />
-    <label class="font-bold" for="productPrice">Product price</label>
+
+    <label for="productPrice">Product Price:</label>
     <input
-      placeholder="price..."
-      class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
       type="text"
+      id="productPrice"
+      name="productPrice"
+      required
+      bind:value={productPrice}
     />
-    <label class="font-bold" for="productPrice">Product kcal</label>
+
+    <label for="productKcal">Product Kcal:</label>
     <input
-      placeholder="kcal..."
-      class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
       type="text"
+      id="productKcal"
+      name="productKcal"
+      required
+      bind:value={productKcal}
     />
-    <label class="font-bold" for="productPrice">Product nutri-score</label>
+
+    <label for="productNutriScore">Product Nutri-Score:</label>
     <input
-      placeholder="nutri-score..."
-      class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
       type="text"
+      id="productNutriScore"
+      name="productNutriScore"
+      required
+      bind:value={productNutriScore}
     />
-    <label class="font-bold" for="productPrice">Product photo</label>
+
+    <label for="productPictures">Product Pictures (URL):</label>
     <input
-      placeholder="photolink..."
-      class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
       type="url"
+      id="productPictures"
+      name="productPictures"
+      required
+      bind:value={productPictures}
     />
-    <button type="submit" class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2">Submit</button>
+
+    <label for="productFarmerId">Farmer ID:</label>
+    <input
+      type="text"
+      id="productFarmerId"
+      name="productFarmerId"
+      required
+      bind:value={productFarmerId}
+    />
+
+    <button
+      type="button"
+      on:click={() =>
+        addProduct(
+          productName,
+          productType,
+          productWeight,
+          productPrice,
+          productKcal,
+          productNutriScore,
+          productPictures,
+          productFarmerId,
+        )}>Submit Product</button
+    >
   </form>
 {/if}

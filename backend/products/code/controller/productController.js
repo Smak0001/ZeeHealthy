@@ -55,4 +55,34 @@ const getProductById = async (req, res) => {
   }
 };
 
-export { getAllProducts, getProductById };
+const addProduct = async (req, res) => {
+  const { newProductName, newProductType, newProductWeight, newProductPrice, newProductKcal, newProductNutriScore, newProductPictures, newProductFarmer_id } = req.body;
+  const newProduct = {
+    name: newProductName,
+    type: newProductType,
+    weight: newProductWeight,
+    price: newProductPrice,
+    kcal: newProductKcal,
+    NutriScore: newProductNutriScore,
+    pictures: newProductPictures,
+    farmer_id: newProductFarmer_id,
+  }
+  console.log(newProduct);
+  try {
+    // Insert the new product into the "products" table
+    const { data, error } = await supabase
+      .from("products")
+      .insert([newProduct]);
+    if (error) {
+      throw error;
+    }
+
+    // Return the inserted product
+    res.status(201).json(data[0]);
+  } catch (error) {
+    console.error("Error adding product:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export { getAllProducts, getProductById, addProduct };
