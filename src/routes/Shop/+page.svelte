@@ -4,11 +4,14 @@
   export let data;
 
   let { supabase, session } = data;
-	$: ({ supabase, session } = data);
+  $: ({ supabase, session } = data);
 
   let isLoggedIn = false;
 
-  let showPopup = false;
+  /**
+   * @type {boolean[]}
+   */
+  let showPopup = [];
 
   /**
    * @type {any[]}
@@ -19,9 +22,10 @@
    * @param {any} newProduct
    * @param {any} newAmount
    * @param {any} newTotalPrice
+   * @param {number} index
    */
-  async function addToCart(newProduct, newAmount, newTotalPrice) {
-    showPopup = true;
+  async function addToCart(newProduct, newAmount, newTotalPrice, index) {
+    showPopup[index] = true;
     let data = {
       product: newProduct,
       amount: newAmount,
@@ -47,6 +51,11 @@
     } catch (error) {
       console.error("Error adding to cart:", error);
     }
+
+    // Set a timeout to hide the notification after 5 seconds
+    setTimeout(() => {
+      showPopup[index] = false;
+    }, 2000);
   }
 
   const fetchProducts = async () => {
@@ -59,6 +68,8 @@
           ...product,
           quantity: 1,
         }));
+        // Initialize showPopup array with false values for each product
+        showPopup = new Array(products.length).fill(false);
         console.log("Products:", products);
       } else {
         console.error("Failed to fetch products");
@@ -129,11 +140,12 @@
               product.name,
               product.quantity,
               Number(product.price) * Number(product.quantity),
+              product.id // Pass the product index
             )}
         >
           Add to Cart
         </button>
-        {#if showPopup}
+        {#if showPopup[product.id]}
           <div class="popup">
             <span class="popuptext" id="myPopup">Added to cart</span>
           </div>

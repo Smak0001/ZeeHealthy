@@ -54,7 +54,7 @@
     shoppingCart.forEach((product) => {
       totalCost += product.totalPrice;
     });
-    return totalCost;
+    return totalCost.toFixed(2);
   }
 
   const placeOrder = async () => {
@@ -133,7 +133,7 @@
           Amount: {product.amount}
         </h3>
         <h3 class="text-lg font-semibold text-gray-600 mb-2">
-          price: €{product.totalPrice}
+          price: €{product.totalPrice.toFixed(2)}
         </h3>
         <p>
           <button
