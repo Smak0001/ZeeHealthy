@@ -14,7 +14,7 @@ const getAllFarmerData = async (req, res) => {
     const { data, error } = await supabase
       .from("farmers")
       .select("*")
-      .order("id");
+      .order("farmer_id");
 
     if (error) {
       throw error;
@@ -126,16 +126,16 @@ const getAllFarmerProducts = async (req, res) => {
     console.log(farmersId);
     // Fetch all farmers products from Supabase
     const { data, error } = await supabase
-      .from("farmer_products")
+      .from("farmers")
       .select("*")
-      .eq("farmers_id", farmersId)
+      .eq("id", farmersId)
       .order("id");
 
     if (error) {
       throw error;
     }
 
-    res.json(farmersId);
+    res.json(data); // Fixed: Respond with the actual data retrieved from Supabase
   } catch (error) {
     console.error("Error fetching farmer Products from Supabase table:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -212,13 +212,13 @@ const updateFarmerProduct = async (req, res) => {
       .eq("id", productId);
 
     if (error) {
-      console.error(error);
-      return res.status(500).json({ error: "Internal Server Error" });
+      throw error;
     }
 
+    console.log(data); // Log the result for debugging if needed
     res.status(200).json(updatedProduct);
   } catch (error) {
-    console.error("Error updating farmer in Supabase table:", error.message);
+    console.error("Error updating farmer product in Supabase table:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -227,11 +227,16 @@ const deleteFarmerProduct = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const result = await supabase.from("farmer_products").delete().eq("id", id);
-    console.log(result);
-    res.status(200).json({ message: "Farmer deleted successfully" });
+    const { data, error } = await supabase.from("farmer_products").delete().eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+
+    console.log(data); // Log the result for debugging if needed
+    res.status(200).json({ message: "Farmer product deleted successfully" }); // Updated: Respond with a success message
   } catch (error) {
-    console.error("Error deleting farmer from Supabase table:", error.message);
+    console.error("Error deleting farmer product from Supabase table:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
