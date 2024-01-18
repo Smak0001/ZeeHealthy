@@ -94,8 +94,8 @@
 		<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
 		<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
 		<a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
-		<a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
-		<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+		<!-- <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a> -->
+		<!-- <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a> -->
 		<a href="/shoppingCart" class="mr-4"
 			><i class="fa fa-shopping-basket" aria-hidden="true"></i></a
 		>
