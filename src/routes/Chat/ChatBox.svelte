@@ -70,7 +70,7 @@
 	.bouncy-box {
 		width: 60px;
 		height: 45px;
-		padding-bottom: 15px;
+		padding: 15px 0 15px 0;
 	}
 
 	.text-box {
@@ -78,6 +78,7 @@
 		opacity: 0;
 		transition: 0.2s;
 		transition-delay: 0.2s;
+		padding-top: 10px;
 	}
 	.show {
 		opacity: 1;

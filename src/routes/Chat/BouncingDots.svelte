@@ -10,7 +10,6 @@
 <style>
 	.container {
 		padding: 5px 10px 10px 10px;
-
 		display: flex;
 		width: 40px;
 		justify-content: space-between;
@@ -22,6 +21,7 @@
 		height: 10px;
 		background: #333;
 		border-radius: 50%;
+		margin-top: 5px;
 		animation: bounce 1.2s infinite ease-in-out;
 	}
 

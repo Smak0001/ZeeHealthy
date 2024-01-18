@@ -21,8 +21,9 @@
         theme: ThemeSupa,
         style: {
           button:
-            "background-color: #012d78; border: #012d78; border-radius: 16px",
-          input: "color: black; border-radius: 16px",
+            "background-color: #3b82f6; border: #012d78; border-radius: 16px;",
+          input: 
+            "color: black; border-radius: 16px",
         },
       }}
     />

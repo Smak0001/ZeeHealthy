@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onDestroy, onMount } from "svelte";
+	import logo from "$lib/images/Zeehealthy-logo.png";
 
 	export let data;
 
@@ -35,101 +36,176 @@
 	$: ({ supabase, session } = data);
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-	rel="stylesheet"
-/>
-<div
-	class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
->
-	<div class="ml-4">
-		<h1 class="text-4xl font-bold">ZeeHealthy</h1>
-	</div>
-	<h1 class="text-2xl font-bold">Home</h1>
-	<nav class="flex justify-end items-center mr-4">
-		<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
-		<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
-		<a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4"
-			>Cart</a
-		>
-		<a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
-		<a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
-		<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
-		<a href="/profile" class="text-white hover:text-gray-300 mr-4"
-			>{session?.user.email}</a
-		>
-	</nav>
-</div>
-
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-	rel="stylesheet"
-/>
-
-<!-- <div class="map">
-	<iframe
-		title="map"
-		src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1044.4005287721525!2d3.6095234738859636!3d51.49455406366892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c490d0a317d04d%3A0xe74a28385302684c!2sHZ%20University%20of%20Applied%20Sciences!5e0!3m2!1sen!2snl!4v1700571979566!5m2!1sen!2snl"
-		width="1260"
-		height="600"
-		style="border:1;"
-		loading="lazy"
-		referrerpolicy="no-referrer-when-downgrade"
-	/>
-</div> -->
-<div
-	class="grid grid-flow-row-dense grid-cols-3 grid-rows-3 p-32 text-white cursor-default"
->
+{#if session?.user.email === "admin@admin.com"}
 	<div
-		class="col-span-3 m-5 p-5 text-2xl bg-blue-300 shadow-lg rounded-lg text-left transform transition duration-500 ease-in-out hover:scale-105"
+		class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
 	>
-		<h1>
-			{textArray[currentIndex]}
-		</h1>
+		<div class="ml-4">
+			<a href="/home" class="text-4xl font-bold">ZeeHealthy</a>
+		</div>
+		<nav class="flex justify-end items-center mr-4">
+			<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
+			<a href="/Admin" class="text-white hover:text-gray-300 mr-4"
+				>Admin</a
+			>
+			<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+			<a href="/driver" class="text-white hover:text-gray-300 mr-4"
+				>Driver</a
+			>
+			<a href="/farmer" class="text-white hover:text-gray-300 mr-4"
+				>Farmer</a
+			>
+			<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+			<a href="/shoppingCart" class="mr-4"
+				><i class="fa fa-shopping-basket" aria-hidden="true"></i></a
+			>
+			<a href="/profile" class="text-white hover:text-gray-300 mr-4"
+				>{session?.user.email}</a
+			>
+		</nav>
 	</div>
+{:else}
 	<div
-		class="col-span-2 row-span-5 m-5 p-5 bg-blue-300 shadow-lg rounded-lg text-xl"
+		class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
 	>
-		Cheapest products this week are from this farm! Follow the link to visit
-		the farmer's shop!
+		<div class="ml-4">
+			<a href="/home" class="text-4xl font-bold">ZeeHealthy</a>
+		</div>
+		<nav class="flex justify-end items-center mr-4">
+			<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
+			<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
+			<a href="/driver" class="text-white hover:text-gray-300 mr-4"
+				>Driver</a
+			>
+			<a href="/farmer" class="text-white hover:text-gray-300 mr-4"
+				>Farmer</a
+			>
+			<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+			<a href="/shoppingCart" class="mr-4"
+				><i class="fa fa-shopping-basket" aria-hidden="true"></i></a
+			>
+			<a href="/profile" class="text-white hover:text-gray-300 mr-4"
+				>{session?.user.email}</a
+			>
+		</nav>
 	</div>
-	<div class="row-span-5 m-5 p-5 bg-blue-300 shadow-lg rounded-lg text-xl">
-		Drivers schedule. Lorem ipsum dolor sit amet consectetur adipisicing
-		elit. Quis rem amet dignissimos placeat nam eaque ad autem sapiente
-		incidunt sunt, quam aperiam provident porro nostrum quod eligendi nobis
-		veritatis cupiditate!
+{/if}
+
+<div class="main-content">
+	<div class="grid place-content-center mx-5 mt-5 text-white">
+		<h1 class="bg-blue-500 rounded-xl p-4 text-2xl cursor-default">Home</h1>
+	</div>
+
+	<div
+		class="grid grid-flow-row-dense grid-cols-1 grid-rows-1 px-32 pt-10 text-white cursor-default"
+	>
+		<div
+			class="col-span-3 mx-5 p-5 text-2xl bg-blue-300 shadow-lg rounded-lg text-left transform transition duration-500 ease-in-out hover:scale-105"
+		>
+			<h1>
+				{textArray[currentIndex]}
+			</h1>
+		</div>
+	</div>
+
+	<div class="flex justify-center gap-x-20 mt-16">
+		<div class="flex flex-col mt-20 w-1/3 text-blue-500">
+			<h1 class="text-3xl">
+				<span class="font-bold text-4xl">Welcome to ZeeHealthy:</span
+				><br />
+				Your Gateway to Affordable, Locally-Sourced, Organic Produce!
+			</h1>
+			<p class="mt-5 text-xl">
+				Discover a world where fresh and affordable go hand-in-hand.
+				<span class="font-bold">ZeeHealthy</span> connects students with
+				local farmers, ensuring you enjoy vibrant fruits and veggies without
+				straining your budget.
+			</p>
+		</div>
+		<div>
+			<img class="h-96" src={logo} alt="" />
+		</div>
+	</div>
+
+	<div
+		class="flex justify-center gap-x20 mt-32 mb-20 text-white cursor-default"
+	>
+		<div
+			class="w-1/2 mx-10 p-5 text-2xl bg-blue-300 shadow-lg rounded-lg text-left transform transition duration-500 ease-in-out hover:scale-105"
+		>
+			<h1 class="font-bold text-3xl">Why Choose ZeeHealthy?</h1>
+			<p class="text-md pt-10">
+				<span class="font-bold">• Local Love:</span> Support nearby farmers
+				and build a sustainable community while enjoying farm-fresh produce.
+			</p>
+			<p class="text-md pt-5">
+				<span class="font-bold">• Student-Friendly Prices:</span> Stay healthy
+				on a budget with our wallet-friendly prices tailored for students.
+			</p>
+			<p class="text-md pt-5">
+				<span class="font-bold">• Seasonal Delights:</span> Embrace the flavors
+				of each season with our diverse, nutrient-packed selection.
+			</p>
+			<p class="text-md pt-5">
+				<span class="font-bold">• Convenient Ordering:</span> Skip the supermarket
+				hassle; order your favorites with just a few clicks.
+			</p>
+		</div>
+		<div
+			class="w-1/2 mx-10 p-5 text-2xl bg-blue-300 shadow-lg rounded-lg text-left transform transition duration-500 ease-in-out hover:scale-105"
+		>
+			<h1 class="font-bold text-3xl">How It Works?</h1>
+			<p class="text-md pt-10">
+				<span class="font-bold">• Farm Exploration:</span> Browse profiles
+				of local farmers and explore their delicious offerings.
+			</p>
+			<p class="text-md pt-5">
+				<span class="font-bold">• Easy Ordering:</span> Pick your favorites,
+				place your order, and support local agriculture directly.
+			</p>
+			<p class="text-md pt-5">
+				<span class="font-bold">• Local Delivery Points:</span> Convenient
+				deliveries will ensure that you will recieve the order directly at
+				your campus.
+			</p>
+			<p class="text-md pt-5">
+				<span class="font-bold">• Enjoy, Repeat:</span> Revel in the goodness
+				of locally-sourced, budget-friendly delights, and repeat!
+			</p>
+		</div>
 	</div>
 </div>
 
 <style>
-	/* .map {
-		display: flex;
-		justify-content: center;
-		margin-top: 20px;
+	.main-content {
+		animation: content-entry 1s ease-out;
 	}
 
-	iframe {
-		border-style: solid;
-		border-color: var(--primary-color);
-		border-width: 5px;
-		border-radius: 20px;
-	} */
-
-	.grid {
-		animation: product-entry 1s ease-out;
-	}
-
-	@keyframes product-entry {
+	@keyframes content-entry {
 		0% {
 			opacity: 0;
 			transform: translateY(20px);
 		}
 		100% {
 			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	img {
+		animation: floatImage 4s ease-in-out infinite;
+	}
+
+	@keyframes floatImage {
+		0% {
+			transform: translateY(0);
+		}
+
+		50% {
+			transform: translateY(-1rem);
+		}
+
+		100% {
 			transform: translateY(0);
 		}
 	}

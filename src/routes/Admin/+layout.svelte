@@ -5,37 +5,35 @@
 	$: ({ supabase, session } = data);
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-	rel="stylesheet"
-/>
-
 <div
 	class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
 >
 	<div class="ml-4">
-		<h1 class="text-4xl font-bold">ZeeHealthy</h1>
+		<a href="/home" class="text-4xl font-bold">ZeeHealthy</a>
 	</div>
-	<h1 class="text-2xl font-bold">Admin</h1>
 	<nav class="flex justify-end items-center mr-4">
 		<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
-		<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
-		<a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4">Cart</a>
-		<a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
-		<a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
-		<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
 		<a href="/profile" class="text-white hover:text-gray-300 mr-4"
 			>{session?.user.email}</a
 		>
 	</nav>
 </div>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-	href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-	rel="stylesheet"
-/>
-<slot />
+<div class="grid place-content-center m-5 text-white">
+	<a href="/Admin" class="bg-blue-500 rounded-xl p-4 text-2xl">Admin</a>
+</div>
+
+{#if session?.user.email === "admin@admin.com"}
+	<slot />
+{:else}
+	<div class="flex items-center justify-center mt-20">
+		<div
+			class="bg-white p-8 rounded-2xl shadow-md max-w-md w-full border-4 border-red-500"
+		>
+			<h1 class="text-4xl font-bold text-red-500 mb-4 text-center">
+				You dont have access to this page!
+			</h1>
+			<p class="text-red-500 text-center">Go back to the home page</p>
+		</div>
+	</div>
+{/if}
