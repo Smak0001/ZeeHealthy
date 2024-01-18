@@ -160,11 +160,42 @@
       class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
       type="text"
     />
+    <label class="font-bold" for="productPrice">Product type</label>
+    <input
+      placeholder="Fruits, Vegetables, etc..."
+      class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
+      type="text"
+    />
+    <label class="font-bold" for="productPrice">Product weight</label>
+    <input
+      placeholder="weight..."
+      class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
+      type="text"
+    />
     <label class="font-bold" for="productPrice">Product price</label>
     <input
       placeholder="price..."
       class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
       type="text"
     />
+    <label class="font-bold" for="productPrice">Product kcal</label>
+    <input
+      placeholder="kcal..."
+      class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
+      type="text"
+    />
+    <label class="font-bold" for="productPrice">Product nutri-score</label>
+    <input
+      placeholder="nutri-score..."
+      class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
+      type="text"
+    />
+    <label class="font-bold" for="productPrice">Product photo</label>
+    <input
+      placeholder="photolink..."
+      class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
+      type="url"
+    />
+    <button type="submit" class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2">Submit</button>
   </form>
 {/if}
