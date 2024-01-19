@@ -70,7 +70,6 @@
     newProductKcal: number,
     newProductNutriScore: string,
     newProductPictures: string,
-    newProductFarmer_id: string,
     newProductStock: number,
   ) {
     if (
@@ -82,7 +81,7 @@
         newProductKcal &&
         newProductNutriScore &&
         newProductPictures &&
-        newProductFarmer_id &&
+        session?.user?.id &&
         newProductStock
       )
     ) {
@@ -98,7 +97,7 @@
       kcal: newProductKcal,
       NutriScore: newProductNutriScore,
       pictures: newProductPictures,
-      farmer_id: newProductFarmer_id,
+      farmer_id: session?.user?.id,
       stock: newProductStock,
     };
 
@@ -129,6 +128,7 @@
     getproductBtn();
     fetchAllUserData();
   });
+
 </script>
 
 <div
@@ -316,7 +316,7 @@
       class="mt-1 p-2 border rounded-md w-full"
     />
 
-    <label
+    <!-- <label
       for="productFarmerId"
       class="block mt-4 text-sm font-medium text-gray-600">Farmer ID:</label
     >
@@ -327,7 +327,7 @@
       required
       bind:value={productFarmerId}
       class="mt-1 p-2 border rounded-md w-full"
-    />
+    /> -->
 
     <label
       for="productStock"
@@ -353,7 +353,6 @@
           parseInt(productKcal),
           productNutriScore,
           productPictures,
-          productFarmerId,
           parseInt(productStock),
         )}
       class="mt-4 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
