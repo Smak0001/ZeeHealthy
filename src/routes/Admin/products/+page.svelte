@@ -21,18 +21,16 @@
    */
   async function handleDelete(id) {
     try {
-      const response = await fetch(`http://localhost:3001/products/:${id}`, {
+      const response = await fetch(`http://localhost:3001/api/products/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {
-        // Row deleted successfully, update your data
         await fetchData();
       } else {
         console.error("Error deleting row:", response.statusText);
       }
     } catch (error) {
-      // @ts-ignore
-      console.error("Error deleting row:", error.message);
+      console.error("Error deleting row:", error);
     }
   }
   /**

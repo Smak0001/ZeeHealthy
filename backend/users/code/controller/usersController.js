@@ -71,31 +71,6 @@ const updateUser = async (req, res) => {
   }
 }
 
-// const upsertNewProduct = async (req, res) => {
-//   const { product, amount, totalPrice } = req.body;
-//   const newProduct = {
-//     product,
-//     amount,
-//     totalPrice,
-//   };
-
-//   try {
-//     const { data, error } = await supabase
-// .from('shoppingCart')
-// .upsert([newProduct]);
-
-//     if (error) {
-//       throw error;
-//     }
-
-//     res.status(200).json(newProduct);
-//   } catch (error) {
-//     console.error('Error adding/updating product:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// };
-
-
 const getUserId = async (req, res) => {
   const id = req.params.id;
 
