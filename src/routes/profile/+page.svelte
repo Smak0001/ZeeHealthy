@@ -19,14 +19,15 @@
   let showProduct = false;
   let loading = false;
 
-  let productName: any;
-  let productType: any;
-  let productWeight: any;
-  let productPrice: any;
-  let productKcal: any;
-  let productNutriScore: any;
-  let productPictures: any;
-  let productFarmerId: any;
+  let productName: string = "";
+  let productType: string = "";
+  let productWeight: any = 0;
+  let productPrice: any = 0;
+  let productKcal: any = 0;
+  let productNutriScore: string = "";
+  let productPictures: string = "";
+  let productFarmerId: string = "";
+  let productStock: any = 0;
 
   const handleSubmit: SubmitFunction = () => {
     loadingUpdate = true;
@@ -62,16 +63,34 @@
   }
 
   async function addProduct(
-    newProductName: any,
-    newProductType: any,
-    newProductWeight: any,
-    newProductPrice: any,
-    newProductKcal: any,
-    newProductNutriScore: any,
-    newProductPictures: any,
-    newProductFarmer_id: any,
+    newProductName: string,
+    newProductType: string,
+    newProductWeight: number,
+    newProductPrice: number,
+    newProductKcal: number,
+    newProductNutriScore: string,
+    newProductPictures: string,
+    newProductFarmer_id: string,
+    newProductStock: number,
   ) {
-    let productData = {
+    if (
+      !(
+        newProductName &&
+        newProductType &&
+        newProductWeight &&
+        newProductPrice &&
+        newProductKcal &&
+        newProductNutriScore &&
+        newProductPictures &&
+        newProductFarmer_id &&
+        newProductStock
+      )
+    ) {
+      console.error("Error adding product: All fields must be filled");
+      return;
+    }
+
+    const productData = {
       name: newProductName,
       type: newProductType,
       weight: newProductWeight,
@@ -80,10 +99,12 @@
       NutriScore: newProductNutriScore,
       pictures: newProductPictures,
       farmer_id: newProductFarmer_id,
+      stock: newProductStock,
     };
+
     try {
       const response = await fetch("http://localhost:3001/api/products", {
-        method: "POST", // Assuming you want to add a new product, change to PUT if you are updating
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -92,12 +113,8 @@
 
       if (response.ok) {
         console.log("Product added successfully");
-      } else {
-        // Handle errors when the response is not okay
-        console.error("Error adding product. Status:", response.status);
       }
     } catch (error) {
-      // Handle general errors that might occur during the fetch
       console.error("Error adding product:", error);
     }
   }
@@ -119,7 +136,7 @@
 >
   <h1 class="text-text font-bold text-2xl">
     Hello, <span class="underline">{fullName}</span>. If you want to update your
-    profile plese feel free to do that.
+    profile please feel free to do that.
   </h1>
 </div>
 
@@ -276,18 +293,28 @@
       bind:value={productFarmerId}
     />
 
+    <label for="productStock">Stock:</label>
+    <input
+      type="text"
+      id="productStock"
+      name="productStock"
+      required
+      bind:value={productStock}
+    />
+
     <button
-      type="button"
+      type="submit"
       on:click={() =>
         addProduct(
           productName,
           productType,
-          productWeight,
-          productPrice,
-          productKcal,
+          parseInt(productWeight),
+          parseInt(productPrice),
+          parseInt(productKcal),
           productNutriScore,
           productPictures,
           productFarmerId,
+          parseInt(productStock),
         )}>Submit Product</button
     >
   </form>
