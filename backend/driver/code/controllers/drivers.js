@@ -34,6 +34,17 @@ async function getDriverOrders(req, res) {
   res.send(data);
 }
 
+async function getDriverOrderById(req, res) {
+  const { data } = await supabase
+    .from("orders")
+    .select()
+    .match({ id: req.params.order_id });
+
+    console.log(req.params.order_id);
+
+  res.send(data);
+}
+
 async function acceptOrder(req, res) {
   const driver = (await supabase.from("drivers")
     .select()
@@ -198,4 +209,4 @@ async function deleteOrder(req, res) {
   res.send(data)
 }
 
-export { getAllDrivers, getDriverById, getDriverOrders, acceptOrder, declineOrder, completeOrder, cancelOrder, deleteOrder }
+export { getAllDrivers, getDriverById, getDriverOrders, getDriverOrderById, acceptOrder, declineOrder, completeOrder, cancelOrder, deleteOrder }
