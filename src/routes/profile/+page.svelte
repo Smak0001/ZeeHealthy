@@ -200,106 +200,146 @@
         <input
           type="submit"
           class="bg-blue-500 hover:bg-blue-700 w-full cursor-pointer text-white font-bold py-2 px-4 rounded-xl"
-          value={loadingSignOut ? "Loading..." : "Sing Out"}
+          value={loadingSignOut ? "Loading..." : "Sign Out"}
           disabled={loadingSignOut}
         />
       </div>
     </form>
+    {#if session.user.role === "authenticated" || session.user.role === "farmer"}
+      <div class="flex items-center justify-center p-5">
+        <div
+          class="bg-blue-500 hover:bg-blue-700 w-full cursor-pointer text-white font-bold py-2 px-4 rounded-xl"
+          id="productBtn"
+        >
+          add product
+        </div>
+      </div>
+    {/if}
   </form>
 </div>
 
-{#if session.user.role === "authenticated" || session.user.role === "farmer"}
-  <div class="flex items-center justify-center p-5">
-    <div
-      class="bg-blue-500 hover:bg-blue-700 w-full cursor-pointer text-white font-bold py-2 px-4 rounded-xl"
-      id="productBtn"
-    >
-      add product
-    </div>
-  </div>
-{/if}
-
 {#if showProduct}
-  <form id="productForm">
-    <label for="productName">Product Name:</label>
+  <form
+    id="productForm"
+    class="max-w-md mx-auto mt-8 bg-blue-100 p-8 rounded-3xl shadow-lg"
+  >
+    <label for="productName" class="block text-sm font-medium text-gray-600"
+      >Product Name:</label
+    >
     <input
       type="text"
       id="productName"
       name="productName"
       required
       bind:value={productName}
+      class="mt-1 p-2 border rounded-md w-full"
     />
 
-    <label for="productType">Product Type:</label>
+    <label
+      for="productType"
+      class="block mt-4 text-sm font-medium text-gray-600">Product Type:</label
+    >
     <input
       type="text"
       id="productType"
       name="productType"
       required
       bind:value={productType}
+      class="mt-1 p-2 border rounded-md w-full"
     />
 
-    <label for="productWeight">Product Weight:</label>
+    <label
+      for="productWeight"
+      class="block mt-4 text-sm font-medium text-gray-600"
+      >Product Weight:</label
+    >
     <input
       type="text"
       id="productWeight"
       name="productWeight"
       required
       bind:value={productWeight}
+      class="mt-1 p-2 border rounded-md w-full"
     />
 
-    <label for="productPrice">Product Price:</label>
+    <label
+      for="productPrice"
+      class="block mt-4 text-sm font-medium text-gray-600">Product Price:</label
+    >
     <input
       type="text"
       id="productPrice"
       name="productPrice"
       required
       bind:value={productPrice}
+      class="mt-1 p-2 border rounded-md w-full"
     />
 
-    <label for="productKcal">Product Kcal:</label>
+    <label
+      for="productKcal"
+      class="block mt-4 text-sm font-medium text-gray-600">Product Kcal:</label
+    >
     <input
       type="text"
       id="productKcal"
       name="productKcal"
       required
       bind:value={productKcal}
+      class="mt-1 p-2 border rounded-md w-full"
     />
 
-    <label for="productNutriScore">Product Nutri-Score:</label>
+    <label
+      for="productNutriScore"
+      class="block mt-4 text-sm font-medium text-gray-600"
+      >Product Nutri-Score:</label
+    >
     <input
       type="text"
       id="productNutriScore"
       name="productNutriScore"
       required
       bind:value={productNutriScore}
+      class="mt-1 p-2 border rounded-md w-full"
     />
 
-    <label for="productPictures">Product Pictures (URL):</label>
+    <label
+      for="productPictures"
+      class="block mt-4 text-sm font-medium text-gray-600"
+      >Product Pictures (URL):</label
+    >
     <input
       type="url"
       id="productPictures"
       name="productPictures"
       required
       bind:value={productPictures}
+      class="mt-1 p-2 border rounded-md w-full"
     />
 
-    <label for="productFarmerId">Farmer ID:</label>
+    <label
+      for="productFarmerId"
+      class="block mt-4 text-sm font-medium text-gray-600">Farmer ID:</label
+    >
     <input
       type="text"
       id="productFarmerId"
       name="productFarmerId"
       required
       bind:value={productFarmerId}
+      class="mt-1 p-2 border rounded-md w-full"
     />
 
-    <label for="productStock">Stock:</label>
+    <label
+      for="productStock"
+      class="block mt-4 text-sm font-medium text-gray-600">Stock:</label
+    >
     <input
       type="text"
       id="productStock"
       name="productStock"
       required
       bind:value={productStock}
+      class="mt-1 p-2 border rounded-md w-full"
     />
 
     <button
@@ -315,7 +355,10 @@
           productPictures,
           productFarmerId,
           parseInt(productStock),
-        )}>Submit Product</button
+        )}
+      class="mt-4 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
     >
+      Submit Product
+    </button>
   </form>
 {/if}
