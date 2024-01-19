@@ -56,17 +56,17 @@ const getProductById = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
-  const { newProductName, newProductType, newProductWeight, newProductPrice, newProductKcal, newProductNutriScore, newProductPictures, newProductFarmer_id, newProductstock } = req.body;
+  const { name, type, weight, price, kcal, NutriScore, pictures, farmer_id, stock } = req.body;
   const newProduct = {
-    name: newProductName,
-    type: newProductType,
-    weight: newProductWeight,
-    price: newProductPrice,
-    kcal: newProductKcal,
-    NutriScore: newProductNutriScore,
-    pictures: newProductPictures,
-    farmer_id: newProductFarmer_id,
-    stock: newProductstock,
+    name,
+    type,
+    weight,
+    price,
+    kcal,
+    NutriScore,
+    pictures,
+    farmer_id,
+    stock,
   }
   console.log(newProduct);
 
