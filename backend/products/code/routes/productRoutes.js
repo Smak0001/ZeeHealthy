@@ -9,6 +9,9 @@ router.get('/api/products', productController.getAllProducts);
 // Route to get a product by ID
 router.get('/api/products/:id', productController.getProductById);
 
+// Route to add a new product
+router.post('/api/products', productController.addProduct);
+
 // Route to update a product
 router.put('/api/products/:id', productController.updateProduct);
 

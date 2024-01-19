@@ -1,36 +1,54 @@
+<!-- src/routes/account/+page.svelte -->
 <script lang="ts">
-  import { onMount } from "svelte";
   import { enhance } from "$app/forms";
   import type { SubmitFunction } from "@sveltejs/kit";
+  import { onMount } from "svelte";
 
-  /**
-   * @type {import("@sveltejs/kit").Session}
-   */
-  let session: typeof import("@sveltejs/kit");
-  /**
-   * @type {any[]}
-   */
+  export let data;
+  export let form;
+
+  let { session, supabase, profile } = data;
+  $: ({ session, supabase, profile } = data);
+
+  let profileForm: HTMLFormElement;
+  let loadingUpdate = false;
+  let loadingSignOut = false;
+  let email: string = profile?.email ?? "";
+  let fullName: string = profile?.full_name ?? "";
+  let password: string = profile?.password ?? "";
   let farmers: any[] = [];
-  // $: ({ session } = data);
-
-  let fullName: string;
-  let form: any;
-
+  let showProduct = false;
   let loading = false;
 
+  
   const handleSubmit: SubmitFunction = () => {
+    loadingUpdate = true;
+    return async () => {
+      loadingUpdate = false;
+    };
+  };
+
+  const handleSignOut: SubmitFunction = () => {
+    loadingSignOut = true;
+    return async ({ update }) => {
+      loadingSignOut = false;
+      update();
+    };
+  };
+  
+  const handleProductSubmit: SubmitFunction = () => {
     loading = true;
     return async () => {
       loading = false;
     };
   };
-
+  
   const fetchFarmer = async () => {
     try {
       const response = await fetch("http://localhost:3005/api/farmers");
       if (response.ok) {
         farmers = await response.json();
-        console.log("Products:", farmers);
+        console.log("Farmers:", farmers);
       } else {
         console.error("Failed to fetch farmers");
       }
@@ -38,116 +56,114 @@
       console.error("Error fetching farmers:", error);
     }
   };
-  console.log(farmers);
-  const updateFarmer = async (data: any) => {
-    try {
-      const response = await fetch("http://localhost:3005/api/farmers", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        farmers = await response.json();
-        console.log("Products:", farmers);
-      } else {
-        console.error("Failed to Put farmers");
-      }
-    } catch (error) {
-      console.error("Error updating farmers:", error);
-    }
+  
+  const toggleVisibility = () => {
+    showProduct = !showProduct;
   };
+
+  let productBtn;
+  const getproductBtn = () => {
+    productBtn = document.getElementById("productBtn");
+    productBtn?.addEventListener("click", toggleVisibility);
+  };
+
   onMount(() => {
     fetchFarmer();
+    getproductBtn();
   });
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-  href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
-  rel="stylesheet"
-/>
-
 <div
-  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+  class="flex justify-center items-center m-1 bg-primary rounded-2xl p-6 bg-blue-500 text-white py-4"
 >
-  <div class="ml-4">
-    <h1 class="text-4xl font-bold">ZeeHealthy</h1>
-  </div>
-  <h1 class="text-2xl font-bold">Farmers</h1>
-  <nav class="flex justify-end items-center mr-4">
-    <a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
-    <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
-    <a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4">Cart</a>
-    <a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
-    <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
-    <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
-  </nav>
-</div>
-
-<div class="flex justify-center items-center m-1 bg-primary rounded-2xl p-6">
-  <h1 class="text-text font-bold text-4xl">
+  <h1 class="text-text font-bold text-2xl">
     Hello, <span class="underline">{fullName}</span>. If you want to update your
-    profile please feel free to do that.
+    profile plese feel free to do that.
   </h1>
 </div>
 
-<button
+<a
   class="bg-primary text-text cursor-pointer p-2 m-2 border-none rounded-3xl hover:opacity-80"
-  on:click={() => (window.location.href = "/home")}
+  href="/">← Go back to the Home page</a
 >
-  ← Go back to the Home page
-</button>
 
 <div class="flex items-center justify-center p-5">
   <form
-    class="w-3/5 h-auto bg-secondary p-10 mt-11 border-4 border-primary rounded-3xl"
+    class="w-3/5 h-auto p-10 mt-11 rounded-3xl bg-blue-100 shadow-lg"
     method="post"
     action="?/update"
     use:enhance={handleSubmit}
-    bind:this={form}
+    bind:this={profileForm}
   >
     <div>
-      <label for="name">Name</label>
+      <label class="font-bold" for="email">Email</label>
       <input
-        class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
-        id="name"
-        name="name"
+        class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
+        id="email"
+        name="email"
         type="text"
+        value={session.user.email ?? email}
       />
     </div>
 
     <div>
-      <label for="fullName">Full Name</label>
+      <label class="font-bold" for="fullName">Full Name</label>
       <input
-        class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
+        class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
         id="fullName"
         name="fullName"
         type="text"
-        value={form?.fullName ?? ""}
+        value={form?.fullName ?? fullName}
       />
     </div>
 
     <div>
-      <label for="password">Password</label>
+      <label class="font-bold" for="password">Password</label>
       <input
-        class="w-full inline-block box-border py-3 px-5 border-2 border-primary rounded-2xl my-4"
+        class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
         id="password"
         name="password"
         type="password"
-        value={form?.password ?? ""}
+        value={form?.password ?? password}
       />
     </div>
 
-    <div>
+    <div class="flex justify-center">
       <input
         type="submit"
-        class="bg-primary text-text cursor-pointer w-full py-4 px-7 my-7 border-none rounded-3xl hover:opacity-80"
-        value={loading ? "Loading..." : "Update"}
-        disabled={loading}
+        class="bg-blue-500 hover:bg-blue-700 w-full cursor-pointer text-white font-bold py-2 px-4 rounded-xl my-8"
+        value={loadingUpdate ? "Loading..." : "Update"}
+        disabled={loadingUpdate}
       />
     </div>
+
+    <form method="post" action="?/signout" use:enhance={handleSignOut}>
+      <div class="flex justify-center">
+        <input
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 w-full cursor-pointer text-white font-bold py-2 px-4 rounded-xl"
+          value={loadingSignOut ? "Loading..." : "Sing Out"}
+          disabled={loadingSignOut}
+        />
+      </div>
+    </form>
   </form>
 </div>
+
+<div class="flex items-center justify-center p-5">
+  <div
+    class="bg-blue-500 hover:bg-blue-700 w-full cursor-pointer text-white font-bold py-2 px-4 rounded-xl"
+    id="productBtn"
+  >
+    add product
+  </div>
+</div>
+
+{#if showProduct}
+  <form action="post">
+    <label class="font-bold" for="productName">Product name</label>
+    <input placeholder="name..." class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2" type="text" />
+    <label class="font-bold" for="productPrice">Product price</label>
+    <input placeholder="price..." class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2" type="text" />
+  </form>
+{/if}

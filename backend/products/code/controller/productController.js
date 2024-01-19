@@ -85,6 +85,37 @@ const getProductById = async (req, res) => {
   }
 };
 
+const addProduct = async (req, res) => {
+  const { name, type, weight, price, kcal, NutriScore, pictures, farmer_id, stock } = req.body;
+  const newProduct = {
+    name,
+    type,
+    weight,
+    price,
+    kcal,
+    NutriScore,
+    pictures,
+    farmer_id,
+    stock,
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from("products")
+      .insert([newProduct])
+      .select();
+
+    if (error) {
+      throw error;
+    }
+
+    res.status(200).json(newProduct);
+  } catch (error) {
+    console.error("Error adding product:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 const deleteProduct = async (req, res) => {
   const id = req.params.id;
 
@@ -93,7 +124,6 @@ const deleteProduct = async (req, res) => {
       .from('products')
       .delete()
       .eq('id', id);
-    console.log(result);
     res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error("Error deleting product by ID:", error);
