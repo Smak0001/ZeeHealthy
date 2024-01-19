@@ -14,7 +14,9 @@
    * @param {any} newProduct
    */
   async function addToCart(newProduct) {
-    let newAmount = parseInt(prompt("How many do you want to add to your cart?") ?? "");
+    let newAmount = parseInt(
+      prompt("How many do you want to add to your cart?") ?? "",
+    );
     if (!newAmount) {
       newAmount = 1;
     }
@@ -25,13 +27,16 @@
       totalPrice: newTotalPrice,
     };
     try {
-      const response = await fetch("http://localhost:3002/api/shoppingCart/cart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "http://localhost:3002/api/shoppingCart/cart",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-      });
+      );
       if (!response.ok) {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
       }
@@ -93,8 +98,8 @@
         <div class="product bg-white shadow-lg rounded-lg p-6 transform:scale-105">
             <div>
                 <img src=${products[Number(data.slug) - 1].pictures} alt=${
-        products[Number(data.slug) - 1].name
-      } class="w-full h-48 object-cover mb-2 rounded-lg shadow-md"/>
+                  products[Number(data.slug) - 1].name
+                } class="w-full h-48 object-cover mb-2 rounded-lg shadow-md"/>
                 <div>
                     <h3 class="text-2xl font-semibold mb-2 text-gray-800">${
                       products[Number(data.slug) - 1].name
@@ -125,7 +130,9 @@
   });
 </script>
 
-<div class="header-container bg-blue-500 text-white py-4 flex justify-between items-center">
+<div
+  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+>
   <div class="ml-4">
     <h1 class="text-4xl font-bold">ZeeHealthy</h1>
   </div>
@@ -135,14 +142,17 @@
     <a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
     <a href="/shoppingCart" class="text-white hover:text-gray-300 mr-4">Cart</a>
     <a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
-    <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
-    <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+    <!-- <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a> -->
+    <!-- <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a> -->
   </nav>
 </div>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
-<link href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap" rel="stylesheet" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
+  rel="stylesheet"
+/>
 
 <div class="products-container grid mt-8 p-4"></div>
 {#if showPopup}

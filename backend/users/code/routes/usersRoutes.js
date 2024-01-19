@@ -9,4 +9,4 @@ router.put('/users/:id', usersController.updateUser)
 router.get('/users/:id', usersController.getUserId)
 
 
-export default router       
+export default router

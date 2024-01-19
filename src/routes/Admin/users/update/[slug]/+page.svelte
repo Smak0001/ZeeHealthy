@@ -55,6 +55,7 @@
 	class="text-text cursor-pointer p-2 m-2 border-none rounded-3xl hover:opacity-80"
 	href="../">← Go back</a
 >
+
 <div class="flex items-center justify-center p-5">
 	<form class="w-3/5 h-auto p-10 mt-11 rounded-3xl bg-blue-100 shadow-lg">
 		<label class="font-bold" for="fname">Full name:</label><br />
