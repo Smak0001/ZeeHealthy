@@ -131,4 +131,4 @@ const deleteProduct = async (req, res) => {
   }
 }
 
-export { getAllProducts, getProductById, updateProduct, deleteProduct };
+export { getAllProducts, getProductById, updateProduct, deleteProduct, addProduct };
