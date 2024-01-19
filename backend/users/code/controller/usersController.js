@@ -44,10 +44,9 @@ const deleteUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const { id, email, full_name, password } = req.body;
-  const userId = req.params.id
+  const id = req.params.id
+  const { email, full_name, password } = req.body;
   const updatedUser = {
-    id,
     email,
     full_name,
     password,
@@ -57,7 +56,7 @@ const updateUser = async (req, res) => {
     const { data, error } = await supabase
       .from('profiles')
       .update([updatedUser])
-      .eq('id', userId)// Specify the condition to update only the user with the given id
+      .eq('id', id)
 
     if (error) {
       console.error(error);
@@ -71,7 +70,6 @@ const updateUser = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
-
 
 const getUserId = async (req, res) => {
   const id = req.params.id;

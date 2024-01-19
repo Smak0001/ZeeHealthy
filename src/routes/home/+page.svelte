@@ -45,7 +45,7 @@
 		</div>
 		<nav class="flex justify-end items-center mr-4">
 			<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
-			<a href="/Admin" class="text-white hover:text-gray-300 mr-4">Admin</a>
+			<a href="/admin" class="text-white hover:text-gray-300 mr-4">Admin</a>
 			<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
 			<a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
 			<!-- <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a> -->

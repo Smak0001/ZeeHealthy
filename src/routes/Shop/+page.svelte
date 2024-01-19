@@ -31,7 +31,6 @@
       amount: newAmount,
       totalPrice: newTotalPrice,
     };
-    console.log(data.totalPrice);
     try {
       const response = await fetch(
         "http://localhost:3002/api/shoppingCart/cart",
@@ -85,7 +84,7 @@
 </script>
 
 <div
-	class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
 >
 	<div class="ml-4">
 		<a href="/home" class="text-4xl font-bold">ZeeHealthy</a>
@@ -106,10 +105,12 @@
 </div>
 
 <div class="grid place-content-center m-5 text-white">
-	<h1 class="bg-blue-500 rounded-xl p-4 text-2xl cursor-default">Shop</h1>
+  <h1 class="bg-blue-500 rounded-xl p-4 text-2xl cursor-default">Shop</h1>
 </div>
 
-<div class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mb-8 p-4">
+<div
+  class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mb-8 p-4"
+>
   {#each products as product (product.id)}
     <div
       class="product bg-white rounded-lg shadow-lg p-4 transform transition duration-500 ease-in-out hover:scale-105"
@@ -140,7 +141,7 @@
               product.name,
               product.quantity,
               Number(product.price) * Number(product.quantity),
-              product.id // Pass the product index
+              product.id, // Pass the product index
             )}
         >
           Add to Cart
@@ -156,7 +157,8 @@
 </div>
 
 <style>
-  .product, .grid {
+  .product,
+  .grid {
     animation: product-entry 1s ease-out;
   }
 

@@ -20,7 +20,7 @@
 </div>
 
 <div class="grid place-content-center m-5 text-white">
-	<a href="/Admin" class="bg-blue-500 rounded-xl p-4 text-2xl">Admin</a>
+	<a href="/admin" class="bg-blue-500 rounded-xl p-4 text-2xl">Admin</a>
 </div>
 
 {#if session?.user.email === "admin@admin.com"}

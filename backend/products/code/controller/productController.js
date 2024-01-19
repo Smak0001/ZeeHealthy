@@ -29,6 +29,36 @@ const getAllProducts = async (req, res) => {
   }
 };
 
+const updateProduct = async (req, res) => {
+  const id = req.params.id;
+  const { name, price, pictures, weight, stock } = req.body;
+  const updatedProduct = {
+    name,
+    price,
+    pictures,
+    weight,
+    stock,
+  };
+
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .update([updatedProduct])
+      .eq('id', id);
+
+    if (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    res.status(200).json(updatedProduct);
+
+  } catch (error) {
+    console.error("Error updating product:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
 const getProductById = async (req, res) => {
   const productId = req.params.id;
 
@@ -68,7 +98,6 @@ const addProduct = async (req, res) => {
     farmer_id,
     stock,
   }
-  console.log(newProduct);
 
   try {
     const { data, error } = await supabase
@@ -87,4 +116,19 @@ const addProduct = async (req, res) => {
   }
 };
 
-export { getAllProducts, getProductById, addProduct };
+const deleteProduct = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const result = await supabase
+      .from('products')
+      .delete()
+      .eq('id', id);
+    res.status(200).json({ message: "Product deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting product by ID:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+export { getAllProducts, getProductById, updateProduct, deleteProduct };
