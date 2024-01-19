@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  users:
+  products:
     container_name: products
     build: ./products
     volumes:

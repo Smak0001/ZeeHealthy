@@ -4,11 +4,14 @@
   export let data;
 
   let { supabase, session } = data;
-	$: ({ supabase, session } = data);
+  $: ({ supabase, session } = data);
 
   let isLoggedIn = false;
 
-  let showPopup = false;
+  /**
+   * @type {boolean[]}
+   */
+  let showPopup = [];
 
   /**
    * @type {any[]}
@@ -19,15 +22,15 @@
    * @param {any} newProduct
    * @param {any} newAmount
    * @param {any} newTotalPrice
+   * @param {number} index
    */
-  async function addToCart(newProduct, newAmount, newTotalPrice) {
-    showPopup = true;
+  async function addToCart(newProduct, newAmount, newTotalPrice, index) {
+    showPopup[index] = true;
     let data = {
       product: newProduct,
       amount: newAmount,
       totalPrice: newTotalPrice,
     };
-    console.log(data.totalPrice);
     try {
       const response = await fetch(
         "http://localhost:3002/api/shoppingCart/cart",
@@ -47,6 +50,11 @@
     } catch (error) {
       console.error("Error adding to cart:", error);
     }
+
+    // Set a timeout to hide the notification after 5 seconds
+    setTimeout(() => {
+      showPopup[index] = false;
+    }, 2000);
   }
 
   const fetchProducts = async () => {
@@ -59,6 +67,8 @@
           ...product,
           quantity: 1,
         }));
+        // Initialize showPopup array with false values for each product
+        showPopup = new Array(products.length).fill(false);
         console.log("Products:", products);
       } else {
         console.error("Failed to fetch products");
@@ -74,7 +84,7 @@
 </script>
 
 <div
-	class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
+  class="header-container bg-blue-500 text-white py-4 flex justify-between items-center"
 >
 	<div class="ml-4">
 		<a href="/home" class="text-4xl font-bold">ZeeHealthy</a>
@@ -83,8 +93,8 @@
 		<a href="/" class="text-white hover:text-gray-300 mr-4">Home</a>
 		<a href="/shop" class="text-white hover:text-gray-300 mr-4">Shop</a>
 		<a href="/driver" class="text-white hover:text-gray-300 mr-4">Driver</a>
-		<a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a>
-		<a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a>
+		<!-- <a href="/farmer" class="text-white hover:text-gray-300 mr-4">Farmer</a> -->
+		<!-- <a href="/chat" class="text-white hover:text-gray-300 mr-4">Chat</a> -->
 		<a href="/shoppingCart" class="mr-4"
 			><i class="fa fa-shopping-basket" aria-hidden="true"></i></a
 		>
@@ -95,10 +105,12 @@
 </div>
 
 <div class="grid place-content-center m-5 text-white">
-	<h1 class="bg-blue-500 rounded-xl p-4 text-2xl cursor-default">Shop</h1>
+  <h1 class="bg-blue-500 rounded-xl p-4 text-2xl cursor-default">Shop</h1>
 </div>
 
-<div class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mb-8 p-4">
+<div
+  class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mb-8 p-4"
+>
   {#each products as product (product.id)}
     <div
       class="product bg-white rounded-lg shadow-lg p-4 transform transition duration-500 ease-in-out hover:scale-105"
@@ -129,11 +141,12 @@
               product.name,
               product.quantity,
               Number(product.price) * Number(product.quantity),
+              product.id, // Pass the product index
             )}
         >
           Add to Cart
         </button>
-        {#if showPopup}
+        {#if showPopup[product.id]}
           <div class="popup">
             <span class="popuptext" id="myPopup">Added to cart</span>
           </div>
@@ -144,7 +157,8 @@
 </div>
 
 <style>
-  .product, .grid {
+  .product,
+  .grid {
     animation: product-entry 1s ease-out;
   }
 
