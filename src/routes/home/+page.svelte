@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy, onMount } from "svelte";
-	import logo from "$lib/images/Zeehealthy-logo.png";
+	import logo from "$lib/images/ZeeHealthy-logo.png";
 
 	export let data;
 
