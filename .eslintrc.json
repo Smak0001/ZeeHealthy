@@ -1,19 +1,11 @@
 {
   "parserOptions": {
-    "ecmaVersion": 2021,
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "sourceType": "module"
+    "ecmaVersion": "latest"
   },
 
   "env": {
     "es2021": true,
-    "node": true
-  },
-
-  "rules": {
-    "no-var": "warn",
-    "semi": 0
+    "node": true,
+    "browser": true
   }
 }
