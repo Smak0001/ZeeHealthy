@@ -9,7 +9,7 @@
     "node": true,
     "browser": true
   },
-
+  "extends": "standard",
   "rules": {
     "no-var": "warn",
     "semi": 0
