@@ -9,4 +9,9 @@
     "node": true,
     "browser": true
   }
+
+  "rules": {
+    "no-var": "warn",
+    "semi": 0
+  }
 }
