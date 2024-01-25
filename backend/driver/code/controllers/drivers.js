@@ -1,5 +1,8 @@
 import env from 'dotenv';
 import { createClient } from '@supabase/supabase-js';
+import expandOrders from '../utils/expandOrders.js'
+import validateOrderID from '../utils/validateOrderID.js';
+import filterOrdersList from '../utils/filterOrdersList.js';
 
 env.config();
 
@@ -40,21 +43,17 @@ async function getDriverOrderById(req, res) {
     .select()
     .match({ id: req.params.order_id });
 
-    console.log(req.params.order_id);
-
   res.send(data);
 }
 
 async function acceptOrder(req, res) {
+  const ORDER_ID = +req.params.order_id;
+
   const driver = (await supabase.from("drivers")
     .select()
     .match({ id: req.params.id })).data;
 
-  const acceptedOrders = driver[0].orders.accepted;
-  const declinedOrders = driver[0].orders.declined;
-  const completedOrders = driver[0].orders.completed;
-
-  const ORDER_ID = +req.params.order_id;
+  const {acceptedOrders, declinedOrders, completedOrders} = expandOrders(driver[0].orders);
 
   await supabase
   .from('orders')
@@ -65,12 +64,9 @@ async function acceptOrder(req, res) {
     .from('drivers')
     .update({
       orders: {
-        accepted: (() => {
-          if (!acceptedOrders.includes(ORDER_ID)) {
-            return [...acceptedOrders, ORDER_ID];
-          } return acceptedOrders;
-        })(), declined: [...declinedOrders.filter(ID => ID !== ORDER_ID)],
-        completed: [...completedOrders.filter(ID => ID !== ORDER_ID)]
+        accepted: validateOrderID(acceptedOrders, ORDER_ID), 
+        declined: filterOrdersList(declinedOrders, ORDER_ID),
+        completed: filterOrdersList(completedOrders, ORDER_ID)
       }
     })
     .eq('id', req.params.id)
@@ -80,16 +76,14 @@ async function acceptOrder(req, res) {
 }
 
 async function declineOrder(req, res) {
+  const ORDER_ID = +req.params.order_id;
+
   const driver = (await supabase
     .from("drivers")
     .select()
     .match({ id: req.params.id })).data;
 
-  const acceptedOrders = driver[0].orders.accepted;
-  const declinedOrders = driver[0].orders.declined;
-  const completedOrders = driver[0].orders.completed;
-
-  const ORDER_ID = +req.params.order_id;
+  const {acceptedOrders, declinedOrders, completedOrders} = expandOrders(driver[0].orders);
 
   await supabase
   .from('orders')
@@ -100,11 +94,9 @@ async function declineOrder(req, res) {
     .from('drivers')
     .update({
       orders: {
-        accepted: [...acceptedOrders.filter(ID => ID !== ORDER_ID)], declined: (() => {
-          if (!declinedOrders.includes(ORDER_ID)) {
-            return [...declinedOrders, ORDER_ID];
-          } return declinedOrders;
-        })(), completed: [...completedOrders.filter(ID => ID !== ORDER_ID)]
+        accepted: filterOrdersList(acceptedOrders, ORDER_ID), 
+        declined: validateOrderID(declinedOrders, ORDER_ID),
+        completed: filterOrdersList(completedOrders, ORDER_ID)
       }
     })
     .eq('id', req.params.id)
@@ -114,16 +106,14 @@ async function declineOrder(req, res) {
 }
 
 async function completeOrder(req, res) {
+  const ORDER_ID = +req.params.order_id;
+
   const driver = (await supabase
     .from("drivers")
     .select()
     .match({ id: req.params.id })).data;
 
-  const acceptedOrders = driver[0].orders.accepted;
-  const declinedOrders = driver[0].orders.declined;
-  const completedOrders = driver[0].orders.completed;
-
-  const ORDER_ID = +req.params.order_id;
+  const {acceptedOrders, declinedOrders, completedOrders} = expandOrders(driver[0].orders);
 
   await supabase
   .from('orders')
@@ -134,13 +124,9 @@ async function completeOrder(req, res) {
     .from('drivers')
     .update({
       orders: {
-        accepted: [...acceptedOrders.filter(ID => ID !== ORDER_ID)], 
-        declined: [...declinedOrders.filter(ID => ID !== ORDER_ID)], 
-        completed: (() => {
-          if (!completedOrders.includes(ORDER_ID)) {
-            return [...completedOrders, ORDER_ID];
-          } return completedOrders;
-        })()
+        accepted: filterOrdersList(acceptedOrders, ORDER_ID), 
+        declined: filterOrdersList(declinedOrders, ORDER_ID),
+        completed: validateOrderID(completedOrders, ORDER_ID)
       }
     })
     .eq('id', req.params.id)
@@ -150,16 +136,14 @@ async function completeOrder(req, res) {
 }
 
 async function cancelOrder(req, res) {
+  const ORDER_ID = +req.params.order_id;
+
   const driver = (await supabase
     .from("drivers")
     .select()
     .match({ id: req.params.id })).data;
 
-  const acceptedOrders = driver[0].orders.accepted;
-  const declinedOrders = driver[0].orders.declined;
-  const completedOrders = driver[0].orders.completed;
-
-  const ORDER_ID = +req.params.order_id;
+  const {acceptedOrders, declinedOrders, completedOrders} = expandOrders(driver[0].orders);
 
   await supabase
   .from('orders')
@@ -170,7 +154,9 @@ async function cancelOrder(req, res) {
     .from('drivers')
     .update({
       orders: {
-        accepted: [...acceptedOrders.filter(ID => ID !== ORDER_ID)], declined: [...declinedOrders.filter(ID => ID !== ORDER_ID)], completed: [...completedOrders.filter(ID => ID !== ORDER_ID)]
+        accepted: filterOrdersList(acceptedOrders, ORDER_ID), 
+        declined: filterOrdersList(declinedOrders, ORDER_ID),
+        completed: filterOrdersList(completedOrders, ORDER_ID)
       }
     })
     .eq('id', req.params.id)
@@ -180,16 +166,14 @@ async function cancelOrder(req, res) {
 }
 
 async function deleteOrder(req, res) {
+  const ORDER_ID = +req.params.order_id;
+
   const driver = (await supabase
     .from("drivers")
     .select()
     .match({ id: req.params.id })).data;
 
-  const acceptedOrders = driver[0].orders.accepted;
-  const declinedOrders = driver[0].orders.declined;
-  const completedOrders = driver[0].orders.completed;
-  
-  const ORDER_ID = +req.params.order_id;
+  const {acceptedOrders, declinedOrders, completedOrders} = expandOrders(driver[0].orders);
 
   await supabase
   .from('orders')
@@ -200,7 +184,9 @@ async function deleteOrder(req, res) {
     .from('drivers')
     .update({
       orders: {
-        accepted: [...acceptedOrders.filter(ID => ID !== ORDER_ID)], declined: [...declinedOrders.filter(ID => ID !== ORDER_ID)], completed: [...completedOrders.filter(ID => ID !== ORDER_ID)]
+        accepted: filterOrdersList(acceptedOrders, ORDER_ID), 
+        declined: filterOrdersList(declinedOrders, ORDER_ID),
+        completed: filterOrdersList(completedOrders, ORDER_ID)
       }
     })
     .eq('id', req.params.id)
