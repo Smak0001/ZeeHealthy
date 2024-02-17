@@ -60,6 +60,18 @@ services:
     working_dir: /usr/src/app
     command: bash -c "npm install && npm run dev"
 
+  event:
+    container_name: event
+    build: ./event
+    volumes:
+      - ./event/code:/usr/src/app
+    networks:
+      - cart
+    ports:
+      - "3006:3006"
+    working_dir: /usr/src/app
+    command: bash -c "npm install && npm run dev"
+
 networks:
   products:
     driver: bridge
@@ -70,4 +82,6 @@ networks:
   admin:
     driver: bridge
   farmer:
+    driver: bridge
+  event:
     driver: bridge

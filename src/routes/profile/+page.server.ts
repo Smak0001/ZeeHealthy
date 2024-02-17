@@ -17,7 +17,7 @@ export const load = async ({ locals: { supabase, getSession } }) => {
 }
 
 export const actions = {
-  update: async ({ request, locals: { supabase, getSession } }) => {
+  create: async ({ request, locals: { supabase, getSession } }) => {
     const formData = await request.formData()
     const email = formData.get('email') as string
     const fullName = formData.get('fullName') as string
