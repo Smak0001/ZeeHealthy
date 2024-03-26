@@ -66,8 +66,64 @@ const createEvent = async (req, res) => {
     }
 };
 
+const joinEvent = async (req, res) => {
+  const { user_id, event_id } = req.body;
+  const newRegistration = {
+      user_id, 
+      event_id, 
+  };
+
+  try {
+      const { data, error } = await supabase.from("event_registration").insert([newRegistration]);
+
+      if (error) {
+          throw error;
+      }
+
+      res.status(201).json(newRegistration);
+  } catch (error) {
+      console.error("Error joining event in supabase table:", error);
+      res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const leaveEvent = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const result = await supabase.from("event_registration").delete().eq("reg_id", id);
+    console.log(result);
+    res.status(200).json({ message: "Event left successfully" });
+  } catch (error) {
+    console.error("Error leaving event from Supabase table:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const getAllRegistrationData = async (req, res) => {
+  try {
+      // Fetch all events from Supabase
+      const { data, error } = await supabase
+        .from("event_registration")
+        .select("*")
+        .order("reg_id");
+  
+      if (error) {
+        throw error;
+      }
+  
+      res.json(data);
+    } catch (error) {
+      console.error("Error fetching events from Supabase table:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
 export {
     getAllEventData,
     deleteEvent,
     createEvent,
+    joinEvent,
+    leaveEvent,
+    getAllRegistrationData,
 };

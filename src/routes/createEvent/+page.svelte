@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
-	// import { writable } from 'svelte/store'
-	// import { onMount } from "svelte";
+	import { enhance } from "$app/forms";
+	import type { SubmitFunction } from "@sveltejs/kit";
 
+	let loadingUpdate = false;
 	let iD: Int8Array;
 	let name: Text;
 	let location: Text;
@@ -11,11 +12,18 @@
 	let phoneNumber: Text;
 	let eventDate: Text;
 
+	const handleSubmit: SubmitFunction = () => {
+    loadingUpdate = true;
+    return async () => {
+      loadingUpdate = false;
+    };
+  };
+
 	function createEvent() {
 		const url = "http://localhost:3006/api/events";
 
 		const eventData = {
-			id: iD,
+			id: Math.floor(Math.random() * 1000000),
 			event_name: name,
 			event_location: location,
 			attendees: eventAttendees,
@@ -59,9 +67,6 @@
 		<a href="/shoppingCart" class="mr-4"
 			><i class="fa fa-shopping-basket" aria-hidden="true"></i></a
 		>
-		<!-- <a href="/profile" class="text-white hover:text-gray-300 mr-4"
-			>{session?.user.email}</a
-		> -->
 	</nav>
 </div>
 
@@ -69,20 +74,13 @@
   <h1 class="bg-blue-500 rounded-xl p-4 text-2xl cursor-default">Create your Event</h1>
 </div>
 
-<form id= "eventForm">
+<div class="flex items-center justify-center p-5">
+	<form id= "eventForm"
+	class="w-3/5 h-auto p-10 mt-11 rounded-3xl bg-blue-100 shadow-lg"
+	use:enhance={handleSubmit}
+	>
 	<div>
-		<label for="eventID" class="block text-2xl font-bold text-[#3730A3]">Event ID</label>
-		<input
-			type="eventID"
-			id="eventID"
-			name="eventID"
-			required
-			bind:value={iD}
-			class="w-full inline-block box-border py-3 px-5 rounded-2xl mb-5 mt-2"
-			/>
-	</div>
-	<div>
-		<label for="eventName" class="block text-2xl font-bold text-[#3730A3]">Event Name</label>
+		<label for="eventName" class="block text-xl font-bold text">Event Name</label>
 		<input
 			type="eventName"
 			id="eventName"
@@ -93,7 +91,7 @@
 			/>
 	</div>
 	<div>
-		<label for="eventLocation" class="block text-2xl font-bold text-[#3730A3]">Event Location</label>
+		<label for="eventLocation" class="block text-xl font-bold text">Event Location</label>
 		<input
 			type="eventLocation"
 			id="eventLocation"
@@ -104,7 +102,7 @@
 			/>
 	</div>
 	<div>
-		<label for="eventAttendees" class="block text-2xl font-bold text-[#3730A3]">Event Attendees</label>
+		<label for="eventAttendees" class="block text-xl font-bold text">Event Attendees</label>
 		<input
 			type="eventAttendees"
 			id="eventAttendees"
@@ -115,7 +113,7 @@
 			/>
 	</div>
 	<div>
-		<label for="eventDescription" class="block text-2xl font-bold text-[#3730A3]">Event Description</label>
+		<label for="eventDescription" class="block text-xl font-bold text]">Event Description</label>
 		<input
 			type="eventDescription"
 			id="eventDescription"
@@ -126,7 +124,7 @@
 			/>
 	</div>
 	<div>
-		<label for="phoneNumber" class="block text-2xl font-bold text-[#3730A3]">phone number</label>
+		<label for="phoneNumber" class="block text-xl font-bold text">phone number</label>
 		<input
 			type="phoneNumber"
 			id="phoneNumber"
@@ -137,7 +135,7 @@
 			/>
 	</div>
 	<div>
-		<label for="eventDate" class="block text-2xl font-bold text-[#3730A3]">Event Date</label>
+		<label for="eventDate" class="block text-xl font-bold text">Event Date</label>
 		<input
 			type="eventDate"
 			id="eventDate"
@@ -151,7 +149,8 @@
 	<button
 	type="submit"
 	on:click={createEvent}
-	class="absolute bottom-4 right-4 bg-[#3730A3] text-white px-4 py-2 rounded-md text-2xl font-bold"
+	class="bg-blue-500 hover:bg-blue-700 w-full cursor-pointer text-white font-bold py-2 px-4 rounded-xl"
 	>Submit</button
 >
-</form>
+	</form>
+</div>
